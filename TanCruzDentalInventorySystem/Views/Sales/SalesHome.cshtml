@@ -3,3 +3,71 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+<h3>Sales Home</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <form class="p-2">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Filter by Customer">
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <form class="p-2">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Date From"> <span class="spSalesDateFilter pt-2">to</span>
+                <input type="text" class="form-control" placeholder="Date To">
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="p-2 float-right">
+            <a href="@Url.Action("ItemRecord", "Item")" class="btn btn-warning">Filter</a>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="itemHomeTable table table-striped table-sm">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Sales Order Number</th>
+                <th>Date</th>
+                <th>Customer Name</th>
+                <th>Transaction Total</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>SO0001</td>
+                <td>12/30/2015</td>
+                <td>Erwin Velasquez Dental</td>
+                <td>1,500</td>
+                <td>Delivered</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>SO0002</td>
+                <td>12/30/2015</td>
+                <td>James Manglinong</td>
+                <td>1,500</td>
+                <td>Paid</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>SO0003</td>
+                <td>12/30/2015</td>
+                <td>Dennis Comendador Store</td>
+                <td>1,000</td>
+                <td>Paid</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

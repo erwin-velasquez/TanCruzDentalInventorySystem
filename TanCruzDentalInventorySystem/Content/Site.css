@@ -57,3 +57,7 @@ textarea {
     height: 200px;
     width: 400px;
 }
+
+.spSalesDateFilter {
+    margin: 0 5px 0 5px;
+}
