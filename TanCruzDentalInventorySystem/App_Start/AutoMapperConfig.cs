@@ -12,7 +12,7 @@ namespace TanCruzDentalInventorySystem
 			Mapper.Initialize(cfg =>
 			{
 				cfg.CreateMap<Item, ItemViewModel>().ReverseMap();
-				
+                cfg.CreateMap<Purchase, PurchaseViewModel>().ReverseMap();
 			});
 		}
 	}

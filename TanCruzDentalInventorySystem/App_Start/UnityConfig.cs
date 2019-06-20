@@ -25,6 +25,10 @@ namespace TanCruzDentalInventorySystem
 
             container.RegisterType<IUnitOfWork, UnitOfWork>();
 
+            container.RegisterType<IPurchaseService, PurchaseService>();
+
+            container.RegisterType<IPurchaseRepository, PurchaseRepository>();
+
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

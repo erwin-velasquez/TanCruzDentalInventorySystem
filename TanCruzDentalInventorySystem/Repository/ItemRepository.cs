@@ -8,12 +8,11 @@ using TanCruzDentalInventorySystem.Repository.DataServiceInterface;
 namespace TanCruzDentalInventorySystem.Repository
 {
 	public class ItemRepository : IItemRepository
-    {
-        public IUnitOfWork UnitOfWork { get; set; }
+	{
+		public IUnitOfWork UnitOfWork { get; set; }
 
 		public async Task<IEnumerable<Item>> GetItemList()
 		{
-			// TODO: Retrieve ItemList from datastore.
 			var itemList = await UnitOfWork.Connection.QueryAsync<Item, ItemGroup, Item>(
 				sql: SP_GET_ITEM_LIST,
 				(item, itemGroup) =>

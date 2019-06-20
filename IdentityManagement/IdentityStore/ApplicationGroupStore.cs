@@ -17,17 +17,17 @@ namespace IdentityManagement.IdentityStore
 			}
 		}
 
-		public Task CreateAsync(ApplicationGroup group)
+		public async Task CreateAsync(ApplicationGroup group)
 		{
-			return Task.Factory.StartNew(() =>
+			await Task.Factory.StartNew(() =>
 			{
 				GroupRepository.CreateNewGroup(group);
 			});
 		}
 
-		public Task DeleteAsync(ApplicationGroup group)
+		public async Task DeleteAsync(ApplicationGroup group)
 		{
-			return Task.Factory.StartNew(() =>
+			await Task.Factory.StartNew(() =>
 			{
 				GroupRepository.DeleteGroup(group);
 			});
@@ -38,27 +38,27 @@ namespace IdentityManagement.IdentityStore
 			throw new NotImplementedException();
 		}
 
-		public Task<ApplicationGroup> FindByIdAsync(string groupId)
+		public async Task<ApplicationGroup> FindByIdAsync(string groupId)
 		{
-			return Task.Factory.StartNew(() =>
+			return await Task.Factory.StartNew(() =>
 			{
 				var group = GroupRepository.GetGroupById(groupId);
 				return group;
 			});
 		}
 
-		public Task<ApplicationGroup> FindByNameAsync(string groupId)
+		public async Task<ApplicationGroup> FindByNameAsync(string groupId)
 		{
-			return Task.Factory.StartNew(() =>
+			return await Task.Factory.StartNew(() =>
 			{
 				var group = GroupRepository.GetGroupByName(groupId);
 				return group;
 			});
 		}
 
-		public Task UpdateAsync(ApplicationGroup group)
+		public async Task UpdateAsync(ApplicationGroup group)
 		{
-			return Task.Factory.StartNew(() =>
+			await Task.Factory.StartNew(() =>
 			{
 				return GroupRepository.UpdateGroup(group);
 			});
@@ -69,45 +69,45 @@ namespace IdentityManagement.IdentityStore
 			IQueryable<ApplicationGroup> groups = GroupRepository.GetUserGroups(userId).AsQueryable();
 			return groups;
 		}
-		public Task RemoveUserFromGroupAsync(string userId, string groupId)
+		public async Task RemoveUserFromGroupAsync(string userId, string groupId)
 		{
-			return Task.Factory.StartNew(() =>
+			await Task.Factory.StartNew(() =>
 			{
 				GroupRepository.RemoveUserFromGroup(userId, groupId);
 				return;
 			});
 		}
 
-		public Task RemoveRolesFromGroupAsync(string groupId, string roleId)
+		public async Task RemoveRolesFromGroupAsync(string groupId, string roleId)
 		{
-			return Task.Factory.StartNew(() =>
+			await Task.Factory.StartNew(() =>
 			{
 				GroupRepository.RemoveRoleFromGroup(groupId, roleId);
 				return;
 			});
 		}
 
-		public Task AddUserToGroupAsync(string userId, string groupId)
+		public async Task AddUserToGroupAsync(string userId, string groupId)
 		{
-			return Task.Factory.StartNew(() =>
+			await Task.Factory.StartNew(() =>
 			{
 				GroupRepository.AddUserToGroup(userId, groupId);
 				return;
 			});
 		}
 
-		public Task AddRoleToGroupAsync(string groupId, string roleId)
+		public async Task AddRoleToGroupAsync(string groupId, string roleId)
 		{
-			return Task.Factory.StartNew(() =>
+			await Task.Factory.StartNew(() =>
 			{
 				GroupRepository.AddRoleToGroup(groupId, roleId);
 				return;
 			});
 		}
 
-		public Task<IQueryable<ApplicationRole>> GetGroupRoles(string groupId)
+		public async Task<IQueryable<ApplicationRole>> GetGroupRoles(string groupId)
 		{
-			return Task.Factory.StartNew(() =>
+			return await Task.Factory.StartNew(() =>
 			{
 				var roles = GroupRepository.GetGroupRoles(groupId).AsQueryable();
 				return roles;
