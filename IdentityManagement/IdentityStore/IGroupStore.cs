@@ -11,7 +11,7 @@ namespace IdentityManagement.IdentityStore
 		Task DeleteAsync(TGroup group);
 		Task<TGroup> FindByIdAsync(string groupId);
 		Task<TGroup> FindByNameAsync(string groupName);
-		IQueryable<TGroup> GetUserGroups(string userId);
+		Task<IQueryable<TGroup>> GetUserGroups(string userId);
 		Task UpdateAsync(TGroup group);
 		IQueryable<TGroup> Groups { get; }
 		Task RemoveUserFromGroupAsync(string userId, string groupId);

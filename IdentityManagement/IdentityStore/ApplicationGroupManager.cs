@@ -77,9 +77,9 @@ namespace IdentityManagement.IdentityStore
 			return IdentityResult.Success;
 		}
 
-		public IQueryable<ApplicationGroup> GetUserGroups(string userId)
+		public async Task<IQueryable<ApplicationGroup>> GetUserGroups(string userId)
 		{
-			IQueryable<ApplicationGroup> groups = _groupStore.GetUserGroups(userId);
+			IQueryable<ApplicationGroup> groups = await _groupStore.GetUserGroups(userId);
 			return groups;
 		}
 

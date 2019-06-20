@@ -439,7 +439,7 @@ namespace TanCruzDentalInventorySystem.Controllers
 
 			var user = await UserManager.FindByIdAsync(userId);
 			var appGroups = GroupManager.Groups;
-			var userGroups = GroupManager.GetUserGroups(userId);
+			var userGroups = await GroupManager.GetUserGroups(userId);
 
 			var mapped = appGroups.Where(group => userGroups.Any(userGroup => userGroup.GroupId == group.GroupId))
 				.Select(g => new SelectGroupViewModel()
@@ -492,7 +492,7 @@ namespace TanCruzDentalInventorySystem.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var userGroups = GroupManager.GetUserGroups(selGroups.UserId);
+				var userGroups = await GroupManager.GetUserGroups(selGroups.UserId);
 
 				var deletedGroupsIds = selGroups.Groups.Where(group => userGroups.Any(userGroup => userGroup.GroupId == group.GroupId && !group.IsSelected))
 					.Select(group => group.GroupId);

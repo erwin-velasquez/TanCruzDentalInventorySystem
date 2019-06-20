@@ -64,10 +64,13 @@ namespace IdentityManagement.IdentityStore
 			});
 		}
 
-		public IQueryable<ApplicationGroup> GetUserGroups(string userId)
+		public async Task<IQueryable<ApplicationGroup>> GetUserGroups(string userId)
 		{
-			IQueryable<ApplicationGroup> groups = GroupRepository.GetUserGroups(userId).AsQueryable();
-			return groups;
+			return await Task.Factory.StartNew(() =>
+			{
+				IQueryable<ApplicationGroup> groups = GroupRepository.GetUserGroups(userId).AsQueryable();
+				return groups;
+			});
 		}
 		public async Task RemoveUserFromGroupAsync(string userId, string groupId)
 		{
