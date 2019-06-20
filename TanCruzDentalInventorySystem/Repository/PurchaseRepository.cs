@@ -6,18 +6,18 @@ using TanCruzDentalInventorySystem.Repository.DataServiceInterface;
 
 namespace TanCruzDentalInventorySystem.Repository
 {
-    public class PurchaseRepository : IPurchaseRepository
-    {
-        public IUnitOfWork UnitOfWork { get; set; }
+	public class PurchaseRepository : IPurchaseRepository
+	{
+		public IUnitOfWork UnitOfWork { get; set; }
 
-        public Task<IEnumerable<Purchase>> GetPurchaseList()
-        {
-            return Task.Run(() =>
-            {
-                List<Purchase> result = new List<Purchase>();
-                IEnumerable<Purchase> output = result;
-                return output;
-            });
-        }
-    }
+		public async Task<IEnumerable<Purchase>> GetPurchaseList()
+		{
+			return await Task.Run(() =>
+			{
+				List<Purchase> result = new List<Purchase>();
+				IEnumerable<Purchase> output = result;
+				return output;
+			});
+		}
+	}
 }

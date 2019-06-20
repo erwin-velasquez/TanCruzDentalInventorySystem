@@ -12,7 +12,6 @@ namespace TanCruzDentalInventorySystem.BusinessService
 {
     public class PurchaseService : IPurchaseService
     {
-
         private readonly IPurchaseRepository _purchaseRepository;
 
         public PurchaseService(IUnitOfWork unitOfWork, IPurchaseRepository purchaseRepository)
