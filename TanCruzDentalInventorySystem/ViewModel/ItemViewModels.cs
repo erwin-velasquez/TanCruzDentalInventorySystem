@@ -10,10 +10,10 @@
 		public CurrencyViewModel Currency { get; set; }
 		public UnitOfMeasureViewModel UnitOfMeasure { get; set; }
 		public BusinessPartnerViewModel BusinessPartner { get; set; }
-		public UnitOfMeasureViewModel PurchasingUnitOfMeasure { get; set; }
+		public PurchasingUnitOfMeasureViewModel PurchasingUnitOfMeasure { get; set; }
 		public long ItemsPerUnitOfMeasure { get; set; }
 		public string PurchasingRemarks { get; set; }
-		public UnitOfMeasureViewModel InventoryUnitOfMeasure { get; set; }
+		public InventoryUnitOfMeasureViewModel InventoryUnitOfMeasure { get; set; }
 		public long MinimumInventoryRequired { get; set; }
 		public bool IsActive { get; set; }
 	}

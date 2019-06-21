@@ -8,28 +8,26 @@ using Unity.Mvc5;
 
 namespace TanCruzDentalInventorySystem
 {
-    public static class UnityConfig
-    {
-        public static void RegisterComponents()
-        {
-            var container = new UnityContainer();
+	public static class UnityConfig
+	{
+		public static void RegisterComponents()
+		{
+			var container = new UnityContainer();
 
-            // register all your components with the container here
-            // it is NOT necessary to register your controllers
+			// register all your components with the container here
+			// it is NOT necessary to register your controllers
 
-            // e.g. container.RegisterType<ITestService, TestService>();
+			// e.g. container.RegisterType<ITestService, TestService>();
 
-            container.RegisterType<IItemService, ItemService>();
+			container.RegisterType<IItemService, ItemService>();
+			container.RegisterType<IPurchaseService, PurchaseService>();
 
-            container.RegisterType<IItemRepository, ItemRepository>();
+			container.RegisterType<IItemRepository, ItemRepository>();
+			container.RegisterType<IPurchaseRepository, PurchaseRepository>();
 
-            container.RegisterType<IUnitOfWork, UnitOfWork>();
+			container.RegisterType<IUnitOfWork, UnitOfWork>();
 
-            container.RegisterType<IPurchaseService, PurchaseService>();
-
-            container.RegisterType<IPurchaseRepository, PurchaseRepository>();
-
-            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
-        }
-    }
+			DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+		}
+	}
 }
