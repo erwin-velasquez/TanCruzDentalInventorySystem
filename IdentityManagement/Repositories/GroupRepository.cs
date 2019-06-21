@@ -11,13 +11,13 @@ namespace IdentityManagement.Repositories
 			List<ParameterInfo> parameters = new List<ParameterInfo>();
 			parameters.Add(new ParameterInfo() { ParameterName = "GROUP_NAME", ParameterValue = objGroup.GroupName });
 			parameters.Add(new ParameterInfo() { ParameterName = "GROUP_DESC", ParameterValue = objGroup.GroupDescription });
-			int success = SqlHelper.ExecuteQuery("CreateNewGroup", parameters);
+			int success = SqlHelper.ExecuteQuery("Identity_CreateNewGroup", parameters);
 			return success;
 		}
 
 		public static IList<ApplicationGroup> GetGroups()
 		{
-			IList<ApplicationGroup> oGroupList = SqlHelper.GetRecords<ApplicationGroup>("GetGroups", null);
+			IList<ApplicationGroup> oGroupList = SqlHelper.GetRecords<ApplicationGroup>("Identity_GetGroups", null);
 			return oGroupList;
 		}
 
@@ -25,7 +25,7 @@ namespace IdentityManagement.Repositories
 		{
 			List<ParameterInfo> parameters = new List<ParameterInfo>();
 			parameters.Add(new ParameterInfo() { ParameterName = "USER_ID", ParameterValue = userId });
-			IList<ApplicationGroup> oUserGroupList = SqlHelper.GetRecords<ApplicationGroup>("GetUserGroups", parameters);
+			IList<ApplicationGroup> oUserGroupList = SqlHelper.GetRecords<ApplicationGroup>("Identity_GetUserGroups", parameters);
 			return oUserGroupList;
 		}
 
@@ -34,7 +34,7 @@ namespace IdentityManagement.Repositories
 			List<ParameterInfo> parameters = new List<ParameterInfo>();
 			parameters.Add(new ParameterInfo() { ParameterName = "USER_ID", ParameterValue = userId });
 			parameters.Add(new ParameterInfo() { ParameterName = "GROUP_ID", ParameterValue = groupId });
-			SqlHelper.ExecuteQuery("RemoveUserFromGroup", parameters);
+			SqlHelper.ExecuteQuery("Identity_RemoveUserFromGroup", parameters);
 			return;
 		}
 
@@ -43,7 +43,7 @@ namespace IdentityManagement.Repositories
 			List<ParameterInfo> parameters = new List<ParameterInfo>();
 			parameters.Add(new ParameterInfo() { ParameterName = "GROUP_ID", ParameterValue = groupId });
 			parameters.Add(new ParameterInfo() { ParameterName = "ROLE_ID", ParameterValue = roleId });
-			SqlHelper.ExecuteQuery("RemoveRoleFromGroup", parameters);
+			SqlHelper.ExecuteQuery("Identity_RemoveRoleFromGroup", parameters);
 			return;
 		}
 
@@ -52,7 +52,7 @@ namespace IdentityManagement.Repositories
 			List<ParameterInfo> parameters = new List<ParameterInfo>();
 			parameters.Add(new ParameterInfo() { ParameterName = "USER_ID", ParameterValue = userId });
 			parameters.Add(new ParameterInfo() { ParameterName = "GROUP_ID", ParameterValue = groupId });
-			SqlHelper.ExecuteQuery("AddUserToGroup", parameters);
+			SqlHelper.ExecuteQuery("Identity_AddUserToGroup", parameters);
 			return;
 		}
 
@@ -61,7 +61,7 @@ namespace IdentityManagement.Repositories
 			List<ParameterInfo> parameters = new List<ParameterInfo>();
 			parameters.Add(new ParameterInfo() { ParameterName = "GROUP_ID", ParameterValue = groupId });
 			parameters.Add(new ParameterInfo() { ParameterName = "ROLE_ID", ParameterValue = roleId });
-			SqlHelper.ExecuteQuery("AddRoleToGroup", parameters);
+			SqlHelper.ExecuteQuery("Identity_AddRoleToGroup", parameters);
 			return;
 		}
 
@@ -69,7 +69,7 @@ namespace IdentityManagement.Repositories
 		{
 			List<ParameterInfo> parameters = new List<ParameterInfo>();
 			parameters.Add(new ParameterInfo() { ParameterName = "GROUP_ID", ParameterValue = groupId });
-			ApplicationGroup oGroup = SqlHelper.GetRecord<ApplicationGroup>("GetGroupById", parameters);
+			ApplicationGroup oGroup = SqlHelper.GetRecord<ApplicationGroup>("Identity_GetGroupById", parameters);
 			return oGroup;
 		}
 
@@ -77,7 +77,7 @@ namespace IdentityManagement.Repositories
 		{
 			List<ParameterInfo> parameters = new List<ParameterInfo>();
 			parameters.Add(new ParameterInfo() { ParameterName = "GROUP_NAME", ParameterValue = groupName });
-			ApplicationGroup oGroup = SqlHelper.GetRecord<ApplicationGroup>("GetGroupByName", parameters);
+			ApplicationGroup oGroup = SqlHelper.GetRecord<ApplicationGroup>("Identity_GetGroupByName", parameters);
 			return oGroup;
 		}
 
@@ -85,7 +85,7 @@ namespace IdentityManagement.Repositories
 		{
 			List<ParameterInfo> parameters = new List<ParameterInfo>();
 			parameters.Add(new ParameterInfo() { ParameterName = "GROUP_ID", ParameterValue = groupId });
-			IList<ApplicationRole> oUserGroupList = SqlHelper.GetRecords<ApplicationRole>("GetGroupRoles", parameters);
+			IList<ApplicationRole> oUserGroupList = SqlHelper.GetRecords<ApplicationRole>("Identity_GetGroupRoles", parameters);
 			return oUserGroupList;
 		}
 
@@ -95,7 +95,7 @@ namespace IdentityManagement.Repositories
 			parameters.Add(new ParameterInfo() { ParameterName = "GROUP_ID", ParameterValue = objGroup.GroupId });
 			parameters.Add(new ParameterInfo() { ParameterName = "GROUP_NAME", ParameterValue = objGroup.GroupName });
 			parameters.Add(new ParameterInfo() { ParameterName = "GROUP_DESC", ParameterValue = objGroup.GroupDescription });
-			int success = SqlHelper.ExecuteQuery("UpdateGroup", parameters);
+			int success = SqlHelper.ExecuteQuery("Identity_UpdateGroup", parameters);
 			return success;
 		}
 
@@ -103,7 +103,7 @@ namespace IdentityManagement.Repositories
 		{
 			List<ParameterInfo> parameters = new List<ParameterInfo>();
 			parameters.Add(new ParameterInfo() { ParameterName = "GROUP_ID", ParameterValue = objGroup.GroupId });
-			int success = SqlHelper.ExecuteQuery("DeleteGroup", parameters);
+			int success = SqlHelper.ExecuteQuery("Identity_DeleteGroup", parameters);
 			return success;
 		}
 	}

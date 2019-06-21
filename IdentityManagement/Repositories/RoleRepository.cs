@@ -26,7 +26,7 @@ namespace IdentityManagement.Repositories
 
         public static IList<ApplicationRole> GetRoles()
         {
-            IList<ApplicationRole> oRoleList = SqlHelper.GetRecords<ApplicationRole>("GetRoles", null);
+            IList<ApplicationRole> oRoleList = SqlHelper.GetRecords<ApplicationRole>("Identity_GetRoles", null);
             return oRoleList;
         }
 
@@ -34,7 +34,7 @@ namespace IdentityManagement.Repositories
         {
             List<ParameterInfo> parameters = new List<ParameterInfo>();
             parameters.Add(new ParameterInfo() { ParameterName = "USER_ID", ParameterValue = userID });
-            IList<string> roles = SqlHelper.GetRecords<string>("GetUserRoles", parameters);
+            IList<string> roles = SqlHelper.GetRecords<string>("Identity_GetUserRoles", parameters);
             return roles;
         }
 

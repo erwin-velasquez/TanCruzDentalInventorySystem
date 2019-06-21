@@ -16,7 +16,7 @@ namespace IdentityManagement.Repositories
             parameters.Add(new ParameterInfo() { ParameterName = "EMAIL", ParameterValue = objUser.Email });
             parameters.Add(new ParameterInfo() { ParameterName = "PASSWORD", ParameterValue = objUser.Password });
             parameters.Add(new ParameterInfo() { ParameterName = "USER_STATUS", ParameterValue = objUser.UserStatus });
-            int success = SqlHelper.ExecuteQuery("CreateNewUser", parameters);
+            int success = SqlHelper.ExecuteQuery("Identity_CreateNewUser", parameters);
             return success;
         }
 
@@ -32,13 +32,13 @@ namespace IdentityManagement.Repositories
         {
             List<ParameterInfo> parameters = new List<ParameterInfo>();
             parameters.Add(new ParameterInfo() { ParameterName = "USER_ID", ParameterValue = id });
-            ApplicationUser oUser = SqlHelper.GetRecord<ApplicationUser>("GetUserProfile", parameters);
+            ApplicationUser oUser = SqlHelper.GetRecord<ApplicationUser>("Identity_GetUserProfile", parameters);
             return oUser;
         }
 
         public static IList<ApplicationUser> GetUsers()
         {
-            IList<ApplicationUser> oUserList = SqlHelper.GetRecords<ApplicationUser>("GetUsers", null);
+            IList<ApplicationUser> oUserList = SqlHelper.GetRecords<ApplicationUser>("Identity_GetUsers", null);
             return oUserList;
         }
 
@@ -46,7 +46,7 @@ namespace IdentityManagement.Repositories
         {
             List<ParameterInfo> parameters = new List<ParameterInfo>();
             parameters.Add(new ParameterInfo() { ParameterName = "USER_NAME", ParameterValue = userName });
-            ApplicationUser oUser = SqlHelper.GetRecord<ApplicationUser>("GetUserProfileByUserName", parameters);
+            ApplicationUser oUser = SqlHelper.GetRecord<ApplicationUser>("Identity_GetUserProfileByUserName", parameters);
             return oUser;
         }
 
@@ -61,7 +61,7 @@ namespace IdentityManagement.Repositories
             parameters.Add(new ParameterInfo() { ParameterName = "EMAIL", ParameterValue = objUser.Email });
 			parameters.Add(new ParameterInfo() { ParameterName = "PASSWORD", ParameterValue = objUser.Password });
 			parameters.Add(new ParameterInfo() { ParameterName = "USER_STATUS", ParameterValue = objUser.UserStatus });
-			int success = SqlHelper.ExecuteQuery("UpdateUserProfile", parameters);
+			int success = SqlHelper.ExecuteQuery("Identity_UpdateUserProfile", parameters);
             return success;
         }
     }
