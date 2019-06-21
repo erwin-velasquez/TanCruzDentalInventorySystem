@@ -6,6 +6,16 @@
 		public string ItemName { get; set; }
 		public string ItemDescription { get; set; }
 		public ItemGroupViewModel ItemGroup { get; set; }
+		public ItemPriceViewModel ItemPrice { get; set; }
+		public CurrencyViewModel Currency { get; set; }
+		public UnitOfMeasureViewModel UnitOfMeasure { get; set; }
+		public BusinessPartnerViewModel BusinessPartner { get; set; }
+		public UnitOfMeasureViewModel PurchasingUnitOfMeasure { get; set; }
+		public long ItemsPerUnitOfMeasure { get; set; }
+		public string PurchasingRemarks { get; set; }
+		public UnitOfMeasureViewModel InventoryUnitOfMeasure { get; set; }
+		public long MinimumInventoryRequired { get; set; }
+		public bool IsActive { get; set; }
 	}
 
 	public class ItemGroupViewModel
@@ -18,7 +28,6 @@
 	public class ItemPriceViewModel
 	{
 		public string ItemPriceId { get; set; }
-		public ItemViewModel Item { get; set; }
 		public string ItemPriceName { get; set; }
 		public string ItemPriceDescription { get; set; }
 		public string Type { get; set; }

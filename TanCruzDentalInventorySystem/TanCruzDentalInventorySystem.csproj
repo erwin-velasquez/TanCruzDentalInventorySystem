@@ -212,9 +212,12 @@
     <Compile Include="Repository\PurchaseRepository.cs" />
     <Compile Include="Repository\UnitOfWork.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\BusinessPartnerViewModel.cs" />
+    <Compile Include="ViewModel\CurrencyViewModel.cs" />
     <Compile Include="ViewModel\ItemViewModels.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="ViewModel\PurchaseViewModel.cs" />
+    <Compile Include="ViewModel\UnitOfMeasureViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Static\404.html" />
