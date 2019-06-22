@@ -17,14 +17,14 @@ namespace TanCruzDentalInventorySystem.Controllers
 		{
 			var items = await _itemService.GetItemList();
 
-			return View();
+			return View(items);
 		}
 
 		public async Task<ActionResult> ItemRecord(string itemId)
 		{
 			var item = await _itemService.GetItem(itemId);
 
-			return View();
+			return View(item);
 		}
 	}
 }
