@@ -7,6 +7,6 @@ namespace TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface
 {
     public interface IPurchaseService
     {
-        Task<IEnumerable<PurchaseViewModel>> GetPurchaseList();
+        IEnumerable<PurchaseViewModel> GetPurchaseList();
     }
 }

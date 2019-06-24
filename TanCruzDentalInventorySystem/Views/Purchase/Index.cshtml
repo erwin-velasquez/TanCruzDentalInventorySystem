@@ -4,4 +4,104 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>Purchase List</h3>
+<h3>Purchase Order List</h3>
+
+
+<div class="container">
+    <a class="btn btn-warning" style="margin-bottom:12px" data-toggle="modal" data-target="#myModal">Add New</a>
+    <table id="example" class="display hover" style="width:100%">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>purchaseorder_id</th>
+                <th>po_control_num</th>
+                <th>bp_id</th>
+                <th>currency_id</th>
+                <th>po_status</th>
+                <th>delivery_date</th>
+                <th>posting_date</th>
+                <th>document_date</th>
+                <th>remarks</th>
+                <th>refdoc_num</th>
+                <th>po_discount</th>
+                <th>po_discount_amt</th>
+                <th>so_tax</th>
+                <th>so_total</th>
+                <th>create_id</th>
+                <th>create_date</th>
+                <th>change_id</th>
+                <th>change_date</th>
+            </tr>
+        </thead>
+    </table>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    @section scripts{
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#example').DataTable({
+                    "scrollX": true,
+                    "ajax": {
+                        "type": "GET",
+                        "url" : "@Url.Action("GetData","Purchase")",
+                        "dataType": "JSON",
+                    },
+                    "columns": [
+                        { "data": "ID" },
+                         { "data": "PURCHASEORDER_ID" },
+                         { "data": "PO_CONTROL_NUM" },
+                         { "data": "BP_ID" },
+                         { "data": "CURRENCY_ID" },
+                         { "data": "PO_STATUS" },
+                         { "data": "DELIVERY_DATE" },
+                         { "data": "POSTING_DATE" },
+                         { "data": "DOCUMENT_DATE" },
+                         { "data": "REMARKS" },
+                         { "data": "REFDOC_NUM" },
+                         { "data": "PO_DISCOUNT" },
+                         { "data": "PO_DISC_AMT" },
+                         { "data": "SO_TAX" },
+                         { "data": "SO_TOTAL" },
+                         { "data": "CREATE_ID" },
+                         { "data": "CREATE_DATE" },
+                         { "data": "CHANGE_ID" },
+                         { "data": "CHANGE_DATE" },
+                    ],
+                    "language": {
+                        "processing" : "loading....",
+                        "emptytable" : "No data found"
+                    }
+                });
+            });
+
+        </script>
+
+
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    }
+</div>
+

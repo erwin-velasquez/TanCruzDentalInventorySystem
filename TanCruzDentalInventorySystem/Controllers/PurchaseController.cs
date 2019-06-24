@@ -13,12 +13,20 @@ namespace TanCruzDentalInventorySystem.Controllers
 			_purchaseService = purchaseService;
 		}
 
-		public async Task<ActionResult> Index()
+		public ActionResult Index()
 		{
-			var items = await _purchaseService.GetPurchaseList();
+			var items = _purchaseService.GetPurchaseList();
 
 			return View();
 		}
 
-	}
+
+        public ActionResult GetData() {
+            var items =  _purchaseService.GetPurchaseList();
+            return Json(new { data = items },JsonRequestBehavior.AllowGet);
+
+        }
+
+
+    }
 }

@@ -20,9 +20,9 @@ namespace TanCruzDentalInventorySystem.BusinessService
             _purchaseRepository.UnitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<PurchaseViewModel>> GetPurchaseList()
+        public IEnumerable<PurchaseViewModel> GetPurchaseList()
         {
-            var purchaseList = await _purchaseRepository.GetPurchaseList();
+            var purchaseList =  _purchaseRepository.GetPurchaseList();
             return Mapper.Map<List<PurchaseViewModel>>(purchaseList);
         }
     }

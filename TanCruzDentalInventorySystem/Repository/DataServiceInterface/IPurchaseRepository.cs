@@ -10,6 +10,6 @@ namespace TanCruzDentalInventorySystem.Repository.DataServiceInterface
     public interface IPurchaseRepository
     {
         IUnitOfWork UnitOfWork { get; set; }
-        Task<IEnumerable<Purchase>> GetPurchaseList();
+        IEnumerable<Purchase> GetPurchaseList();
     }
 }
