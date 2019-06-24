@@ -9,30 +9,7 @@
 
 <div class="container">
     <a class="btn btn-warning" style="margin-bottom:12px" data-toggle="modal" data-target="#myModal">Add New</a>
-    <table id="example" class="display hover" style="width:100%">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>purchaseorder_id</th>
-                <th>po_control_num</th>
-                <th>bp_id</th>
-                <th>currency_id</th>
-                <th>po_status</th>
-                <th>delivery_date</th>
-                <th>posting_date</th>
-                <th>document_date</th>
-                <th>remarks</th>
-                <th>refdoc_num</th>
-                <th>po_discount</th>
-                <th>po_discount_amt</th>
-                <th>so_tax</th>
-                <th>so_total</th>
-                <th>create_id</th>
-                <th>create_date</th>
-                <th>change_id</th>
-                <th>change_date</th>
-            </tr>
-        </thead>
+    <table id="example" class="display hover">
     </table>
 
 
@@ -58,7 +35,27 @@
     </div>
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+
+    <style>
+        .truncate-remarks {
+            max-width: 220px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .truncate-full-name {
+            max-width: 170px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
     @section scripts{
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        <script type="text/javascript" src="http://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>
 
         <script type="text/javascript">
             $(document).ready(function () {
@@ -70,38 +67,161 @@
                         "dataType": "JSON",
                     },
                     "columns": [
-                        { "data": "ID" },
-                         { "data": "PURCHASEORDER_ID" },
-                         { "data": "PO_CONTROL_NUM" },
-                         { "data": "BP_ID" },
-                         { "data": "CURRENCY_ID" },
-                         { "data": "PO_STATUS" },
-                         { "data": "DELIVERY_DATE" },
-                         { "data": "POSTING_DATE" },
-                         { "data": "DOCUMENT_DATE" },
-                         { "data": "REMARKS" },
-                         { "data": "REFDOC_NUM" },
-                         { "data": "PO_DISCOUNT" },
-                         { "data": "PO_DISC_AMT" },
-                         { "data": "SO_TAX" },
-                         { "data": "SO_TOTAL" },
-                         { "data": "CREATE_ID" },
-                         { "data": "CREATE_DATE" },
-                         { "data": "CHANGE_ID" },
-                         { "data": "CHANGE_DATE" },
+                        {
+                            "data": "ID",
+                            "title": "Id",
+                            "width": "50px",
+                            "className" : "dt-left"
+                        },
+                        {
+                            "data": "PURCHASEORDER_ID",
+                            "title": "Purchase Order Id",
+                            "width": "150px",
+                            "className" : "dt-left"
+                        },
+                        {
+                            "data": "PO_CONTROL_NUM",
+                            "title": "PO Control Number",
+                             "width": "170px",},
+                        {
+                            "data": "BP_ID",
+                            "title": "BP Id",
+                            "width": "120px"
+                        },
+                        {
+                            "data": "CURRENCY_ID",
+                            "title": "Currency",
+                            "className": "dt-center",
+                        },
+                        {
+                            "data": "PO_STATUS",
+                            "title": "Status",
+                            "className": "dt-center",
+                        },
+                        {
+                            "data": "DELIVERY_DATE",
+                            "title": "Delivery Date",
+                            "width": "120px",
+                            "className": "dt-center",
+                            "render": function (data) {
+                                return moment(data).format('MM/DD/YYYY');
+                            }
+                        },
+                        {
+                            "data": "POSTING_DATE",
+                            "title": "Posting Date",
+                            "width": "120px",
+                            "className": "dt-center",
+                            "render": function (data) {
+                                return moment(data).format('MM/DD/YYYY');
+                            }
+                        },
+                        {
+                            "data": "DOCUMENT_DATE",
+                            "title": "Document Date",
+                            "width": "120px",
+                            "className": "dt-center",
+                            "render": function (data) {
+                                return moment(data).format('MM/DD/YYYY');
+                            }
+                        },
+                        {
+                            "data": "REMARKS",
+                            "title": "Remarks",
+                            "width": "120px",
+                            "className" : "truncate-remarks"
+                        },
+                        {
+                            "data": "REFDOC_NUM",
+                            "title": "Ref Doc Num",
+                            "width": "90px"
+                        },
+                        {
+                            "data": "PO_DISCOUNT",
+                            "title": "PO Discount",
+                            "width": "120px",
+                            "className": "dt-right"
+                        },
+                        {
+                            "data": "PO_DISC_AMT",
+                            "title": "PO Discount Amount",
+                            "width": "190px",
+                            "className": "dt-right"
+                        },
+                        {
+                            "data": "SO_TAX",
+                            "title": "SO Tax",
+                            "width" : "90px",
+                            "className": "dt-right"
+                        },
+                        {
+                            "data": "SO_TOTAL",
+                            "title": "SO Total",
+                            "width" : "90px",
+                            "className": "dt-right"
+                        },
+                        {
+                            "data": "CREATE_ID",
+                            "title": "Created By",
+                            "width": "120px",
+                            "className": "dt-left truncate-full-name",
+                        },
+                        {
+                            "data": "CREATE_DATE",
+                            "title": "Create Date",
+                            "className": "dt-center",
+                            "width": "120px",
+                            "render": function (data) {
+                                return moment(data).format('MM/DD/YYYY');
+                            }
+                        },
+                        {
+                            "data": "CHANGE_ID",
+                            "title": "Updated By",
+                            "width": "120px",
+                            "className" : "dt-left truncate-full-name",
+                        },
+                        {
+                            "data": "CHANGE_DATE",
+                            "title": "Update Date",
+                            "width": "120px",
+                            "className": "dt-center",
+                            "render": function (data) {
+                                return moment(data).format('MM/DD/YYYY');
+                            }
+                        },
                     ],
+                    //columnDefs: [{
+                    //    targets: [6,7,8,16,18],
+                    //    "className": "dt-center",
+                    //    render: function (data) {
+                    //        return moment(data).format('MM/DD/YYYY');
+                    //    }}],
                     "language": {
                         "processing" : "loading....",
-                        "emptytable" : "No data found"
+                        "emptyTable" : "No data found"
+                    },
+                    createdRow: function (row) {
+                        var td = $(row).find("[class^=truncate]");
+                        if (td) {
+                            td.attr("title", td.html());
+                        }
+                        //var td = $(row).find(".truncate-remarks");
+                        //if (td) {
+                        //    td.attr("title", td.html());
+                        //}
+
+                        //var name = $(row).find(".truncate-full-nam")
                     }
+                    //"paging": false,
+                    //"autoWidth": true,
                 });
             });
 
         </script>
 
 
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
     }
 </div>
 
