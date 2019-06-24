@@ -19,7 +19,9 @@ namespace TanCruzDentalInventorySystem.Repository
                 result.Add(new Purchase()
                 {
                     BP_ID = "bp_id " + x.ToString(),
-                    CHANGE_DATE = DateTime.UtcNow,
+                    CHANGE_DATE = DateTime.UtcNow,   
+
+                     
                     CHANGE_ID = "Manglinong, James P.",
                     CREATE_DATE = DateTime.UtcNow,
                     CREATE_ID = "Manglinong, James P.",
