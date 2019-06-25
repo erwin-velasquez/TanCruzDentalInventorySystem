@@ -30,9 +30,9 @@ namespace TanCruzDentalInventorySystem.Controllers
 		[Authorize(Roles = "Editor")]
 		public async Task<ActionResult> ItemRecordEdit(string itemId)
 		{
-			var item = await _itemService.GetItem(itemId);
+			var itemForm = await _itemService.GetItemForm(itemId);
 
-			return View(item);
+			return View(itemForm);
 		}
 	}
 }

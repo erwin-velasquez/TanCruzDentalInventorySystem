@@ -108,6 +108,54 @@ namespace TanCruzDentalInventorySystem.Repository
 			return item.AsList().SingleOrDefault();
 		}
 
+		public async Task<IEnumerable<ItemGroup>> GetItemGroupList()
+		{
+
+			var itemGroups = await UnitOfWork.Connection.QueryAsync<ItemGroup>(
+				sql: SP_GET_ITEMGROUP_LIST,
+				param: null,
+				transaction: UnitOfWork.Transaction,
+				commandType: System.Data.CommandType.Text);
+
+			return itemGroups;
+		}
+
+		public async Task<IEnumerable<Currency>> GetCurrencyList()
+		{
+
+			var currencies = await UnitOfWork.Connection.QueryAsync<Currency>(
+				sql: SP_GET_CURRENCY_LIST,
+				param: null,
+				transaction: UnitOfWork.Transaction,
+				commandType: System.Data.CommandType.Text);
+
+			return currencies;
+		}
+
+		public async Task<IEnumerable<UnitOfMeasure>> GetUnitOfMeasureList()
+		{
+
+			var unitOfMeasures = await UnitOfWork.Connection.QueryAsync<UnitOfMeasure>(
+				sql: SP_GET_UNITOFMEASURE_LIST,
+				param: null,
+				transaction: UnitOfWork.Transaction,
+				commandType: System.Data.CommandType.Text);
+
+			return unitOfMeasures;
+		}
+
+		public async Task<IEnumerable<BusinessPartner>> GetBusinessPartnerList()
+		{
+
+			var businessPartners = await UnitOfWork.Connection.QueryAsync<BusinessPartner>(
+				sql: SP_GET_BUSINESSPARTNER_LIST,
+				param: null,
+				transaction: UnitOfWork.Transaction,
+				commandType: System.Data.CommandType.Text);
+
+			return businessPartners;
+		}
+
 		//public UserProfile Login(string userName, string password)
 		//      {
 		//          var parameters = new DynamicParameters();
@@ -125,5 +173,9 @@ namespace TanCruzDentalInventorySystem.Repository
 
 		private const string SP_GET_ITEM_LIST = "dbo.GetItems";
 		private const string SP_GET_ITEM = "dbo.GetItem";
+		private const string SP_GET_ITEMGROUP_LIST = "dbo.GetItemGroups";
+		private const string SP_GET_CURRENCY_LIST = "dbo.GetCurrencies";
+		private const string SP_GET_UNITOFMEASURE_LIST = "dbo.GetUnitOfMeasures";
+		private const string SP_GET_BUSINESSPARTNER_LIST = "dbo.GetBusinessPartners";
 	}
 }

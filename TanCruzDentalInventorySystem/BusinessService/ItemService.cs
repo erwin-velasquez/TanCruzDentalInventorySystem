@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface;
@@ -27,6 +28,34 @@ namespace TanCruzDentalInventorySystem.BusinessService
 		{
 			var itemList = await _itemRepository.GetItemList();
 			return Mapper.Map<List<ItemViewModel>>(itemList);
+		}
+
+		public async Task<ItemFormViewModel> GetItemForm(string itemId)
+		{
+
+			var baseUnitOfMeasures = Mapper.Map<IEnumerable<UnitOfMeasureViewModel>>(await _itemRepository.GetUnitOfMeasureList());
+
+			var itemForm = new ItemFormViewModel()
+			{
+				Item = Mapper.Map<ItemViewModel>(await _itemRepository.GetItem(itemId)),
+				ItemGroups = Mapper.Map<IEnumerable<ItemGroupViewModel>>(await _itemRepository.GetItemGroupList()),
+				Currencies = Mapper.Map<IEnumerable<CurrencyViewModel>>(await _itemRepository.GetCurrencyList()),
+				UnitOfMeasures = baseUnitOfMeasures,
+				BusinessPartners = Mapper.Map<IEnumerable<BusinessPartnerViewModel>>(await _itemRepository.GetBusinessPartnerList()),
+				PurchasingUnitOfMeasures = baseUnitOfMeasures
+					.Select(uom => new PurchasingUnitOfMeasureViewModel()
+					{
+						PurchasingUnitOfMeasureId = uom.UnitOfMeasureId,
+						PurchasingUnitOfMeasureDescription = uom.UnitOfMeasureDescription
+					}).ToList(),
+				InventoryUnitOfMeasures = baseUnitOfMeasures
+					.Select(uom => new InventoryUnitOfMeasureViewModel()
+					{
+						InventoryUnitOfMeasureId = uom.UnitOfMeasureId,
+						InventoryUnitOfMeasureDescription = uom.UnitOfMeasureDescription
+					}).ToList()
+			};
+			return itemForm;
 		}
 
 

@@ -1,4 +1,6 @@
-﻿namespace TanCruzDentalInventorySystem.ViewModel
+﻿using System.Collections.Generic;
+
+namespace TanCruzDentalInventorySystem.ViewModel
 {
 	public class ItemViewModel
 	{
@@ -33,5 +35,16 @@
 		public string Type { get; set; }
 		public decimal PriceAmount { get; set; }
 		public string BaseCurrency { get; set; }
+	}
+
+	public class ItemFormViewModel
+	{
+		public ItemViewModel Item { get; set; }
+		public IEnumerable<ItemGroupViewModel> ItemGroups { get; set; }
+		public IEnumerable<CurrencyViewModel> Currencies { get; set; }
+		public IEnumerable<UnitOfMeasureViewModel> UnitOfMeasures { get; set; }
+		public IEnumerable<BusinessPartnerViewModel> BusinessPartners { get; set; }
+		public IEnumerable<PurchasingUnitOfMeasureViewModel> PurchasingUnitOfMeasures { get; set; }
+		public IEnumerable<InventoryUnitOfMeasureViewModel> InventoryUnitOfMeasures { get; set; }
 	}
 }
