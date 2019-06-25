@@ -8,6 +8,11 @@ namespace TanCruzDentalInventorySystem.Controllers
 	{
 		private ISalesOrderService _salesOrderService;
 
+		public SalesOrderController(ISalesOrderService salesOrderService)
+		{
+			_salesOrderService = salesOrderService;
+		}
+
 		// GET: Sales
 		public ActionResult SalesHome()
 		{
