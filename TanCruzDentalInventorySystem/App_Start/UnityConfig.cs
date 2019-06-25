@@ -21,9 +21,11 @@ namespace TanCruzDentalInventorySystem
 
 			container.RegisterType<IItemService, ItemService>();
 			container.RegisterType<IPurchaseOrderService, PurchaseOrderService>();
+			container.RegisterType<ISalesOrderService, SalesOrderService>();
 
 			container.RegisterType<IItemRepository, ItemRepository>();
 			container.RegisterType<IPurchaseOrderRepository, PurchaseOrderRepository>();
+			container.RegisterType<ISalesOrderRepository, SalesOrderRepository>();
 
 			container.RegisterType<IUnitOfWork, UnitOfWork>();
 

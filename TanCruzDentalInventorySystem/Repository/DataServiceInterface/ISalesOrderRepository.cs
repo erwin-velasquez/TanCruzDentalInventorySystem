@@ -7,9 +7,9 @@ using TanCruzDentalInventorySystem.Models;
 
 namespace TanCruzDentalInventorySystem.Repository.DataServiceInterface
 {
-    public interface ISalesRepository
-    {
-        IUnitOfWork UnitOfWork { get; set; }
-        IEnumerable<Sales> GetSalesList();
-    }
+	public interface ISalesOrderRepository
+	{
+		IUnitOfWork UnitOfWork { get; set; }
+		IEnumerable<SalesOrder> GetSalesOrderList();
+	}
 }

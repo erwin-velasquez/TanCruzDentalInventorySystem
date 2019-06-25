@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using TanCruzDentalInventorySystem.ViewModel;
 
 namespace TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface
 {
-	public interface IPurchaseOrderService
+	public interface ISalesOrderService
 	{
-		Task<IEnumerable<PurchaseOrderViewModel>> GetPurchaseOrderList();
+		IEnumerable<SalesOrderViewModel> GetSalesOrderList();
 	}
 }

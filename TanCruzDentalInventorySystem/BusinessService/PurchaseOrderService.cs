@@ -9,18 +9,18 @@ namespace TanCruzDentalInventorySystem.BusinessService
 {
 	public class PurchaseOrderService : IPurchaseOrderService
 	{
-		private readonly IPurchaseOrderRepository _purchaseRepository;
+		private readonly IPurchaseOrderRepository _purchaseOrderRepository;
 
-		public PurchaseOrderService(IUnitOfWork unitOfWork, IPurchaseOrderRepository purchaseRepository)
+		public PurchaseOrderService(IUnitOfWork unitOfWork, IPurchaseOrderRepository purchaseOrderRepository)
 		{
-			_purchaseRepository = purchaseRepository;
-			_purchaseRepository.UnitOfWork = unitOfWork;
+			_purchaseOrderRepository = purchaseOrderRepository;
+			_purchaseOrderRepository.UnitOfWork = unitOfWork;
 		}
 
-		public async Task<IEnumerable<PurchaseOrderViewModel>> GetPurchaseList()
+		public async Task<IEnumerable<PurchaseOrderViewModel>> GetPurchaseOrderList()
 		{
-			var purchaseList = await _purchaseRepository.GetPurchaseOrderList();
-			return Mapper.Map<List<PurchaseOrderViewModel>>(purchaseList);
+			var purchaseOrderList = await _purchaseOrderRepository.GetPurchaseOrderList();
+			return Mapper.Map<List<PurchaseOrderViewModel>>(purchaseOrderList);
 		}
 	}
 }
