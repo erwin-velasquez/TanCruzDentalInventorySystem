@@ -1,104 +1,102 @@
 ﻿@model IEnumerable<TanCruzDentalInventorySystem.ViewModel.PurchaseOrderViewModel>
 @{
-	ViewBag.Title = "Item";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Item";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h3>Purchase Order List</h3>
 
 
 <div class="container">
-	<a class="btn btn-warning" style="margin-bottom:12px" data-toggle="modal" data-target="#myModal">Add New</a>
-	<table id="example" class="display hover"></table>
+    <a class="btn btn-warning" style="margin-bottom:12px" data-toggle="modal" data-target="#myModal">Add New</a>
+    <table id="example" class="display hover"></table>
 
 
-	<!-- Modal -->
-	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
 
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Modal Header</h4>
-				</div>
-				<div class="modal-body">
-					<p>Some text in the modal.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
 
-		</div>
-	</div>
+        </div>
+    </div>
 
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 
-	<style>
-		.truncate-remarks {
-			max-width: 220px;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
+    <style>
+        .truncate-remarks {
+            max-width: 220px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-		.truncate-full-name {
-			max-width: 170px;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
-	</style>
-	@section scripts{
-		<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-		<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-		<script type="text/javascript" src="http://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>
+        .truncate-full-name {
+            max-width: 170px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+    @section scripts{
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        <script type="text/javascript" src="http://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>
 
-		<script type="text/javascript">
+        <script type="text/javascript">
             $(document).ready(function () {
                 $('#example').DataTable({
                     "scrollX": true,
                     "ajax": {
                         "type": "GET",
-                        "url" : "@Url.Action("GetData","Purchase")",
+                        "url" : "@Url.Action("GetData","PurchaseOrder")",
                         "dataType": "JSON",
                     },
                     "columns": [
-                        {
-                            "data": "ID",
-                            "title": "Id",
-                            "width": "50px",
-                            "className" : "dt-left"
-                        },
-                        {
-                            "data": "PURCHASEORDER_ID",
+                           {
+                            "data": "PurchaseOrderId",
                             "title": "Purchase Order Id",
-                            "width": "150px",
-                            "className" : "dt-left"
+                            "width": "140px",
+                            "className" : "dt-center"
                         },
                         {
-                            "data": "PO_CONTROL_NUM",
+                            "data": "PurchaseOrderControlNumber",
                             "title": "PO Control Number",
-                             "width": "170px",},
-                        {
-                            "data": "BP_ID",
-                            "title": "BP Id",
-                            "width": "120px"
+                            "width": "150px",
+                            "className" : "dt-center"
                         },
                         {
-                            "data": "CURRENCY_ID",
+                            "data": "BusinessPartner.BusinessPartnerName",
+                            "title": "Business Partner",
+                            "width": "240px",
+                            "className": "dt-center"
+                        },
+                        {
+                            "data": "Currency.CurrencyName",
                             "title": "Currency",
-                            "className": "dt-center",
+                            "width": "120p",
+                            "className": "dt-center"
                         },
                         {
-                            "data": "PO_STATUS",
+                            "data": "PurchaseOrderStatus",
                             "title": "Status",
                             "className": "dt-center",
                         },
                         {
-                            "data": "DELIVERY_DATE",
+                            "data": "DeliveryDate",
                             "title": "Delivery Date",
                             "width": "120px",
                             "className": "dt-center",
@@ -107,16 +105,16 @@
                             }
                         },
                         {
-                            "data": "POSTING_DATE",
+                            "data": "PostingDate",
                             "title": "Posting Date",
                             "width": "120px",
                             "className": "dt-center",
                             "render": function (data) {
                                 return moment(data).format('MM/DD/YYYY');
                             }
-                        },
+                        },   
                         {
-                            "data": "DOCUMENT_DATE",
+                            "data": "DocumentDate",
                             "title": "Document Date",
                             "width": "120px",
                             "className": "dt-center",
@@ -125,70 +123,47 @@
                             }
                         },
                         {
-                            "data": "REMARKS",
+                            "data": "Remarks",
                             "title": "Remarks",
                             "width": "120px",
                             "className" : "truncate-remarks"
                         },
                         {
-                            "data": "REFDOC_NUM",
+                            "data": "RefDocNumber",
                             "title": "Ref Doc Num",
-                            "width": "90px"
+                            "width": "140px",
+                            "className": "dt-left",
                         },
                         {
-                            "data": "PO_DISCOUNT",
-                            "title": "PO Discount",
-                            "width": "120px",
-                            "className": "dt-right"
-                        },
-                        {
-                            "data": "PO_DISC_AMT",
+                            "data": "PurchaseOrderDiscount",
                             "title": "PO Discount Amount",
                             "width": "190px",
                             "className": "dt-right"
                         },
                         {
-                            "data": "SO_TAX",
+                            "data": "PurchaseOrderAmount",
+                            "title": "PO Order Amount",
+                            "width": "140px",
+                            "className": "dt-right"
+                        },
+                        {
+                            "data": "SalesOrderTax",
                             "title": "SO Tax",
-                            "width" : "90px",
+                            "width" : "70px",
                             "className": "dt-right"
                         },
                         {
-                            "data": "SO_TOTAL",
+                            "data": "SalesOrderTotal",
                             "title": "SO Total",
-                            "width" : "90px",
+                            "width" : "70px",
                             "className": "dt-right"
                         },
                         {
-                            "data": "CREATE_ID",
-                            "title": "Created By",
-                            "width": "120px",
-                            "className": "dt-left truncate-full-name",
-                        },
-                        {
-                            "data": "CREATE_DATE",
-                            "title": "Create Date",
-                            "className": "dt-center",
-                            "width": "120px",
-                            "render": function (data) {
-                                return moment(data).format('MM/DD/YYYY');
-                            }
-                        },
-                        {
-                            "data": "CHANGE_ID",
-                            "title": "Updated By",
-                            "width": "120px",
-                            "className" : "dt-left truncate-full-name",
-                        },
-                        {
-                            "data": "CHANGE_DATE",
-                            "title": "Update Date",
-                            "width": "120px",
-                            "className": "dt-center",
-                            "render": function (data) {
-                                return moment(data).format('MM/DD/YYYY');
-                            }
-                        },
+                            "data": "UserId",
+                            "title": "User Id",
+                            "width": "130px",
+                            "className": "dt-left"
+                        }
                     ],
                     //columnDefs: [{
                     //    targets: [6,7,8,16,18],
@@ -205,22 +180,16 @@
                         if (td) {
                             td.attr("title", td.html());
                         }
-                        //var td = $(row).find(".truncate-remarks");
-                        //if (td) {
-                        //    td.attr("title", td.html());
-                        //}
-
-                        //var name = $(row).find(".truncate-full-nam")
-                    }
-                    //"paging": false,
-                    //"autoWidth": true,
+                    },
+                    "paging": true,
+                    "autoWidth": true,
                 });
             });
 
-		</script>
+        </script>
 
 
 
-	}
+    }
 </div>
 
