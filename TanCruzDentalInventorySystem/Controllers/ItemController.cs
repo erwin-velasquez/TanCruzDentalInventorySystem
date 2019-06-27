@@ -6,7 +6,7 @@ using TanCruzDentalInventorySystem.ViewModel;
 
 namespace TanCruzDentalInventorySystem.Controllers
 {
-	//	[Authorize]
+	[Authorize]
 	public class ItemController : Controller
 	{
 		private IItemService _itemService;
@@ -30,7 +30,7 @@ namespace TanCruzDentalInventorySystem.Controllers
 			return View(item);
 		}
 
-		//		[Authorize(Roles = "Editor")]
+		[Authorize(Roles = "Editor")]
 		public async Task<ActionResult> EditItemRecord(string itemId)
 		{
 			var itemForm = await _itemService.GetItemForm(itemId);
