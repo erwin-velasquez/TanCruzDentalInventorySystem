@@ -312,7 +312,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Item\ItemHome.cshtml" />
+    <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Account\UserList.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\UserGroups.cshtml" />
@@ -329,7 +329,7 @@
     <Content Include="Views\SalesOrder\SalesHome.cshtml" />
     <Content Include="Views\SalesOrder\SalesDocument.cshtml" />
     <Content Include="Views\PurchaseOrder\Index.cshtml" />
-    <Content Include="Views\Item\ItemRecordEdit.cshtml" />
+    <Content Include="Views\Item\EditItemRecord.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -1,9 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using AutoMapper;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface;
+using TanCruzDentalInventorySystem.ViewModel;
 
 namespace TanCruzDentalInventorySystem.Controllers
 {
+	//	[Authorize]
 	public class ItemController : Controller
 	{
 		private IItemService _itemService;
@@ -13,7 +16,7 @@ namespace TanCruzDentalInventorySystem.Controllers
 			_itemService = itemService;
 		}
 
-		public async Task<ActionResult> ItemHome()
+		public async Task<ActionResult> Index()
 		{
 			var items = await _itemService.GetItemList();
 
@@ -27,12 +30,29 @@ namespace TanCruzDentalInventorySystem.Controllers
 			return View(item);
 		}
 
-		[Authorize(Roles = "Editor")]
-		public async Task<ActionResult> ItemRecordEdit(string itemId)
+		//		[Authorize(Roles = "Editor")]
+		public async Task<ActionResult> EditItemRecord(string itemId)
 		{
 			var itemForm = await _itemService.GetItemForm(itemId);
 
 			return View(itemForm);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> SaveItemRecord(ItemFormViewModel itemForm)
+		{
+			if (ModelState.IsValid)
+			{
+				var updatedItem = await _itemService.GetItem(itemForm.Item.ItemId);
+
+				ItemViewModel vm = Mapper.Map<ItemViewModel>(updatedItem);
+
+				// TODO: Save changes
+				ModelState.AddModelError(string.Empty, "");
+			}
+
+			return null;
 		}
 	}
 }

@@ -10,7 +10,7 @@
 	</h2>
 	@if (Request.IsAuthenticated && User.IsInRole("Editor"))
 	{
-		@Html.ActionLink("Edit", "ItemRecordEdit", new { itemId = Model.ItemId })
+		@Html.ActionLink("Edit", "EditItemRecord", new { itemId = Model.ItemId })
 	}
 </div>
 <hr />
@@ -41,8 +41,8 @@
 						</select>*@
 				</div>
 				<div class="col-md mb-3">
-					<label>Inactive?</label>
-					<p></p>@(Model.IsActive ? "No" : "Yes")
+					<label>Is Active?</label>
+					<p></p>@(Model.IsActive ? "Yes" : "No")
 					@*<div class="pt-4 custom-control custom-checkbox">
 							<input type="checkbox" class="custom-control-input" id="chkInactive">
 							<label class="custom-control-label" for="chkInactive">Inactive</label>
