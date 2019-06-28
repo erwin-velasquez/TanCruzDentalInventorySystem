@@ -327,7 +327,7 @@
     <Content Include="Views\Account\DeleteGroup.cshtml" />
     <Content Include="Views\Item\ItemRecord.cshtml" />
     <Content Include="Views\Sales\SalesHome.cshtml" />
-    <Content Include="Views\Sales\SalesDocument.cshtml" />
+    <Content Include="Views\Sales\SalesOrder.cshtml" />
     <Content Include="Views\Purchase\Index.cshtml" />
     <Content Include="Views\Item\ItemRecordEdit.cshtml" />
   </ItemGroup>

@@ -18,7 +18,7 @@ namespace TanCruzDentalInventorySystem.Controllers
             return View();
         }
 
-        public ActionResult SalesDocument()
+        public ActionResult SalesOrder()
         {
             return View();
         }
