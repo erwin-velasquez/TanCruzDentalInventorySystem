@@ -32,6 +32,7 @@ namespace TanCruzDentalInventorySystem.ViewModel
 		[Display(Name = "Minimum Inventory Required")]
 		public long MinimumInventoryRequired { get; set; }
 		public bool IsActive { get; set; }
+		public string UserId { get; set; }
 	}
 
 	public class ItemGroupViewModel

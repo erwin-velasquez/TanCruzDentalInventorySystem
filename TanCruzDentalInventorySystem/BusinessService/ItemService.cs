@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface;
+using TanCruzDentalInventorySystem.Models;
 using TanCruzDentalInventorySystem.Repository.DataServiceInterface;
 using TanCruzDentalInventorySystem.ViewModel;
 
@@ -56,6 +57,12 @@ namespace TanCruzDentalInventorySystem.BusinessService
 					}).ToList()
 			};
 			return itemForm;
+		}
+
+		public async Task<int> SaveItem(ItemViewModel itemViewModel)
+		{
+			var item = Mapper.Map<Item>(itemViewModel);
+			return await _itemRepository.SaveItem(item);
 		}
 
 

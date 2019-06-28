@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface;
@@ -40,19 +40,22 @@ namespace TanCruzDentalInventorySystem.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
+		[Authorize(Roles = "Editor")]
 		public async Task<ActionResult> SaveItemRecord(ItemFormViewModel itemForm)
 		{
 			if (ModelState.IsValid)
 			{
-				var updatedItem = await _itemService.GetItem(itemForm.Item.ItemId);
+				itemForm.Item.UserId = User.Identity.GetUserId();
+				var recordsSaved = await _itemService.SaveItem(itemForm.Item);
 
-				ItemViewModel vm = Mapper.Map<ItemViewModel>(updatedItem);
+				if (recordsSaved <= 0)
+					ModelState.AddModelError(string.Empty, "There was a problem and the Item was not saved.");
 
-				// TODO: Save changes
-				ModelState.AddModelError(string.Empty, "");
+				var item = await _itemService.GetItem(itemForm.Item.ItemId);
+				return View("ItemRecord", item);
 			}
-
-			return null;
+			itemForm = await _itemService.GetItemForm(itemForm.Item.ItemId);
+			return View("EditItemRecord", itemForm);
 		}
 	}
 }
