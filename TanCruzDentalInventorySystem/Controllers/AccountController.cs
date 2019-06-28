@@ -39,7 +39,8 @@ namespace TanCruzDentalInventorySystem.Controllers
 							break;
 						case EnumUserStatus.Active:
 							await SignInManager.SignInAsync(oUser, loginInfo.RememberMe, false);
-							return Redirect(returnUrl ?? "/");
+							if (string.IsNullOrWhiteSpace(returnUrl) || returnUrl == "/") returnUrl = "~";
+							return Redirect(returnUrl);
 
 						case EnumUserStatus.Banned:
 							ModelState.AddModelError(string.Empty, "Error: User account has been banned.");

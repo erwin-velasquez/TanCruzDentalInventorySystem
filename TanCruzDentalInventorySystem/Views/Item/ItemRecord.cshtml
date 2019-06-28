@@ -7,16 +7,15 @@
 <div>
 	<h2>
 		Item Record
+		@if (Request.IsAuthenticated && User.IsInRole("Editor"))
+		{
+			@Html.ActionLink("[Edit]", "EditItemRecord", new { itemId = Model.ItemId }, new { @style = "font-size:8pt"})
+		}
 	</h2>
-	@if (Request.IsAuthenticated && User.IsInRole("Editor"))
-	{
-		@Html.ActionLink("Edit", "ItemRecordEdit", new { itemId = Model.ItemId })
-	}
 </div>
 <hr />
 <div class="row">
 	<div class="col-md order-md">
-		<form class="needs-validation" novalidate="">
 			<h4 class="mb-3">Main Details</h4>
 			<div class="row mb-3">
 				<div class="col-md mb-3">
@@ -41,8 +40,8 @@
 						</select>*@
 				</div>
 				<div class="col-md mb-3">
-					<label>Inactive?</label>
-					<p></p>@(Model.IsActive ? "No" : "Yes")
+					<label>Is Active?</label>
+					<p></p>@(Model.IsActive ? "Yes" : "No")
 					@*<div class="pt-4 custom-control custom-checkbox">
 							<input type="checkbox" class="custom-control-input" id="chkInactive">
 							<label class="custom-control-label" for="chkInactive">Inactive</label>
@@ -144,6 +143,5 @@
 
 			@*<hr class="mb-4">
 				<button class="btn btn-warning btn-lg btn-block mb-4" type="submit">Save Item</button>*@
-		</form>
 	</div>
 </div>

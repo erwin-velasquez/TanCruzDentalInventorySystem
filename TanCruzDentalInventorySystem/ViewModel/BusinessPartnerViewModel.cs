@@ -1,8 +1,12 @@
-﻿namespace TanCruzDentalInventorySystem.ViewModel
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TanCruzDentalInventorySystem.ViewModel
 {
 	public class BusinessPartnerViewModel
 	{
 		public string BusinessPartnerId { get; set; }
+
+		[Display(Name = "Preferred Vendor")]
 		public string BusinessPartnerName { get; set; }
 		public string BusinessPartnerType { get; set; }
 		public string BusinessPartnerAlias { get; set; }

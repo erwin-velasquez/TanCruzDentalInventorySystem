@@ -57,7 +57,7 @@ namespace IdentityManagement.IdentityStore
 
 		public Task<ApplicationUser> FindByIdAsync(string userId)
 		{
-			if (!string.IsNullOrEmpty(userId))
+			if (!string.IsNullOrWhiteSpace(userId))
 			{
 				return Task.Factory.StartNew(() =>
 				{
@@ -69,7 +69,7 @@ namespace IdentityManagement.IdentityStore
 
 		public Task<ApplicationUser> FindByNameAsync(string userName)
 		{
-			if (!string.IsNullOrEmpty(userName))
+			if (!string.IsNullOrWhiteSpace(userName))
 			{
 				return Task.Factory.StartNew(() =>
 				{
@@ -81,7 +81,7 @@ namespace IdentityManagement.IdentityStore
 
 		public ApplicationUser FindByName(string userName)
 		{
-			if (!string.IsNullOrEmpty(userName))
+			if (!string.IsNullOrWhiteSpace(userName))
 			{
 				return UserRepository.GetUserByUsername(userName);
 			}
@@ -187,7 +187,7 @@ namespace IdentityManagement.IdentityStore
 
 		public Task<bool> HasPasswordAsync(ApplicationUser user)
 		{
-			return Task.FromResult(string.IsNullOrEmpty(user.Password));
+			return Task.FromResult(string.IsNullOrWhiteSpace(user.Password));
 		}
 		#endregion
 	}
