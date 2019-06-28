@@ -39,8 +39,8 @@ namespace TanCruzDentalInventorySystem.Controllers
 		}
 
 		[HttpPost]
-		[ValidateAntiForgeryToken]
 		[Authorize(Roles = "Editor")]
+		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> SaveItemRecord(ItemFormViewModel itemForm)
 		{
 			if (ModelState.IsValid)
