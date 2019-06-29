@@ -48,12 +48,14 @@ namespace TanCruzDentalInventorySystem.Controllers
 				itemForm.Item.UserId = User.Identity.GetUserId();
 				var recordsSaved = await _itemService.SaveItem(itemForm.Item);
 
-				if (recordsSaved <= 0)
-					ModelState.AddModelError(string.Empty, "There was a problem and the Item was not saved.");
-
-				var item = await _itemService.GetItem(itemForm.Item.ItemId);
-				return View("ItemRecord", item);
+				if (recordsSaved >= 1)
+				{
+					var item = await _itemService.GetItem(itemForm.Item.ItemId);
+					return View("ItemRecord", item);
+				}
+				ModelState.AddModelError(string.Empty, "There was a problem and the Item was not saved.");
 			}
+			
 			itemForm = await _itemService.GetItemForm(itemForm.Item.ItemId);
 			return View("EditItemRecord", itemForm);
 		}

@@ -12,7 +12,7 @@
 		@using (Html.BeginForm("SaveItemRecord", "Item", FormMethod.Post, new { @class = "form-horizontal needs-validation", role = "form" }))
 		{
 			@Html.AntiForgeryToken()
-			@Html.ValidationSummary(true, "", new { @style = "color: red" })
+			@Html.ValidationSummary(false, "", new { @style = "color: red" })
 			<h4 class="mb-3">Main Details</h4>
 			<div class="row mb-3">
 				<div class="form-group col-md mb-3">
