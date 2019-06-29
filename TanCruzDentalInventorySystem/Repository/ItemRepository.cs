@@ -53,7 +53,7 @@ namespace TanCruzDentalInventorySystem.Repository
 		public async Task<Item> GetItem(string itemId)
 		{
 			var parameters = new DynamicParameters();
-			parameters.Add("ITEM_ID", itemId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+			parameters.Add("@ItemId", itemId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 
 			var item = await UnitOfWork.Connection.QueryAsync<Item>(
 				sql: SP_GET_ITEM,
@@ -186,6 +186,20 @@ namespace TanCruzDentalInventorySystem.Repository
 			return rowsAffected;
 		}
 
+		public async Task<string> CreateItem(string userId)
+		{
+			DynamicParameters parameters = new DynamicParameters();
+			parameters.Add("@UserId", userId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+
+			var itemId = await UnitOfWork.Connection.ExecuteScalarAsync<string>(
+				sql: SP_CREATE_ITEM,
+				param: parameters,
+				transaction: UnitOfWork.Transaction,
+				commandType: System.Data.CommandType.StoredProcedure);
+
+			return itemId;
+		}
+
 		//public UserProfile Login(string userName, string password)
 		//      {
 		//          var parameters = new DynamicParameters();
@@ -208,5 +222,6 @@ namespace TanCruzDentalInventorySystem.Repository
 		private const string SP_GET_CURRENCY_LIST = "dbo.GetCurrencies";
 		private const string SP_GET_UNITOFMEASURE_LIST = "dbo.GetUnitOfMeasures";
 		private const string SP_GET_BUSINESSPARTNER_LIST = "dbo.GetBusinessPartners";
+		private const string SP_CREATE_ITEM = "dbo.CreateItem";
 	}
 }

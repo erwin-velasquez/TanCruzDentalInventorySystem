@@ -31,6 +31,14 @@ namespace TanCruzDentalInventorySystem.Controllers
 		}
 
 		[Authorize(Roles = "Editor")]
+		public async Task<ActionResult> CreateItem()
+		{
+			var itemForm = await _itemService.CreateItemForm(User.Identity.GetUserId());
+
+			return View(itemForm);
+		}
+
+		[Authorize(Roles = "Editor")]
 		public async Task<ActionResult> EditItemRecord(string itemId)
 		{
 			var itemForm = await _itemService.GetItemForm(itemId);

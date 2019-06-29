@@ -14,5 +14,6 @@ namespace TanCruzDentalInventorySystem.Repository.DataServiceInterface
 		Task<IEnumerable<UnitOfMeasure>> GetUnitOfMeasureList();
 		Task<IEnumerable<BusinessPartner>> GetBusinessPartnerList();
 		Task<int> SaveItem(Item item);
+		Task<string> CreateItem(string userId);
 	}
 }

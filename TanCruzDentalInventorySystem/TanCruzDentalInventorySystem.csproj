@@ -330,6 +330,7 @@
     <Content Include="Views\SalesOrder\SalesDocument.cshtml" />
     <Content Include="Views\PurchaseOrder\Index.cshtml" />
     <Content Include="Views\Item\EditItemRecord.cshtml" />
+    <Content Include="Views\Item\CreateItem.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

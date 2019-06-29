@@ -33,8 +33,36 @@ namespace TanCruzDentalInventorySystem.BusinessService
 
 		public async Task<ItemFormViewModel> GetItemForm(string itemId)
 		{
-
 			var baseUnitOfMeasures = Mapper.Map<IEnumerable<UnitOfMeasureViewModel>>(await _itemRepository.GetUnitOfMeasureList());
+
+			var itemForm = new ItemFormViewModel()
+			{
+				Item = Mapper.Map<ItemViewModel>(await _itemRepository.GetItem(itemId)),
+				ItemGroups = Mapper.Map<IEnumerable<ItemGroupViewModel>>(await _itemRepository.GetItemGroupList()),
+				Currencies = Mapper.Map<IEnumerable<CurrencyViewModel>>(await _itemRepository.GetCurrencyList()),
+				UnitOfMeasures = baseUnitOfMeasures,
+				BusinessPartners = Mapper.Map<IEnumerable<BusinessPartnerViewModel>>(await _itemRepository.GetBusinessPartnerList()),
+				PurchasingUnitOfMeasures = baseUnitOfMeasures
+					.Select(uom => new PurchasingUnitOfMeasureViewModel()
+					{
+						PurchasingUnitOfMeasureId = uom.UnitOfMeasureId,
+						PurchasingUnitOfMeasureDescription = uom.UnitOfMeasureDescription
+					}).ToList(),
+				InventoryUnitOfMeasures = baseUnitOfMeasures
+					.Select(uom => new InventoryUnitOfMeasureViewModel()
+					{
+						InventoryUnitOfMeasureId = uom.UnitOfMeasureId,
+						InventoryUnitOfMeasureDescription = uom.UnitOfMeasureDescription
+					}).ToList()
+			};
+			return itemForm;
+		}
+
+		public async Task<ItemFormViewModel> CreateItemForm(string userId)
+		{
+			var baseUnitOfMeasures = Mapper.Map<IEnumerable<UnitOfMeasureViewModel>>(await _itemRepository.GetUnitOfMeasureList());
+
+			string itemId = await _itemRepository.CreateItem(userId);
 
 			var itemForm = new ItemFormViewModel()
 			{
