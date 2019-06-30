@@ -5,18 +5,29 @@ using AutoMapper;
 using TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface;
 using TanCruzDentalInventorySystem.Models;
 using TanCruzDentalInventorySystem.Repository.DataServiceInterface;
-using TanCruzDentalInventorySystem.ViewModel;
+using TanCruzDentalInventorySystem.ViewModels;
 
 namespace TanCruzDentalInventorySystem.BusinessService
 {
 	public class ItemService : IItemService
 	{
 		private readonly IItemRepository _itemRepository;
+		private readonly ICurrencyRepository _currencyRepository;
+		private readonly IBusinessPartnerRepository _businessPartnerRepository;
 
-		public ItemService(IUnitOfWork unitOfWork, IItemRepository itemRepository)
+		public ItemService(IUnitOfWork unitOfWork,
+			IItemRepository itemRepository,
+			ICurrencyRepository currencyRepository,
+			IBusinessPartnerRepository businessPartnerRepository)
 		{
 			_itemRepository = itemRepository;
 			_itemRepository.UnitOfWork = unitOfWork;
+
+			_currencyRepository = currencyRepository;
+			_currencyRepository.UnitOfWork = unitOfWork;
+
+			_businessPartnerRepository = businessPartnerRepository;
+			_businessPartnerRepository.UnitOfWork = unitOfWork;
 		}
 
 		public async Task<ItemViewModel> GetItem(string itemId)
@@ -33,16 +44,44 @@ namespace TanCruzDentalInventorySystem.BusinessService
 
 		public async Task<ItemFormViewModel> GetItemForm(string itemId)
 		{
-
 			var baseUnitOfMeasures = Mapper.Map<IEnumerable<UnitOfMeasureViewModel>>(await _itemRepository.GetUnitOfMeasureList());
 
 			var itemForm = new ItemFormViewModel()
 			{
 				Item = Mapper.Map<ItemViewModel>(await _itemRepository.GetItem(itemId)),
 				ItemGroups = Mapper.Map<IEnumerable<ItemGroupViewModel>>(await _itemRepository.GetItemGroupList()),
-				Currencies = Mapper.Map<IEnumerable<CurrencyViewModel>>(await _itemRepository.GetCurrencyList()),
+				Currencies = Mapper.Map<IEnumerable<CurrencyViewModel>>(await _currencyRepository.GetCurrencyList()),
 				UnitOfMeasures = baseUnitOfMeasures,
-				BusinessPartners = Mapper.Map<IEnumerable<BusinessPartnerViewModel>>(await _itemRepository.GetBusinessPartnerList()),
+				BusinessPartners = Mapper.Map<IEnumerable<BusinessPartnerViewModel>>(await _businessPartnerRepository.GetBusinessPartnerList()),
+				PurchasingUnitOfMeasures = baseUnitOfMeasures
+					.Select(uom => new PurchasingUnitOfMeasureViewModel()
+					{
+						PurchasingUnitOfMeasureId = uom.UnitOfMeasureId,
+						PurchasingUnitOfMeasureDescription = uom.UnitOfMeasureDescription
+					}).ToList(),
+				InventoryUnitOfMeasures = baseUnitOfMeasures
+					.Select(uom => new InventoryUnitOfMeasureViewModel()
+					{
+						InventoryUnitOfMeasureId = uom.UnitOfMeasureId,
+						InventoryUnitOfMeasureDescription = uom.UnitOfMeasureDescription
+					}).ToList()
+			};
+			return itemForm;
+		}
+
+		public async Task<ItemFormViewModel> CreateItemForm(string userId)
+		{
+			var baseUnitOfMeasures = Mapper.Map<IEnumerable<UnitOfMeasureViewModel>>(await _itemRepository.GetUnitOfMeasureList());
+
+			string itemId = await _itemRepository.CreateItem(userId);
+
+			var itemForm = new ItemFormViewModel()
+			{
+				Item = Mapper.Map<ItemViewModel>(await _itemRepository.GetItem(itemId)),
+				ItemGroups = Mapper.Map<IEnumerable<ItemGroupViewModel>>(await _itemRepository.GetItemGroupList()),
+				Currencies = Mapper.Map<IEnumerable<CurrencyViewModel>>(await _currencyRepository.GetCurrencyList()),
+				UnitOfMeasures = baseUnitOfMeasures,
+				BusinessPartners = Mapper.Map<IEnumerable<BusinessPartnerViewModel>>(await _businessPartnerRepository.GetBusinessPartnerList()),
 				PurchasingUnitOfMeasures = baseUnitOfMeasures
 					.Select(uom => new PurchasingUnitOfMeasureViewModel()
 					{

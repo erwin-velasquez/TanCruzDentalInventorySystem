@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TanCruzDentalInventorySystem.ViewModel;
+using TanCruzDentalInventorySystem.ViewModels;
 
 namespace TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface
 {

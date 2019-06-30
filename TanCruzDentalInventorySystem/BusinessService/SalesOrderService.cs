@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface;
 using TanCruzDentalInventorySystem.Repository.DataServiceInterface;
-using TanCruzDentalInventorySystem.ViewModel;
+using TanCruzDentalInventorySystem.ViewModels;
 
 namespace TanCruzDentalInventorySystem.BusinessService
 {

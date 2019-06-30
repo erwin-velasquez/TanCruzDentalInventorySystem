@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TanCruzDentalInventorySystem.ViewModel;
+using TanCruzDentalInventorySystem.ViewModels;
 
 namespace TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface
 {
@@ -9,6 +9,7 @@ namespace TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface
 		Task<IEnumerable<ItemViewModel>> GetItemList();
 		Task<ItemViewModel> GetItem(string itemId);
 		Task<ItemFormViewModel> GetItemForm(string itemId);
+		Task<ItemFormViewModel> CreateItemForm(string userId);
 		Task<int> SaveItem(ItemViewModel itemViewModel);
 	}
 }
