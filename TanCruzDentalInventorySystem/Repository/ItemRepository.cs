@@ -120,18 +120,6 @@ namespace TanCruzDentalInventorySystem.Repository
 			return itemGroups;
 		}
 
-		public async Task<IEnumerable<Currency>> GetCurrencyList()
-		{
-
-			var currencies = await UnitOfWork.Connection.QueryAsync<Currency>(
-				sql: SP_GET_CURRENCY_LIST,
-				param: null,
-				transaction: UnitOfWork.Transaction,
-				commandType: System.Data.CommandType.StoredProcedure);
-
-			return currencies;
-		}
-
 		public async Task<IEnumerable<UnitOfMeasure>> GetUnitOfMeasureList()
 		{
 
@@ -142,18 +130,6 @@ namespace TanCruzDentalInventorySystem.Repository
 				commandType: System.Data.CommandType.StoredProcedure);
 
 			return unitOfMeasures;
-		}
-
-		public async Task<IEnumerable<BusinessPartner>> GetBusinessPartnerList()
-		{
-
-			var businessPartners = await UnitOfWork.Connection.QueryAsync<BusinessPartner>(
-				sql: SP_GET_BUSINESSPARTNER_LIST,
-				param: null,
-				transaction: UnitOfWork.Transaction,
-				commandType: System.Data.CommandType.StoredProcedure);
-
-			return businessPartners;
 		}
 
 		public async Task<int> SaveItem(Item item)
@@ -219,9 +195,7 @@ namespace TanCruzDentalInventorySystem.Repository
 		private const string SP_GET_ITEM = "dbo.GetItem";
 		private const string SP_GET_ITEMGROUP_LIST = "dbo.GetItemGroups";
 		private const string SP_SAVE_ITEM = "dbo.SaveItem";
-		private const string SP_GET_CURRENCY_LIST = "dbo.GetCurrencies";
 		private const string SP_GET_UNITOFMEASURE_LIST = "dbo.GetUnitOfMeasures";
-		private const string SP_GET_BUSINESSPARTNER_LIST = "dbo.GetBusinessPartners";
 		private const string SP_CREATE_ITEM = "dbo.CreateItem";
 	}
 }

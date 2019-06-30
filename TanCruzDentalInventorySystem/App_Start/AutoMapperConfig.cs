@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using TanCruzDentalInventorySystem.Models;
-using TanCruzDentalInventorySystem.ViewModel;
+using TanCruzDentalInventorySystem.ViewModels;
 
 namespace TanCruzDentalInventorySystem
 {

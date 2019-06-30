@@ -1,6 +1,6 @@
-﻿@model IEnumerable<TanCruzDentalInventorySystem.ViewModel.PurchaseOrderViewModel>
+﻿@model IEnumerable<TanCruzDentalInventorySystem.ViewModels.PurchaseOrderViewModel>
 @{
-    ViewBag.Title = "Item";
+    ViewBag.Title = "PurchaseOrder";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -62,7 +62,7 @@
                     "scrollX": true,
                     "ajax": {
                         "type": "GET",
-                        "url" : "@Url.Action("GetData","PurchaseOrder")",
+                        "url" : "@Url.Action("GetPurchaseOrderList","PurchaseOrder")",
                         "dataType": "JSON",
                     },
                     "columns": [
@@ -141,19 +141,19 @@
                             "className": "dt-right"
                         },
                         {
-                            "data": "PurchaseOrderAmount",
+                            "data": "PurchaseOrderDiscountAmount",
                             "title": "PO Order Amount",
                             "width": "140px",
                             "className": "dt-right"
                         },
                         {
-                            "data": "SalesOrderTax",
+                            "data": "PurchaseOrderTax",
                             "title": "SO Tax",
                             "width" : "70px",
                             "className": "dt-right"
                         },
                         {
-                            "data": "SalesOrderTotal",
+                            "data": "PurchaseOrderTotal",
                             "title": "SO Total",
                             "width" : "70px",
                             "className": "dt-right"

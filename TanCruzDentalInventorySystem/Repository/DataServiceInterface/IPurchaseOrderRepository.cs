@@ -8,5 +8,8 @@ namespace TanCruzDentalInventorySystem.Repository.DataServiceInterface
 	{
 		IUnitOfWork UnitOfWork { get; set; }
 		Task<IEnumerable<PurchaseOrder>> GetPurchaseOrderList();
+		Task<PurchaseOrder> GetPurchaseOrder(string purchaseOrderId);
+		Task<int> SavePurchaseOrder(PurchaseOrder purchaseOrder);
+		Task<string> CreatePurchaseOrderAsync(string userId);
 	}
 }
