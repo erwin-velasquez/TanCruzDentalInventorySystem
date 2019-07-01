@@ -254,6 +254,7 @@
     <Compile Include="ViewModels\CurrencyViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModels.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="ViewModels\SalesOrderDetailViewModel.cs" />
     <Compile Include="ViewModels\SalesOrderViewModel.cs" />
     <Compile Include="ViewModels\PurchaseOrderViewModel.cs" />
     <Compile Include="ViewModels\UnitOfMeasureViewModel.cs" />
@@ -361,8 +362,8 @@
     <Content Include="Views\Account\EditGroup.cshtml" />
     <Content Include="Views\Account\DeleteGroup.cshtml" />
     <Content Include="Views\Item\ItemRecord.cshtml" />
-    <Content Include="Views\SalesOrder\SalesHome.cshtml" />
-    <Content Include="Views\SalesOrder\SalesDocument.cshtml" />
+    <Content Include="Views\SalesOrder\Index.cshtml" />
+    <Content Include="Views\SalesOrder\CreateSales.cshtml" />
     <Content Include="Views\PurchaseOrder\Index.cshtml" />
     <Content Include="Views\Item\EditItemRecord.cshtml" />
     <Content Include="Views\Item\CreateItem.cshtml" />
