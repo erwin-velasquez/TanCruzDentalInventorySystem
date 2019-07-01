@@ -1,38 +1,96 @@
-﻿@model IEnumerable<TanCruzDentalInventorySystem.ViewModels.PurchaseOrderViewModel>
-@{
-    ViewBag.Title = "PurchaseOrder";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
+﻿@model  TanCruzDentalInventorySystem.ViewModels.PurchaseOrderFormViewModel
 <h3>Purchase Order List</h3>
 
 
 <div class="container">
-    <a class="btn btn-warning" style="margin-bottom:12px" data-toggle="modal" data-target="#myModal">Add New</a>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-warning margin" data-toggle="modal" data-target="#purchaseOrderModal">
+        Add New
+    </button>
     <table id="example" class="display hover"></table>
-
-
     <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
+    <div class="modal fade" id="purchaseOrderModal" tabindex="-1" role="dialog" aria-labelledby="purchaseOrderModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
+                    <h5 class="modal-title" id="purchaseOrderModalLabel">Purchase Order</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="modal-body">
-                    <p>Some text in the modal.</p>
+                <div class="modal-body" id="sales-order-container">
+                    @using (Html.BeginForm("CreatePurchaseOrder", "PurchaseOrder", FormMethod.Post, new { @class = "form-horizontal needs-validation", role = "form", @id = "purchase-order-form-submit" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(false, "", new { @style = "color: red" })
+
+                        <div class="row mb-3">
+                            <div class="form-group col-md mb-3">
+                                @Html.LabelFor(m => m.PurchaseOrder.PurchaseOrderId, new { @class = "control-label" })
+                                <br />
+                                @Html.TextBoxFor(a => a.PurchaseOrder.PurchaseOrderId)
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="form-group col-md mb-3">
+                                @Html.LabelFor(m => m.PurchaseOrder.PurchaseOrderControlNumber, new { @class = "control-label" })
+                                <br />
+                                @Html.EditorFor(a => a.PurchaseOrder.PurchaseOrderControlNumber,new { @class = "form-control" } )
+                                @Html.ValidationMessageFor(x => x.PurchaseOrder.PurchaseOrderControlNumber)
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="form-group col-md mb-3">
+                                @Html.LabelFor(m => m.PurchaseOrder.PurchaseOrderStatus, new { @class = "control-label" })
+                                <br />
+                                @Html.EditorFor(a => a.PurchaseOrder.PurchaseOrderStatus, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.PurchaseOrder.PurchaseOrderStatus)
+                            </div>
+                        </div>
+
+                        //DeliveryDate
+                        <div class="row mb-3">
+                            <div class="form-group col-md mb-3">
+                                @Html.LabelFor(m => m.PurchaseOrder.DeliveryDate, new { @class = "control-label" })
+                                <br />
+                                @Html.EditorFor(a => a.PurchaseOrder.DeliveryDate, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.PurchaseOrder.DeliveryDate)
+                            </div>
+                        </div>
+
+                        //PostingDate
+
+                        <div class="row mb-3">
+                            <div class="form-group col-md mb-3">
+                                @Html.LabelFor(m => m.PurchaseOrder.PostingDate, new { @class = "control-label" })
+                                <br />
+                                @Html.EditorFor(a => a.PurchaseOrder.PostingDate, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.PurchaseOrder.PostingDate)
+                            </div>
+                        </div>
+
+                        //DocumentDate
+                        <div class="row mb-3">
+                            <div class="form-group col-md mb-3">
+                                @Html.LabelFor(m => m.PurchaseOrder.DocumentDate, new { @class = "control-label" })
+                                <br />
+                                @Html.EditorFor(a => a.PurchaseOrder.DocumentDate, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.PurchaseOrder.DocumentDate)
+                            </div>
+                        </div>
+                    }
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" onclick="submitPurchaseOrder()">Save changes</button>
                 </div>
             </div>
-
         </div>
     </div>
 
+    @*CSS*@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 
     <style>
@@ -49,15 +107,45 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
+    }
     </style>
+
+    <script>
+    function submitPurchaseOrder(e) {
+
+
+        var data = $("#purchase-order-form-submit").serialize();
+
+        $('#purchase-order-form-submit').valid();
+
+            console.log(data)
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("CreatePurchaseOrder","PurchaseOrder")',
+                data: data,
+                dataType: 'JSON',
+                success: function (response) {
+                    alert('success');
+                }
+            });
+        }
+    </script>
     @section scripts{
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+      
+
+        @*<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>*@
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
         <script type="text/javascript" src="http://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>
 
+
         <script type="text/javascript">
-            $(document).ready(function () {
+    $(document).ready(function () {
+
+            $('.input-validation-error').parents('.form-group').addClass('has-error');
+        $('.field-validation-error').addClass('text-danger');
+
                 $('#example').DataTable({
                     "scrollX": true,
                     "ajax": {
@@ -112,7 +200,7 @@
                             "render": function (data) {
                                 return moment(data).format('MM/DD/YYYY');
                             }
-                        },   
+                        },
                         {
                             "data": "DocumentDate",
                             "title": "Document Date",
@@ -165,12 +253,6 @@
                             "className": "dt-left"
                         }
                     ],
-                    //columnDefs: [{
-                    //    targets: [6,7,8,16,18],
-                    //    "className": "dt-center",
-                    //    render: function (data) {
-                    //        return moment(data).format('MM/DD/YYYY');
-                    //    }}],
                     "language": {
                         "processing" : "loading....",
                         "emptyTable" : "No data found"

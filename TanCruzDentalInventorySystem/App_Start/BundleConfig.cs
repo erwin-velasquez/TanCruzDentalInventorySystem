@@ -24,6 +24,9 @@ namespace TanCruzDentalInventorySystem
 
             bundles.Add(new StyleBundle("~/Content/css/login").Include(
                       "~/Content/Home/login.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+            "~/Scripts/jquery.validate*"));
         }
     }
 }
