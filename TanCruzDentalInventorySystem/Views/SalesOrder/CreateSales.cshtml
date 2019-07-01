@@ -1,32 +1,19 @@
-﻿@{
-	ViewBag.Title = "Create Sales";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@model TanCruzDentalInventorySystem.ViewModels.SalesOrderViewModel
+
+@{
+    ViewBag.Title = "Create Sales";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h4 class="mb-3">Sales Details</h4>
-<div class="row mb-3">
-	<div class="col-md mb-3">
-		<label for="txtItemNumber">Item Number</label>
-		<input type="text" class="form-control" id="txtItemNumber" placeholder="" value="" required="">
-	</div>
-	<div class="col-md mb-3">
-		<label for="txtItemName">Item Name</label>
-		<input type="text" class="form-control mw-unset" id="txtItemName" placeholder="Item Name" value="" required="">
-		<div class="invalid-feedback">
-			Valid item name is required.
-		</div>
-	</div>
-	<div class="col-md mb-3">
-		<label for="txtItemType">Item Type</label>
-		<select class="custom-select d-block w-100" id="txtItemType" required="">
-			<option value="">Choose...</option>
-			<option>Item Type 1</option>
-		</select>
-	</div>
-	<div class="col-md mb-3">
-		<div class="pt-4 custom-control custom-checkbox">
-			<input type="checkbox" class="custom-control-input" id="chkIsActive">
-			<label class="custom-control-label" for="chkIsActive">IsActive</label>
-		</div>
-	</div>
+<div class="MainCreateSales">
+    @using (Html.BeginForm("SaveItemRecord", "Item", FormMethod.Post, new { @class = "form-horizontal needs-validation", role = "form" }))
+    {
+        <h4 class="mb-3">Sales Details</h4>
+        <div class="row mb-3">
+            <div class="col-md mb-3">
+                @Html.LabelFor(m => m.SalesOrderViewModel, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Item.ItemId, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+        </div>
+    }
 </div>
