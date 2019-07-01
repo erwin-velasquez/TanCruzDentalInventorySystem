@@ -11,77 +11,78 @@
 	@Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="@Url.Action(" Index","Home")"><img class="navBarImageLogo" src="@Url.Content(" ~/Content/img/CompanyLogo.png")" alt="" />Tan-Cruz Dental</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navBarMain" aria-controls="navBarMain" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="@Url.Action(" Index","Home")"><img class="navBarImageLogo" src="@Url.Content(" ~/Content/img/CompanyLogo.png")" alt="" />Tan-Cruz Dental</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navBarMain" aria-controls="navBarMain" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-		<div class="collapse navbar-collapse" id="navBarMain">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item">
-					@Html.ActionLink("Lists", "Index", "Item", new { area = "" }, new { @class = "nav-link" })
-				</li>
-				<li class="nav-item">
-					@Html.ActionLink("Sales", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
-				</li>
-				<li class="nav-item">
-					@Html.ActionLink("Purchases", "Index", "PurchaseOrder", new { area = "" }, new { @class = "nav-link" })
-				</li>
-				<li class="nav-item">
-					@Html.ActionLink("Reports", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
-				</li>
-				<li class="nav-item dropdown">
-					@Html.ActionLink("Admin", string.Empty, string.Empty, new { area = "" }, new { @id = "navBarMainAdminDD", @class = "nav-link", data_toggle = "dropdown", aria_haspopup = "true", aria_expanded = "false" })
-					<div class="dropdown-menu" aria-labelledby="dropdown05">
-						<a class="dropdown-item" href="~/Account/UserList">Users</a>
-						<a class="dropdown-item" href="~/Account/GroupList">Groups</a>
-						<a class="dropdown-item" href="~/Account/RoleList">Permissions</a>
-					</div>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">About us</a>
-				</li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li class="nav-item dropdown">
-					@if (Request.IsAuthenticated)
-					{
-						@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", string.Empty, string.Empty, new { area = "" }, new { @class = "nav-link", data_toggle = "dropdown", aria_haspopup = "true", aria_expanded = "false" })
-						<div class="dropdown-menu" aria-labelledby="dropdown05">
-							<a class="dropdown-item" href="~/Account/ChangePassword">Change Password</a>
-							<a class="dropdown-item" href="~/Account/Logout">Log out</a>
-						</div>
-					}
-					else
-					{
-						<a href="" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hello!</a>
-						<div class="dropdown-menu" aria-labelledby="dropdown05">
-							<a class="dropdown-item" href="~/Account/Login">Sign in</a>
-						</div>
-					}
-				</li>
-				<li>
-					<div>&nbsp;</div>
-				</li>
-				<li>
-					<form class="form-inline my-2 my-md-0">
-						<input class="form-control" type="text" placeholder="Search">
-					</form>
-				</li>
-			</ul>
-		</div>
-	</nav>
-	<div class="container body-content">
-		@RenderBody()
-		<hr />
-		<footer>
-			<p>&copy; @DateTime.Now.Year - Tan Cruz Dental Inventory System</p>
-		</footer>
-	</div>
+        <div class="collapse navbar-collapse" id="navBarMain">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    @Html.ActionLink("Lists", "Index", "Item", new { area = "" }, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Sales", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Purchases", "Index", "PurchaseOrder", new { area = "" }, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Reports", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item dropdown">
+                    @Html.ActionLink("Admin", string.Empty, string.Empty, new { area = "" }, new { @id = "navBarMainAdminDD", @class = "nav-link", data_toggle = "dropdown", aria_haspopup = "true", aria_expanded = "false" })
+                    <div class="dropdown-menu" aria-labelledby="dropdown05">
+                        <a class="dropdown-item" href="~/Account/UserList">Users</a>
+                        <a class="dropdown-item" href="~/Account/GroupList">Groups</a>
+                        <a class="dropdown-item" href="~/Account/RoleList">Permissions</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About us</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item dropdown">
+                    @if (Request.IsAuthenticated)
+                    {
+                        @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", string.Empty, string.Empty, new { area = "" }, new { @class = "nav-link", data_toggle = "dropdown", aria_haspopup = "true", aria_expanded = "false" })
+                        <div class="dropdown-menu" aria-labelledby="dropdown05">
+                            <a class="dropdown-item" href="~/Account/ChangePassword">Change Password</a>
+                            <a class="dropdown-item" href="~/Account/Logout">Log out</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <a href="" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hello!</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown05">
+                            <a class="dropdown-item" href="~/Account/Login">Sign in</a>
+                        </div>
+                    }
+                </li>
+                <li>
+                    <div>&nbsp;</div>
+                </li>
+                <li>
+                    <form class="form-inline my-2 my-md-0">
+                        <input class="form-control" type="text" placeholder="Search">
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Tan Cruz Dental Inventory System</p>
+        </footer>
+    </div>
 
-	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/bootstrap")
-	@RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
 </body>
 </html>
