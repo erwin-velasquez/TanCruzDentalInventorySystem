@@ -14,12 +14,12 @@ namespace TanCruzDentalInventorySystem.Controllers
 		}
 
 		// GET: Sales
-		public ActionResult SalesHome()
+		public ActionResult Index()
 		{
 			return View();
 		}
 
-		public ActionResult SalesDocument()
+		public ActionResult CreateSales()
 		{
 			return View();
 		}
