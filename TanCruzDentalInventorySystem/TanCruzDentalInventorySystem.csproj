@@ -366,6 +366,7 @@
     <Content Include="Views\PurchaseOrder\Index.cshtml" />
     <Content Include="Views\Item\EditItemRecord.cshtml" />
     <Content Include="Views\Item\CreateItem.cshtml" />
+    <Content Include="Views\PurchaseOrder\CreatePurchaseOrder.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

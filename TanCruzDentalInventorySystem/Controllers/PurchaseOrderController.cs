@@ -30,22 +30,15 @@ namespace TanCruzDentalInventorySystem.Controllers
 		}
 
 		[Authorize(Roles = "Editor")]
-		public async Task<ActionResult> CreatePurchaseOrder(PurchaseOrderFormViewModel purchaseOrderFormViewModel)
+		public async Task<ActionResult> CreatePurchaseOrder()
 		{
-            if (ModelState.IsValid)
-            {
-                var purchaseOrderForm = await _purchaseOrderService.CreatePurchaseOrderForm(User.Identity.GetUserId());
+            var purchaseOrderForm = await _purchaseOrderService.CreatePurchaseOrderForm(User.Identity.GetUserId());
 
-                // TODO: James to create the PurchaseOrder create view
-                return View(purchaseOrderForm);
-            }
-            else
-            {
-                return View(purchaseOrderFormViewModel);
-            }
+            // TODO: James to create the PurchaseOrder create view
+            return View(purchaseOrderForm);
 
 
-		}
+        }
 
 		[Authorize(Roles = "Editor")]
 		public async Task<ActionResult> EditPurchaseOrderRecord(string purchaseOrderId)

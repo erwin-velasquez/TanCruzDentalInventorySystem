@@ -1,4 +1,8 @@
-﻿@model  TanCruzDentalInventorySystem.ViewModels.PurchaseOrderFormViewModel
+﻿@model IEnumerable<TanCruzDentalInventorySystem.ViewModels.PurchaseOrderViewModel>
+@{
+    ViewBag.Title = "PurchaseOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 <h3>Purchase Order List</h3>
 
 
@@ -19,7 +23,7 @@
                     </button>
                 </div>
                 <div class="modal-body" id="sales-order-container">
-                    @using (Html.BeginForm("CreatePurchaseOrder", "PurchaseOrder", FormMethod.Post, new { @class = "form-horizontal needs-validation", role = "form", @id = "purchase-order-form-submit" }))
+                    @*@using (Html.BeginForm("CreatePurchaseOrder", "PurchaseOrder", FormMethod.Post, new { @class = "form-horizontal needs-validation", role = "form", @id = "purchase-order-form-submit" }))
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(false, "", new { @style = "color: red" })
@@ -36,7 +40,7 @@
                             <div class="form-group col-md mb-3">
                                 @Html.LabelFor(m => m.PurchaseOrder.PurchaseOrderControlNumber, new { @class = "control-label" })
                                 <br />
-                                @Html.EditorFor(a => a.PurchaseOrder.PurchaseOrderControlNumber,new { @class = "form-control" } )
+                                @Html.EditorFor(a => a.PurchaseOrder.PurchaseOrderControlNumber, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(x => x.PurchaseOrder.PurchaseOrderControlNumber)
                             </div>
                         </div>
@@ -80,7 +84,7 @@
                                 @Html.ValidationMessageFor(x => x.PurchaseOrder.DocumentDate)
                             </div>
                         </div>
-                    }
+                    }*@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -107,8 +111,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
-    }
+        }
     </style>
 
     <script>
@@ -132,7 +135,7 @@
         }
     </script>
     @section scripts{
-      
+
 
         @*<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>*@
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
