@@ -35,8 +35,9 @@ namespace TanCruzDentalInventorySystem.Controllers
 					switch (oUser.UserStatus)
 					{
 						case EnumUserStatus.Pending:
-							ModelState.AddModelError(string.Empty, "Error: User account has not been verified.");
-							break;
+							await SignInManager.SignInAsync(oUser, loginInfo.RememberMe, false);
+							return Redirect(@"~/Account/ChangePassword");
+
 						case EnumUserStatus.Active:
 							await SignInManager.SignInAsync(oUser, loginInfo.RememberMe, false);
 							if (string.IsNullOrWhiteSpace(returnUrl) || returnUrl == "/") returnUrl = "~";
@@ -45,6 +46,7 @@ namespace TanCruzDentalInventorySystem.Controllers
 						case EnumUserStatus.Banned:
 							ModelState.AddModelError(string.Empty, "Error: User account has been banned.");
 							break;
+
 						case EnumUserStatus.LockedOut:
 							ModelState.AddModelError(string.Empty, "Error: User account has been locked out due to multiple login tries.");
 							break;
@@ -126,7 +128,12 @@ namespace TanCruzDentalInventorySystem.Controllers
 			{
 				var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
 				if (result.Succeeded)
+				{
+					var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+					user.UserStatus = EnumUserStatus.Active;
+					await UserManager.UpdateAsync(user);
 					return RedirectToAction("ChangePassword", new { message = "Your password has been changed." });
+				}
 				else
 					foreach (var error in result.Errors)
 						ModelState.AddModelError("", error);
@@ -259,6 +266,23 @@ namespace TanCruzDentalInventorySystem.Controllers
 			};
 
 			return View(userPermissions);
+		}
+
+		public async Task<ActionResult> ResetPassword(string userId)
+		{
+			if (string.IsNullOrWhiteSpace(userId))
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+			var user = await UserManager.FindByIdAsync(userId);
+			string newPassword = "password1";
+			string hashedNewPassword = UserManager.PasswordHasher.HashPassword(newPassword);
+
+			user.Password = hashedNewPassword;
+			user.UserStatus = EnumUserStatus.Pending;
+
+			var result = UserManager.UpdateAsync(user);
+
+			return RedirectToAction("UserList");
 		}
 		#endregion
 
