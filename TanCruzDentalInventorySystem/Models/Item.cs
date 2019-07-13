@@ -1,4 +1,6 @@
-﻿namespace TanCruzDentalInventorySystem.Models
+﻿using System;
+
+namespace TanCruzDentalInventorySystem.Models
 {
 	public class Item
 	{
@@ -17,6 +19,7 @@
 		public long MinimumInventoryRequired { get; set; }
 		public bool IsActive { get; set; }
 		public string UserId { get; set; }
+		public DateTime? ChangedDate { get; set; }
 	}
 
 	public class ItemGroup

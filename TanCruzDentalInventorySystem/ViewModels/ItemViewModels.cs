@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace TanCruzDentalInventorySystem.ViewModels
@@ -33,6 +34,7 @@ namespace TanCruzDentalInventorySystem.ViewModels
 		public long MinimumInventoryRequired { get; set; }
 		public bool IsActive { get; set; }
 		public string UserId { get; set; }
+		public DateTime? ChangedDate { get; set; }
 	}
 
 	public class ItemGroupViewModel
