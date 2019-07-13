@@ -16,6 +16,8 @@
 			<h4 class="mb-3">Main Details</h4>
 			<div class="row mb-3">
 				<div class="form-group col-md mb-3">
+					@Html.HiddenFor(m => m.Item.ChangedDate)
+					@Html.TextBoxFor(m => m.Item.ChangedDate)
 					@Html.LabelFor(m => m.Item.ItemId, new { @class = "control-label" })
 					<br />
 					@Html.TextBoxFor(m => m.Item.ItemId, new { @class = "form-control", @readonly = "readonly" })

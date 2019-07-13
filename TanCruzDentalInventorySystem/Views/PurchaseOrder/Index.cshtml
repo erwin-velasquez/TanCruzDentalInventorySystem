@@ -1,94 +1,24 @@
-﻿@model  TanCruzDentalInventorySystem.ViewModels.PurchaseOrderFormViewModel
+﻿@model IEnumerable<TanCruzDentalInventorySystem.ViewModels.PurchaseOrderViewModel>
+@{
+    ViewBag.Title = "PurchaseOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 <h3>Purchase Order List</h3>
-
+<hr />
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <form class="p-2">
+            <div class="input-group">
+                <button type="button" class="btn btn-warning margin" id="btn-add-new-purchase-order">
+                    Add New
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <div class="container">
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-warning margin" data-toggle="modal" data-target="#purchaseOrderModal">
-        Add New
-    </button>
     <table id="example" class="display hover"></table>
-    <!-- Modal -->
-    <div class="modal fade" id="purchaseOrderModal" tabindex="-1" role="dialog" aria-labelledby="purchaseOrderModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="purchaseOrderModalLabel">Purchase Order</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="sales-order-container">
-                    @using (Html.BeginForm("CreatePurchaseOrder", "PurchaseOrder", FormMethod.Post, new { @class = "form-horizontal needs-validation", role = "form", @id = "purchase-order-form-submit" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(false, "", new { @style = "color: red" })
-
-                        <div class="row mb-3">
-                            <div class="form-group col-md mb-3">
-                                @Html.LabelFor(m => m.PurchaseOrder.PurchaseOrderId, new { @class = "control-label" })
-                                <br />
-                                @Html.TextBoxFor(a => a.PurchaseOrder.PurchaseOrderId)
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="form-group col-md mb-3">
-                                @Html.LabelFor(m => m.PurchaseOrder.PurchaseOrderControlNumber, new { @class = "control-label" })
-                                <br />
-                                @Html.EditorFor(a => a.PurchaseOrder.PurchaseOrderControlNumber,new { @class = "form-control" } )
-                                @Html.ValidationMessageFor(x => x.PurchaseOrder.PurchaseOrderControlNumber)
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="form-group col-md mb-3">
-                                @Html.LabelFor(m => m.PurchaseOrder.PurchaseOrderStatus, new { @class = "control-label" })
-                                <br />
-                                @Html.EditorFor(a => a.PurchaseOrder.PurchaseOrderStatus, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(x => x.PurchaseOrder.PurchaseOrderStatus)
-                            </div>
-                        </div>
-
-                        //DeliveryDate
-                        <div class="row mb-3">
-                            <div class="form-group col-md mb-3">
-                                @Html.LabelFor(m => m.PurchaseOrder.DeliveryDate, new { @class = "control-label" })
-                                <br />
-                                @Html.EditorFor(a => a.PurchaseOrder.DeliveryDate, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(x => x.PurchaseOrder.DeliveryDate)
-                            </div>
-                        </div>
-
-                        //PostingDate
-
-                        <div class="row mb-3">
-                            <div class="form-group col-md mb-3">
-                                @Html.LabelFor(m => m.PurchaseOrder.PostingDate, new { @class = "control-label" })
-                                <br />
-                                @Html.EditorFor(a => a.PurchaseOrder.PostingDate, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(x => x.PurchaseOrder.PostingDate)
-                            </div>
-                        </div>
-
-                        //DocumentDate
-                        <div class="row mb-3">
-                            <div class="form-group col-md mb-3">
-                                @Html.LabelFor(m => m.PurchaseOrder.DocumentDate, new { @class = "control-label" })
-                                <br />
-                                @Html.EditorFor(a => a.PurchaseOrder.DocumentDate, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(x => x.PurchaseOrder.DocumentDate)
-                            </div>
-                        </div>
-                    }
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" onclick="submitPurchaseOrder()">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     @*CSS*@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
@@ -107,8 +37,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
-    }
+        }
     </style>
 
     <script>
@@ -117,14 +46,12 @@
 
         var data = $("#purchase-order-form-submit").serialize();
 
-        $('#purchase-order-form-submit').valid();
-
             console.log(data)
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("CreatePurchaseOrder","PurchaseOrder")',
+                url: '@Url.Action("SavePurchaseOrderRecord","PurchaseOrder")',
                 data: data,
-                dataType: 'JSON',
+                dataType: 'application/json',
                 success: function (response) {
                     alert('success');
                 }
@@ -132,7 +59,7 @@
         }
     </script>
     @section scripts{
-      
+
 
         @*<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>*@
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -140,13 +67,16 @@
         <script type="text/javascript" src="http://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>
 
 
+
         <script type="text/javascript">
     $(document).ready(function () {
 
-            $('.input-validation-error').parents('.form-group').addClass('has-error');
-        $('.field-validation-error').addClass('text-danger');
+        $('#btn-add-new-purchase-order').click(function (e)
+        {
+            location.href = '@Url.Content("~/PurchaseOrder/CreatePurchaseOrder/")';
+        });
 
-                $('#example').DataTable({
+        $('#example').DataTable({
                     "scrollX": true,
                     "ajax": {
                         "type": "GET",

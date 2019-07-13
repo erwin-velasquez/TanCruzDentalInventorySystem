@@ -1,0 +1,116 @@
+﻿@model TanCruzDentalInventorySystem.ViewModels.PurchaseOrderViewModel
+
+<div>
+    <h4>PurchaseOrderViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseOrderId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseOrderId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseOrderControlNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseOrderControlNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseOrderStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseOrderStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeliveryDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeliveryDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostingDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostingDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DocumentDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DocumentDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RefDocNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RefDocNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseOrderDiscount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseOrderDiscount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseOrderDiscountAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseOrderDiscountAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseOrderTax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseOrderTax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseOrderTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseOrderTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditPurchaseOrderRecord", new { purchaseOrderId = Model.PurchaseOrderId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
