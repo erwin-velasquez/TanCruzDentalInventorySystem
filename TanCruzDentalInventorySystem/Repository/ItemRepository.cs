@@ -152,8 +152,9 @@ namespace TanCruzDentalInventorySystem.Repository
 			parameters.Add("@InventoryUnitOfMeasureId", item.InventoryUnitOfMeasure.InventoryUnitOfMeasureId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 			parameters.Add("@MinimumInventoryRequired", item.MinimumInventoryRequired, System.Data.DbType.Int64, System.Data.ParameterDirection.Input);
 			parameters.Add("@UserId", item.UserId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+            parameters.Add("@ChangedDate", item.ChangedDate, System.Data.DbType.DateTime2, System.Data.ParameterDirection.Input);
 
-			var rowsAffected = await UnitOfWork.Connection.ExecuteAsync(
+            var rowsAffected = await UnitOfWork.Connection.ExecuteAsync(
 				sql: SP_SAVE_ITEM,
 				param: parameters,
 				transaction: UnitOfWork.Transaction,
