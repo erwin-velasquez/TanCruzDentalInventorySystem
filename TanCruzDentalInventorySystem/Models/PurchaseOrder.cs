@@ -19,5 +19,6 @@ namespace TanCruzDentalInventorySystem.Models
 		public decimal PurchaseOrderTax { get; set; }
 		public decimal PurchaseOrderTotal { get; set; }
 		public string UserId { get; set; }
+		public DateTime? ChangedDate { get; set; }
 	}
 }

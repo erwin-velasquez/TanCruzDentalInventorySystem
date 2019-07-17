@@ -27,12 +27,12 @@
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         @Html.ValidationSummary(false, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.TextBoxFor(login => login.UserName, new { @class = "form-control", @placeholder = "Username", @required = "required", @autofocus = "true" })
+            @Html.TextBoxFor(login => login.UserName, new { @class = "form-control", @placeholder = "Username", @required = "required", @autofocus = "true", @Value = "erwinadmin" })
             @Html.ValidationMessageFor(login => login.UserName, "", new { @class = "text-danger" })
 
         </div>
         <div class="form-group">
-            @Html.TextBoxFor(login => login.Password, new { @class = "form-control", @type = "password", @required = "true", @placeholder = "Password" })
+            @Html.TextBoxFor(login => login.Password, new { @class = "form-control", @type = "password", @required = "true", @placeholder = "Password", @Value = "staged" })
             @Html.ValidationMessageFor(login => login.Password, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
