@@ -1,9 +1,12 @@
-﻿using System.Web.Mvc;
+﻿using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface;
-
+using TanCruzDentalInventorySystem.ViewModels;
 
 namespace TanCruzDentalInventorySystem.Controllers
 {
+	[Authorize]
 	public class SalesOrderController : Controller
 	{
 		private ISalesOrderService _salesOrderService;
@@ -13,22 +16,68 @@ namespace TanCruzDentalInventorySystem.Controllers
 			_salesOrderService = salesOrderService;
 		}
 
-		// GET: Sales
 		public ActionResult Index()
 		{
 			return View();
 		}
 
-		public ActionResult CreateSales()
+		public async Task<ActionResult> SalesOrderRecord(string salesOrderId)
 		{
-			return View();
+			var salesOrder = await _salesOrderService.GetSalesOrder(salesOrderId);
+
+			// TODO: James to create the SalesOrder view
+			return View(salesOrder);
 		}
 
-		public ActionResult GetHomeData()
+		[Authorize(Roles = "Editor")]
+		public async Task<ActionResult> CreateSalesOrder()
 		{
-			var salesOrderList = _salesOrderService.GetSalesOrderList();
-			return Json(new { data = salesOrderList }, JsonRequestBehavior.AllowGet);
+			var salesOrderForm = await _salesOrderService.CreateSalesOrderForm(User.Identity.GetUserId());
+
+			// TODO: James to create the SalesOrder create view
+			return View(salesOrderForm);
+
 
 		}
+
+		[Authorize(Roles = "Editor")]
+		public async Task<ActionResult> EditSalesOrderRecord(string salesOrderId)
+		{
+			var salesOrderForm = await _salesOrderService.GetSalesOrderForm(salesOrderId);
+
+			return View(salesOrderForm);
+		}
+
+		public async Task<ActionResult> GetSalesOrderList()
+		{
+			var salesOrders = await _salesOrderService.GetSalesOrderList();
+
+			return Json(new { data = salesOrders }, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		[Authorize(Roles = "Editor")]
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> SaveSalesOrderRecord(SalesOrderFormViewModel salesOrderForm)
+		{
+			if (ModelState.IsValid)
+			{
+				salesOrderForm.SalesOrder.UserId = User.Identity.GetUserId();
+				var recordsSaved = await _salesOrderService.SaveSalesOrder(salesOrderForm.SalesOrder);
+
+				if (recordsSaved >= 1)
+				{
+					var salesOrder = await _salesOrderService.GetSalesOrder(salesOrderForm.SalesOrder.SalesOrderId);
+					return View("SalesOrderRecord", salesOrder);
+				}
+				ModelState.AddModelError(string.Empty, "There was a problem and the SalesOrder was not saved.");
+			}
+
+			salesOrderForm = await _salesOrderService.GetSalesOrderForm(salesOrderForm.SalesOrder.SalesOrderId);
+
+			// TODO: James to create the SalesOrder input view
+			return View("EditSalesOrderRecord", salesOrderForm);
+		}
+
 	}
 }

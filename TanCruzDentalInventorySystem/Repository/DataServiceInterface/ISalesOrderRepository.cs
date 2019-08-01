@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using TanCruzDentalInventorySystem.Models;
 
@@ -10,6 +7,9 @@ namespace TanCruzDentalInventorySystem.Repository.DataServiceInterface
 	public interface ISalesOrderRepository
 	{
 		IUnitOfWork UnitOfWork { get; set; }
-		IEnumerable<SalesOrder> GetSalesOrderList();
+		Task<IEnumerable<SalesOrder>> GetSalesOrderList();
+		Task<SalesOrder> GetSalesOrder(string salesOrderId);
+		Task<int> SaveSalesOrder(SalesOrder salesOrder);
+		Task<string> CreateSalesOrderAsync(string userId);
 	}
 }

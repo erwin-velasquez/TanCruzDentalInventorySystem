@@ -1,62 +1,49 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
 
 namespace TanCruzDentalInventorySystem.ViewModels
 {
     public class SalesOrderViewModel
     {
+		[Display(Name = "Sales Order Id")]
+		public string SalesOrderId { get; set; }
+		[Display(Name = "Sales Order Control Number")]
+		[Required]
+		public long SalesOrderControlNumber { get; set; }
+		[Display(Name = "Business Partner")]
+		public BusinessPartnerViewModel BusinessPartner { get; set; }
+		[Display(Name = "Currency")]
+		public CurrencyViewModel Currency { get; set; }
+		[Required]
+		[Display(Name = "Sales Order Status")]
+		public string SalesOrderStatus { get; set; }
+		[Display(Name = "Delivery Date")]
+		public DateTime? DeliveryDate { get; set; }
+		[Display(Name = "Posting Date")]
+		public DateTime? PostingDate { get; set; }
+		[Display(Name = "Document Date")]
+		public DateTime? DocumentDate { get; set; }
+		[Display(Name = "Remarks")]
+		public string Remarks { get; set; }
+		[Display(Name = "Reference Document Number")]
+		public string RefDocNumber { get; set; }
+		[Display(Name = "Sales Order Discount")]
+		public decimal SalesOrderDiscount { get; set; }
+		[Display(Name = "Sales Order Discount Amount")]
+		public decimal SalesOrderDiscountAmount { get; set; }
+		[Display(Name = "Sales Order Tax")]
+		public decimal SalesOrderTax { get; set; }
+		[Display(Name = "Sales Order Total")]
+		public decimal SalesOrderTotal { get; set; }
+		public string UserId { get; set; }
+		public DateTime? ChangedDate { get; set; }
+	}
 
-        public int SalesOrder_Id { get; set; }
-
-        [Display(Name = "Sales Order Id")]
-        public string SalesOrder_SalesOrderId { get; set; }
-
-        [Display(Name = "Control Number")]
-        public long SalesOrder_SOControlNum { get; set; }
-
-        [Display(Name = "Customer ID")]
-        public string SalesOrder_BusinessPartnerId { get; set; }
-
-        [Display(Name = "Currency ID")]
-        public string SalesOrder_CurrencyId { get; set; }
-
-        [Display(Name = "Sales Order Status")]
-        public string SalesOrder_SalesOrderStatus { get; set; }
-
-        [Display(Name = "Delivery Date")]
-        public DateTime? SalesOrder_DeliveryDate { get; set; }
-
-        [Display(Name = "Posting Date")]
-        public DateTime? SalesOrder_PostingDate { get; set; }
-
-        [Display(Name = "Document Date")]
-        public DateTime? SalesOrder_DocumentDate { get; set; }
-
-        [Display(Name = "Remarks")]
-        public string SalesOrder_Remarks { get; set; }
-
-        [Display(Name = "Reference Document Number")]
-        public string SalesOrder_RefDocNum { get; set; }
-
-        [Display(Name = "Discount ID")]
-        public string SalesOrder_Discount { get; set; }
-
-        [Display(Name = "Discount Amount")]
-        public Decimal? SalesOrder_DiscountAmount { get; set; }
-
-        [Display(Name = "Tax ID")]
-        public string SalesOrder_TaxId { get; set; }
-
-        [Display(Name = "Tax Amount")]
-        public Decimal? SalesOrder_TaxAmount { get; set; }
-
-        public string SalesOrder_CreateId { get; set; }
-        public DateTime? SalesOrder_CreateDate { get; set; }
-        public string SalesOrder_ChangeId { get; set; }
-        public DateTime? SalesOrder_ChangeDate { get; set; }
-        public ICollection<SalesOrderDetailsViewModel> SalesOrer_SalesOrderDetailList { get; set; }
+	public class SalesOrderFormViewModel
+	{
+		public SalesOrderViewModel SalesOrder { get; set; }
+		public IEnumerable<CurrencyViewModel> Currencies { get; set; }
+		public IEnumerable<BusinessPartnerViewModel> BusinessPartners { get; set; }
 	}
 }
