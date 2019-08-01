@@ -22,11 +22,19 @@
                 <li class="nav-item">
                     @Html.ActionLink("Lists", "Index", "Item", new { area = "" }, new { @class = "nav-link" })
                 </li>
-                <li class="nav-item">
-                    @Html.ActionLink("Sales", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                <li class="nav-item dropdown">
+                    @Html.ActionLink("Sales", string.Empty, string.Empty, new { area = "" }, new { @id = "navBarMainSalesDD", @class = "nav-link", data_toggle = "dropdown", aria_haspopup = "true", aria_expanded = "false" })
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="~/SalesOrder/Index">Sales Order</a>
+                        <a class="dropdown-item" href="~/SalesOrder/CustomerPayment">Customer Payment</a>
+                    </div>
                 </li>
-                <li class="nav-item">
-                    @Html.ActionLink("Purchases", "Index", "PurchaseOrder", new { area = "" }, new { @class = "nav-link" })
+                <li class="nav-item dropdown">
+                    @Html.ActionLink("Purchases", string.Empty, string.Empty, new { area = "" }, new { @id = "navBarMainPurchasesDD", @class = "nav-link", data_toggle = "dropdown", aria_haspopup = "true", aria_expanded = "false" })
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="~/PurchaseOrder/Index">Purchase Order</a>
+                        <a class="dropdown-item" href="~/PurchaseOrder/VendorPayment">Vendor Payment</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     @Html.ActionLink("Reports", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
