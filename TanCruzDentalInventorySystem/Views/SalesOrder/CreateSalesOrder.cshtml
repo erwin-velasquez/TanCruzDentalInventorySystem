@@ -1,31 +1,141 @@
-﻿@model TanCruzDentalInventorySystem.ViewModels.SalesOrderViewModel
+﻿@model TanCruzDentalInventorySystem.ViewModels.SalesOrderFormViewModel
 
-@{
-    ViewBag.Title = "Create Sales";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+
+@using (Html.BeginForm("SaveSalesOrderRecord", "SalesOrder", FormMethod.Post, new { @class = "form-horizontal needs-validation", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Sales Order</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.SalesOrder.SalesOrderId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SalesOrder.SalesOrderId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.SalesOrder.SalesOrderId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SalesOrder.SalesOrderControlNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SalesOrder.SalesOrderControlNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SalesOrder.SalesOrderControlNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SalesOrder.SalesOrderStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SalesOrder.SalesOrderStatus, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SalesOrder.SalesOrderStatus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SalesOrder.Currency.CurrencyId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.SalesOrder.Currency.CurrencyId, new SelectList(Model.Currencies, "CurrencyId", "CurrencyName"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
+                @Html.ValidationMessageFor(model => model.SalesOrder.Currency.CurrencyId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SalesOrder.BusinessPartner.BusinessPartnerId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.SalesOrder.BusinessPartner.BusinessPartnerId, new SelectList(Model.BusinessPartners, "BusinessPartnerId", "BusinessPartnerName"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
+                @Html.ValidationMessageFor(model => model.SalesOrder.BusinessPartner.BusinessPartnerId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SalesOrder.DeliveryDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SalesOrder.DeliveryDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SalesOrder.DeliveryDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SalesOrder.PostingDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SalesOrder.PostingDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SalesOrder.PostingDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SalesOrder.DocumentDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SalesOrder.DocumentDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SalesOrder.DocumentDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SalesOrder.Remarks, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SalesOrder.Remarks, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SalesOrder.Remarks, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SalesOrder.RefDocNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SalesOrder.RefDocNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SalesOrder.RefDocNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SalesOrder.SalesOrderDiscount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SalesOrder.SalesOrderDiscount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SalesOrder.SalesOrderDiscount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SalesOrder.SalesOrderDiscountAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SalesOrder.SalesOrderDiscountAmount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SalesOrder.SalesOrderDiscountAmount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SalesOrder.SalesOrderTax, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SalesOrder.SalesOrderTax, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SalesOrder.SalesOrderTax, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SalesOrder.SalesOrderTotal, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SalesOrder.SalesOrderTotal, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SalesOrder.SalesOrderTotal, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SalesOrder.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SalesOrder.UserId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SalesOrder.UserId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
 }
 
-    <div class="MainCreateSales">
-        @using (Html.BeginForm("SaveItemRecord", "Item", FormMethod.Post, new { @class = "form-horizontal needs-validation", role = "form" }))
-        {
-            <h4 class="mb-3">Sales Details</h4>
-            <div class="row mb-3">
-                <div class="col-md mb-3">
-                    @Html.LabelFor(m => m.SalesOrderId, new { @class = "control-label" })
-                    @Html.TextBoxFor(m => m.SalesOrderId, new { @class = "form-control", @readonly = "readonly" })
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md mb-3">
-                    @Html.LabelFor(m => m.SOControlNum, new { @class = "control-label" })
-                    @Html.TextBoxFor(m => m.SOControlNum, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md mb-3">
-                    @Html.LabelFor(m => m.SalesOrderId, new { @class = "control-label" })
-                    @Html.TextBoxFor(m => m.SalesOrderId, new { @class = "form-control" })
-                </div>
-            </div>
-        }
-    </div> 
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+}
