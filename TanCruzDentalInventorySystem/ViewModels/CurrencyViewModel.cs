@@ -1,8 +1,11 @@
-﻿namespace TanCruzDentalInventorySystem.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TanCruzDentalInventorySystem.ViewModels
 {
 	public class CurrencyViewModel
 	{
-		public string CurrencyId { get; set; }
+        [Display(Name = "Currency")]
+        public string CurrencyId { get; set; }
 		public string CurrencyName { get; set; }
 		public string CurrencyDescription { get; set; }
 	}
