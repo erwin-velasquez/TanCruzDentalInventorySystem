@@ -35,6 +35,7 @@ namespace TanCruzDentalInventorySystem.ViewModels
 		public bool IsActive { get; set; }
 		public string UserId { get; set; }
 		public DateTime? ChangedDate { get; set; }
+		public long VersionTimeStamp { get; set; }
 	}
 
 	public class ItemGroupViewModel
