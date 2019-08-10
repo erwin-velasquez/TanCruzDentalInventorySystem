@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Dapper;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TanCruzDentalInventorySystem.Models;
 using TanCruzDentalInventorySystem.Repository.DataServiceInterface;
-using Dapper;
-using System.Linq;
 
 namespace TanCruzDentalInventorySystem.Repository
 {
@@ -89,7 +90,7 @@ namespace TanCruzDentalInventorySystem.Repository
 			parameters.Add("@SalesOrderTax", salesOrder.SalesOrderDiscountAmount, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
 			parameters.Add("@SalesOrderTotal", salesOrder.SalesOrderDiscountAmount, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
 			parameters.Add("@UserId", salesOrder.UserId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
-			parameters.Add("@ChangedDate", salesOrder.ChangedDate, System.Data.DbType.DateTime2, System.Data.ParameterDirection.Input);
+			parameters.Add("@ChangedDate", new DateTime(salesOrder.VersionTimeStamp), System.Data.DbType.DateTime2, System.Data.ParameterDirection.Input);
 
 			var rowsAffected = await UnitOfWork.Connection.ExecuteAsync(
 				sql: SP_SAVE_SALESORDER,
@@ -129,7 +130,9 @@ namespace TanCruzDentalInventorySystem.Repository
 				commandType: System.Data.CommandType.StoredProcedure,
 				splitOn: "BusinessPartnerId, CurrencyId");
 
-			return salesOrder.AsList().SingleOrDefault();
+			var versionedSalesOrder = salesOrder.AsList().SingleOrDefault();
+			versionedSalesOrder.VersionTimeStamp = versionedSalesOrder.ChangedDate.Value.Ticks;
+			return versionedSalesOrder;
 		}
 
 		public async Task<string> CreateSalesOrderAsync(string userId)

@@ -11,10 +11,11 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.PurchaseOrder.PurchaseOrderId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PurchaseOrder.PurchaseOrderId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                @Html.ValidationMessageFor(model => model.PurchaseOrder.PurchaseOrderId, "", new { @class = "text-danger" })
-            </div>
+			<div class="col-md-10">
+				@Html.HiddenFor(model => model.PurchaseOrder.VersionTimeStamp)
+				@Html.EditorFor(model => model.PurchaseOrder.PurchaseOrderId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+				@Html.ValidationMessageFor(model => model.PurchaseOrder.PurchaseOrderId, "", new { @class = "text-danger" })
+			</div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.PurchaseOrder.PurchaseOrderControlNumber, htmlAttributes: new { @class = "control-label col-md-2" })

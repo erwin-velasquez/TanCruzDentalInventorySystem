@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Dapper;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TanCruzDentalInventorySystem.Models;
 using TanCruzDentalInventorySystem.Repository.DataServiceInterface;
-using Dapper;
-using System.Linq;
 
 namespace TanCruzDentalInventorySystem.Repository
 {
@@ -89,7 +90,7 @@ namespace TanCruzDentalInventorySystem.Repository
 			parameters.Add("@PurchaseOrderTax", purchaseOrder.PurchaseOrderDiscountAmount, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
 			parameters.Add("@PurchaseOrderTotal", purchaseOrder.PurchaseOrderDiscountAmount, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
 			parameters.Add("@UserId", purchaseOrder.UserId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
-			parameters.Add("@ChangedDate", purchaseOrder.ChangedDate, System.Data.DbType.DateTime2, System.Data.ParameterDirection.Input);
+			parameters.Add("@ChangedDate", new DateTime(purchaseOrder.VersionTimeStamp), System.Data.DbType.DateTime2, System.Data.ParameterDirection.Input);
 
 			var rowsAffected = await UnitOfWork.Connection.ExecuteAsync(
 				sql: SP_SAVE_PURCHASEORDER,
@@ -129,7 +130,9 @@ namespace TanCruzDentalInventorySystem.Repository
 				commandType: System.Data.CommandType.StoredProcedure,
 				splitOn: "BusinessPartnerId, CurrencyId");
 
-			return purchaseOrder.AsList().SingleOrDefault();
+			var versionedPurchaseOrder = purchaseOrder.AsList().SingleOrDefault();
+			versionedPurchaseOrder.VersionTimeStamp = versionedPurchaseOrder.ChangedDate.Value.Ticks;
+			return versionedPurchaseOrder;
 		}
 
 		public async Task<string> CreatePurchaseOrderAsync(string userId)
