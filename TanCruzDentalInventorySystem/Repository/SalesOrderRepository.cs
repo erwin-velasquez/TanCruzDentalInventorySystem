@@ -113,7 +113,7 @@ namespace TanCruzDentalInventorySystem.Repository
 					{
 						typeof(SalesOrder),
 						typeof(BusinessPartner),
-						typeof(Currency),
+						typeof(Currency)
 					},
 				map:
 					typeMap =>

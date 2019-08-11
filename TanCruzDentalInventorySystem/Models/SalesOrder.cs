@@ -22,6 +22,6 @@ namespace TanCruzDentalInventorySystem.Models
 		public string UserId { get; set; }
 		public DateTime? ChangedDate { get; set; }
 		public long VersionTimeStamp { get; set; }
-		public List<SalesOrderDetail> SalesOrderDetails { get; set; }
+		public IEnumerable<SalesOrderDetail> SalesOrderDetails { get; set; }
 	}
 }
