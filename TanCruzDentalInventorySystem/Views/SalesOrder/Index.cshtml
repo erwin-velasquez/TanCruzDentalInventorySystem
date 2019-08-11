@@ -1,76 +1,182 @@
 ﻿@{
-	ViewBag.Title = "Sales";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Sales";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
-<h3>Sales Home</h3>
+<h3>Sales Order List</h3>
 <hr />
 <div class="row">
-	<div class="col-md-4 mb-3">
-		<form class="p-2">
-			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Filter by Customer">
-			</div>
-		</form>
-	</div>
-
-	<div class="col-md-4 mb-3">
-		<form class="p-2">
-			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Date From"> <span class="spSalesDateFilter pt-2">to</span>
-				<input type="text" class="form-control" placeholder="Date To">
-			</div>
-		</form>
-	</div>
-
-    <div class="col-md-4 mb-3">
-        <div class="p-2 float-right">
-            <a href="@Url.Action("CreateSalesOrder","SalesOrder")" class="btn btn-warning">Add New</a>
-        </div>
-        <div class="p-2 float-right">
-            <a href="@Url.Action("ItemRecord", "Item")" class="btn btn-warning">Filter</a>
-        </div>
+    <div class="col-md-6 mb-3">
+        <form class="p-2">
+            <div class="input-group">
+                <button type="button" class="btn btn-warning margin" id="btn-add-new-sales-order">
+                    Add New
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 
-<div class="table-responsive">
-	<table class="itemHomeTable table table-striped table-sm">
-		<thead>
-			<tr>
-				<th>#</th>
-				<th>Sales Order Number</th>
-				<th>Date</th>
-				<th>Customer Name</th>
-				<th>Transaction Total</th>
-				<th>Status</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>1</td>
-				<td>SO0001</td>
-				<td>12/30/2015</td>
-				<td>Erwin Velasquez Dental</td>
-				<td>1,500</td>
-				<td>Delivered</td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>SO0002</td>
-				<td>12/30/2015</td>
-				<td>James Manglinong</td>
-				<td>1,500</td>
-				<td>Paid</td>
-			</tr>
-			<tr>
-				<td>3</td>
-				<td>SO0003</td>
-				<td>12/30/2015</td>
-				<td>Dennis Comendador Store</td>
-				<td>1,000</td>
-				<td>Paid</td>
-			</tr>
-		</tbody>
-	</table>
+<div class="container">
+    <table id="salesOrderListTable" class="display hover"></table>
+
+    @*CSS*@
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+
+    @section scripts{
+
+
+        @*<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>*@
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        <script type="text/javascript" src="http://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>
+
+
+
+        <script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#btn-add-new-sales-order').click(function (e)
+        {
+            location.href = '@Url.Content("~/SalesOrder/CreateSalesOrder/")';
+        });
+
+        $('#salesOrderListTable').DataTable({
+                    "scrollX": true,
+                    "ajax": {
+                        "type": "GET",
+                        "url" : "@Url.Action("GetSalesOrderList","SalesOrder")",
+                        "dataType": "JSON",
+                    },
+                    "columns": [
+                        {
+                            "data": null,
+                            "className": "center",
+                            "defaultContent" : '<a href="" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Delete</a>',
+                            "width": "110px",
+                        },
+                        {
+                            "data": "SalesOrderId",
+                            "title": "Sales Order Id",
+                            "width": "140px",
+                            "className" : "dt-center"
+                        },
+                        {
+                            "data": "SalesOrderControlNumber",
+                            "title": "PO Control Number",
+                            "width": "150px",
+                            "className" : "dt-center"
+                        },
+                        {
+                            "data": "BusinessPartner.BusinessPartnerName",
+                            "title": "Business Partner",
+                            "width": "240px",
+                            "className": "dt-center"
+                        },
+                        {
+                            "data": "Currency.CurrencyName",
+                            "title": "Currency",
+                            "width": "120p",
+                            "className": "dt-center"
+                        },
+                        {
+                            "data": "SalesOrderStatus",
+                            "title": "Status",
+                            "className": "dt-center",
+                        },
+                        {
+                            "data": "DeliveryDate",
+                            "title": "Delivery Date",
+                            "width": "120px",
+                            "className": "dt-center",
+                            "render": function (data) {
+                                return moment(data).format('MM/DD/YYYY');
+                            }
+                        },
+                        {
+                            "data": "PostingDate",
+                            "title": "Posting Date",
+                            "width": "120px",
+                            "className": "dt-center",
+                            "render": function (data) {
+                                return moment(data).format('MM/DD/YYYY');
+                            }
+                        },
+                        {
+                            "data": "DocumentDate",
+                            "title": "Document Date",
+                            "width": "120px",
+                            "className": "dt-center",
+                            "render": function (data) {
+                                return moment(data).format('MM/DD/YYYY');
+                            }
+                        },
+                        {
+                            "data": "Remarks",
+                            "title": "Remarks",
+                            "width": "120px",
+                            "className" : "truncate-remarks"
+                        },
+                        {
+                            "data": "RefDocNumber",
+                            "title": "Ref Doc Num",
+                            "width": "140px",
+                            "className": "dt-left",
+                        },
+                        {
+                            "data": "SalesOrderDiscount",
+                            "title": "PO Discount Amount",
+                            "width": "190px",
+                            "className": "dt-right"
+                        },
+                        {
+                            "data": "SalesOrderDiscountAmount",
+                            "title": "SO Order Amount",
+                            "width": "140px",
+                            "className": "dt-right"
+                        },
+                        {
+                            "data": "SalesOrderTax",
+                            "title": "SO Tax",
+                            "width" : "70px",
+                            "className": "dt-right"
+                        },
+                        {
+                            "data": "SalesOrderTotal",
+                            "title": "SO Total",
+                            "width" : "70px",
+                            "className": "dt-right"
+                        },
+                        {
+                            "data": "UserId",
+                            "title": "User Id",
+                            "width": "130px",
+                            "className": "dt-left"
+                        }
+                    ],
+                    "language": {
+                        "processing" : "loading....",
+                        "emptyTable" : "No data found"
+                    },
+                    createdRow: function (row) {
+                        var td = $(row).find("[class^=truncate]");
+                        if (td) {
+                            td.attr("title", td.html());
+                        }
+                    },
+                    "paging": true,
+                    "autoWidth": true,
+        });
+
+
+         // Edit record
+    $('#salesOrderListTable').on('click', 'a.editor_edit', function (e) {
+        e.preventDefault();
+        location.href = '@Url.Content("~/SalesOrder/EditSalesOrderRecord/")';
+    } );
+    });
+
+        </script>
+    }
 </div>
