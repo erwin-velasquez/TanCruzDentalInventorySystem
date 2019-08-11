@@ -81,10 +81,10 @@ namespace TanCruzDentalInventorySystem.Repository
 			parameters.Add("@CurrencyId", purchaseOrder.Currency.CurrencyId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 			parameters.Add("@PurchaseOrderStatus", purchaseOrder.PurchaseOrderStatus, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 			parameters.Add("@DeliveryDate", purchaseOrder.DeliveryDate, System.Data.DbType.DateTime, System.Data.ParameterDirection.Input);
-			parameters.Add("@PostingDate", purchaseOrder.DeliveryDate, System.Data.DbType.DateTime, System.Data.ParameterDirection.Input);
-			parameters.Add("@DocumentDate", purchaseOrder.DeliveryDate, System.Data.DbType.DateTime, System.Data.ParameterDirection.Input);
-			parameters.Add("@Remarks", purchaseOrder.DeliveryDate, System.Data.DbType.String, System.Data.ParameterDirection.Input);
-			parameters.Add("@RefDocNumber", purchaseOrder.DeliveryDate, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+			parameters.Add("@PostingDate", purchaseOrder.PostingDate, System.Data.DbType.DateTime, System.Data.ParameterDirection.Input);
+			parameters.Add("@DocumentDate", purchaseOrder.DocumentDate, System.Data.DbType.DateTime, System.Data.ParameterDirection.Input);
+			parameters.Add("@Remarks", purchaseOrder.Remarks, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+			parameters.Add("@RefDocNumber", purchaseOrder.RefDocNumber, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 			parameters.Add("@PurchaseOrderDiscount", purchaseOrder.PurchaseOrderDiscount, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
 			parameters.Add("@PurchaseOrderDiscountAmount", purchaseOrder.PurchaseOrderDiscountAmount, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
 			parameters.Add("@PurchaseOrderTax", purchaseOrder.PurchaseOrderDiscountAmount, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
