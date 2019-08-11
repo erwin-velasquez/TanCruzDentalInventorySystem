@@ -87,8 +87,8 @@
                         {
                             "data": null,
                             "className": "center",
-                            "defaultContent" : '<a href="" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Delete</a>',
-                            "width": "110px",
+                            "defaultContent" : '<a href="" class="editor_edit">Edit</a> / <a href="" class="editor_view">View</a> / <a href="" class="editor_remove">Delete</a>',
+                            "width": "125px",
                         },
                         {
                             "data": "PurchaseOrderId",
@@ -204,9 +204,15 @@
             });
 
             $('#purchaseOrderListTable').on('click', 'a.editor_edit', function (e) {
-            e.preventDefault();
-            var row = table.row($(this).parents('tr')).data();
-            location.href = '@Url.Content("~/PurchaseOrder/EditPurchaseOrderRecord?purchaseOrderId=")' + row.PurchaseOrderId;
+                e.preventDefault();
+                var row = table.row($(this).parents('tr')).data();
+                location.href = '@Url.Content("~/PurchaseOrder/EditPurchaseOrderRecord?purchaseOrderId=")' + row.PurchaseOrderId;
+            });
+
+            $('#purchaseOrderListTable').on('click', 'a.editor_view', function (e) {
+                e.preventDefault();
+                var row = table.row($(this).parents('tr')).data();
+                location.href = '@Url.Content("~/PurchaseOrder/PurchaseOrderRecord?purchaseOrderId=")' + row.PurchaseOrderId;
             });
 
             });
