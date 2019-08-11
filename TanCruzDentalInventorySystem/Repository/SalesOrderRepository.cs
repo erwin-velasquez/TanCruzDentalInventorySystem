@@ -39,37 +39,6 @@ namespace TanCruzDentalInventorySystem.Repository
 				splitOn: "BusinessPartnerId, CurrencyId");
 
 			return salesOrderList;
-
-			//List<SalesOrder> result = new List<SalesOrder>();
-			//         for (int x = 0; x < 100; x++)
-			//         {
-			//             result.Add(new SalesOrder()
-			//             {
-			//                 BP_ID = "bp_id " + x.ToString(),
-			//                 CHANGE_DATE = DateTime.UtcNow,   
-
-
-			//                 CHANGE_ID = "Manglinong, James P.",
-			//                 CREATE_DATE = DateTime.UtcNow,
-			//                 CREATE_ID = "Manglinong, James P.",
-			//                 CURRENCY_ID = "PHP",
-			//                 DELIVERY_DATE = DateTime.UtcNow,
-			//                 DOCUMENT_DATE = DateTime.UtcNow,
-			//                 ID = x,
-			//                 POSTING_DATE = DateTime.UtcNow,
-			//                 PO_CONTROL_NUM = x,
-			//                 PO_DISCOUNT = 10,
-			//                 PO_DISC_AMT = 10,
-			//                 PO_STATUS = "Active",
-			//                 PURCHASEORDER_ID = x.ToString(),
-			//                 REFDOC_NUM = "REFDOC_NUM" + x.ToString(),
-			//                 REMARKS = "Purchase sampling 101. This is a test purchase.",
-			//                 SO_TAX = 1,
-			//                 SO_TOTAL = 100
-			//             }); ; ;
-			//         }
-			//         IEnumerable<SalesOrder> output = result;
-			//         return output;
 		}
 
 		public async Task<int> SaveSalesOrder(SalesOrder salesOrder)
@@ -131,8 +100,43 @@ namespace TanCruzDentalInventorySystem.Repository
 				splitOn: "BusinessPartnerId, CurrencyId");
 
 			var versionedSalesOrder = salesOrder.AsList().SingleOrDefault();
+			versionedSalesOrder.SalesOrderDetails = await GetSalesOrderDetailList(versionedSalesOrder.SalesOrderId);
 			versionedSalesOrder.VersionTimeStamp = versionedSalesOrder.ChangedDate.Value.Ticks;
 			return versionedSalesOrder;
+		}
+
+		public async Task<IEnumerable<SalesOrderDetail>> GetSalesOrderDetailList(string salesOrderId)
+		{
+			var parameters = new DynamicParameters();
+			parameters.Add("@SalesOrderId", salesOrderId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+
+			var salesOrderDetailList = await UnitOfWork.Connection.QueryAsync<SalesOrderDetail>(
+				sql: SP_GET_SALESORDERDETAIL_LIST,
+				types:
+					new[]
+					{
+						typeof(SalesOrderDetail),
+						typeof(Item),
+						typeof(ItemPrice),
+						typeof(Tax)
+					},
+				map:
+					typeMap =>
+					{
+						if (!(typeMap[0] is SalesOrderDetail salesOrderDetailUnit)) return null;
+
+						salesOrderDetailUnit.Item = typeMap[1] as Item;
+						salesOrderDetailUnit.ItemPrice = typeMap[2] as ItemPrice;
+						salesOrderDetailUnit.Tax = typeMap[3] as Tax;
+
+						return salesOrderDetailUnit;
+					},
+				param: parameters,
+				transaction: UnitOfWork.Transaction,
+				commandType: System.Data.CommandType.StoredProcedure,
+				splitOn: "ItemId, ItemPriceId, TaxId");
+
+			return salesOrderDetailList;
 		}
 
 		public async Task<string> CreateSalesOrderAsync(string userId)
@@ -152,41 +156,7 @@ namespace TanCruzDentalInventorySystem.Repository
 		private const string SP_GET_SALESORDER_LIST = "dbo.GetSalesOrders";
 		private const string SP_SAVE_SALESORDER = "dbo.SaveSalesOrder";
 		private const string SP_GET_SALESORDER = "dbo.GetSalesOrder";
+		private const string SP_GET_SALESORDERDETAIL_LIST = "dbo.GetSalesOrderDetails";
 		private const string SP_CREATE_SALESORDER = "dbo.CreateSalesOrder";
 	}
 }
-
-
-		//public IEnumerable<SalesOrder> GetSalesOrderList()
-		//{
-			//List<SalesOrder> result = new List<SalesOrder>();
-			//for (int x = 0; x < 100; x++)
-			//{
-			//	result.Add(new SalesOrder()
-			//	{
-			//		BP_ID = "bp_id " + x.ToString(),
-			//		CHANGE_DATE = DateTime.UtcNow,
-
-
-			//		CHANGE_ID = "Manglinong, James P.",
-			//		CREATE_DATE = DateTime.UtcNow,
-			//		CREATE_ID = "Manglinong, James P.",
-			//		CURRENCY_ID = "PHP",
-			//		DELIVERY_DATE = DateTime.UtcNow,
-			//		DOCUMENT_DATE = DateTime.UtcNow,
-			//		ID = x,
-			//		POSTING_DATE = DateTime.UtcNow,
-			//		SO_CONTROL_NUM = x,
-			//		SO_DISCOUNT = 10,
-			//		SO_DISC_AMT = 10,
-			//		SO_STATUS = "Active",
-			//		SALESORDER_ID = x.ToString(),
-			//		REFDOC_NUM = "REFDOC_NUM" + x.ToString(),
-			//		REMARKS = "Sales sampling 101. This is a test Sales.",
-			//		SO_TAX = 1,
-			//		SO_TOTAL = 100
-			//	}); ; ;
-			//}
-			//IEnumerable<SalesOrder> output = result;
-			//return output;
-		//}
