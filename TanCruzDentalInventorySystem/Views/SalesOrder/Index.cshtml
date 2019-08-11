@@ -170,11 +170,11 @@
         });
 
 
-    $('#salesOrderListTable').on('click', 'a.editor_edit', function (e) {
-        e.preventDefault();
-        var row = table.row($(this).parents('tr')).data();
-        location.href = '@Url.Content("~/SalesOrder/EditSalesOrderRecord?salesOrderId=")' + row.SalesOrderId;
-    } );
+        $('#salesOrderListTable').on('click', 'a.editor_edit', function (e) {
+            e.preventDefault();
+            var row = table.row($(this).parents('tr')).data();
+            location.href = '@Url.Content("~/SalesOrder/EditSalesOrderRecord?salesOrderId=")' + row.SalesOrderId;
+        });
     });
 
         </script>
