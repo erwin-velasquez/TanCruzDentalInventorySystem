@@ -18,7 +18,7 @@
 </div>
 
 <div class="container">
-    <table id="example" class="display hover"></table>
+    <table id="purchaseOrderListTable" class="display hover"></table>
 
     @*CSS*@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
@@ -69,14 +69,14 @@
 
 
         <script type="text/javascript">
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        $('#btn-add-new-purchase-order').click(function (e)
+            $('#btn-add-new-purchase-order').click(function (e)
         {
             location.href = '@Url.Content("~/PurchaseOrder/CreatePurchaseOrder/")';
         });
 
-        $('#example').DataTable({
+            var table = $('#purchaseOrderListTable').DataTable({
                     "scrollX": true,
                     "ajax": {
                         "type": "GET",
@@ -84,7 +84,13 @@
                         "dataType": "JSON",
                     },
                     "columns": [
-                           {
+                        {
+                            "data": null,
+                            "className": "center",
+                            "defaultContent" : '<a href="" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Delete</a>',
+                            "width": "110px",
+                        },
+                        {
                             "data": "PurchaseOrderId",
                             "title": "Purchase Order Id",
                             "width": "140px",
@@ -195,8 +201,16 @@
                     },
                     "paging": true,
                     "autoWidth": true,
-                });
             });
+
+            $('#purchaseOrderListTable').on('click', 'a.editor_edit', function (e) {
+            e.preventDefault();
+            var row = table.row($(this).parents('tr')).data();
+            location.href = '@Url.Content("~/PurchaseOrder/EditPurchaseOrderRecord?purchaseOrderId=")' + row.PurchaseOrderId;
+            });
+
+            });
+
 
         </script>
 
