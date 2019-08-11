@@ -53,8 +53,8 @@
                         {
                             "data": null,
                             "className": "center",
-                            "defaultContent" : '<a href="" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Delete</a>',
-                            "width": "110px",
+                            "defaultContent" : '<a href="" class="editor_edit">Edit</a> / <a href="" class="editor_view">View</a> / <a href="" class="editor_remove">Delete</a>',
+                            "width": "150px",
                         },
                         {
                             "data": "SalesOrderId",
@@ -174,6 +174,12 @@
             e.preventDefault();
             var row = table.row($(this).parents('tr')).data();
             location.href = '@Url.Content("~/SalesOrder/EditSalesOrderRecord?salesOrderId=")' + row.SalesOrderId;
+        });
+
+          $('#salesOrderListTable').on('click', 'a.editor_view', function (e) {
+            e.preventDefault();
+            var row = table.row($(this).parents('tr')).data();
+            location.href = '@Url.Content("~/SalesOrder/SalesOrderRecord?salesOrderId=")' + row.SalesOrderId;
         });
     });
 

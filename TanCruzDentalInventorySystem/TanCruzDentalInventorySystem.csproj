@@ -383,6 +383,7 @@
     <Content Include="Views\PurchaseOrder\EditPurchaseOrderRecord.cshtml" />
     <Content Include="Views\SalesOrder\CreateSalesOrder.cshtml" />
     <Content Include="Views\SalesOrder\EditSalesOrderRecord.cshtml" />
+    <Content Include="Views\SalesOrder\SalesOrderRecord.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

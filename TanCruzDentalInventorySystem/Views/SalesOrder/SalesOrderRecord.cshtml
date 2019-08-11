@@ -1,0 +1,132 @@
+﻿@model TanCruzDentalInventorySystem.ViewModels.SalesOrderViewModel
+
+<div>
+    <h4>Sales Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SalesOrderId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalesOrderId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SalesOrderControlNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalesOrderControlNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SalesOrderStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalesOrderStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeliveryDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeliveryDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostingDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostingDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DocumentDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DocumentDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RefDocNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RefDocNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SalesOrderDiscount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalesOrderDiscount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SalesOrderDiscountAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalesOrderDiscountAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SalesOrderTax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalesOrderTax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SalesOrderTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalesOrderTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChangedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChangedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VersionTimeStamp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VersionTimeStamp)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditSalesOrderRecord", new { salesOrderId = Model.SalesOrderId}) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
