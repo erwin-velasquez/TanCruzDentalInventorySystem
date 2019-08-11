@@ -259,6 +259,7 @@
     <Compile Include="ViewModels\CurrencyViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModels.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="ViewModels\TaxViewModel.cs" />
     <Compile Include="ViewModels\SalesOrderDetailViewModel.cs" />
     <Compile Include="ViewModels\SalesOrderViewModel.cs" />
     <Compile Include="ViewModels\PurchaseOrderViewModel.cs" />

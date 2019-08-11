@@ -6,13 +6,13 @@ namespace TanCruzDentalInventorySystem.ViewModels
 	{
 		public string SalesOrderDetailId { get; set; }
 		public string SalesOrderId { get; set; }
-		public string ItemId { get; set; }
+		public ItemViewModel Item { get; set; }
 		public ItemPriceViewModel ItemPrice { get; set; }
 		public decimal Quantity { get; set; }
 		public decimal QuantityOnHand { get; set; }
 		public decimal SalesOrderDetailDiscount { get; set; }
 		public decimal SalesOrderDetailDiscountAmount { get; set; }
-		public string TaxId { get; set; }
+		public TaxViewModel Tax { get; set; }
 		public decimal SalesOrderDetailTax { get; set; }
 		public decimal SalesOrderDetailTotal { get; set; }
 		public string Remarks { get; set; }
