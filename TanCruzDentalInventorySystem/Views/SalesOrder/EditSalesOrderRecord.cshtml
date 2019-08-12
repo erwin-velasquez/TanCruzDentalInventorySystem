@@ -87,45 +87,13 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <table id="salesOrderDetailTable" class="display hover"></table>
+            </div>
+        </div>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Item Name</th>
-                    <th scope="col">Item ID</th>
-                    <th scope="col">Item Price</th>
-                    <th scope="col">Quantity On-hand</th>
-                    <th scope="col">Quantity</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Dental Chair</td>
-                    <td>0001</td>
-                    <td>5200.00</td>
-                    <td>10</td>
-                    <td>Textbox Input</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Toothbrush</td>
-                    <td>0002</td>
-                    <td>15.00</td>
-                    <td>632</td>
-                    <td>Textbox Input</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Dental Floss</td>
-                    <td>0003</td>
-                    <td>45.00</td>
-                    <td>12</td>
-                    <td>Textbox Input</td>
-                </tr>
-            </tbody>
-        </table>
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.SalesOrder.SalesOrderDiscount, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -188,3 +156,83 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@*CSS*@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+
+@section scripts{
+
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script type="text/javascript" src="http://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var json = JSON.parse('@Html.Raw(@Model.SalesOrder.SalesOrderDetailsJson)');
+            var table = $('#salesOrderDetailTable').DataTable({
+                "scrollX": true,
+                data : json,
+                "columns": [
+                    {
+                        "data": null,
+                        "title": "#",
+                        "width": "30px",
+                        "defaultContent" : '',
+                        "className": "dt-center"
+                    },
+                    {
+                        "data": "Item.ItemName",
+                        "title": "Item Name",
+                        "width" : "200px",
+                        "className": "dt-left"
+                    },
+                    {
+                        "data": "Item.ItemId",
+                        "title": "Item Id",
+                        "width" : "150px",
+                        "className": "dt-left"
+                    },
+                    {
+                        "data": "Item.ItemPrice",
+                        "title": "Item Price",
+                        "width" : "90px",
+                        "className": "dt-center"
+                    },
+                    {
+                        "data": null,
+                        "title": "Quantity On-hand",
+                        "width": "150px",
+                        "defaultContent" : '',
+                        "className": "dt-center"
+                    },
+                    {
+                        "data": null,
+                        "title": "Quantity",
+                        "width": "120px",
+                        "defaultContent" : '',
+                        "className": "dt-center"
+                    },
+                    {
+                        "data": null,
+                        "title": "Total",
+                        "width": "110px",
+                        "defaultContent" : '',
+                        "className": "dt-center"
+                    },
+                ],
+                "language": {
+                    "processing": "loading....",
+                    "emptyTable": "No data found"
+                },
+                createdRow: function (row) {
+                    var td = $(row).find("[class^=truncate]");
+                    if (td) {
+                        td.attr("title", td.html());
+                    }
+                },
+                "paging": true,
+                "autoWidth": true,
+            });
+        });
+    </script>
+}
