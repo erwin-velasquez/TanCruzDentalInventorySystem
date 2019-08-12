@@ -46,9 +46,9 @@
 					@Html.DropDownListFor(m => m.Item.Currency.CurrencyId, new SelectList(Model.Currencies, "CurrencyId", "CurrencyName"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
 				</div>
 				<div class="form-group col-md-3 mb-3 ">
-					@Html.LabelFor(m => m.Item.ItemPrice.PriceAmount, new { @class = "control-label" })
+					@Html.LabelFor(m => m.Item.ItemPriceAmount, new { @class = "control-label" })
 					<br />
-					@Html.TextBoxFor(m => m.Item.ItemPrice.PriceAmount, new { @class = "form-control", required = "" })
+					@Html.TextBoxFor(m => m.Item.ItemPriceAmount, new { @class = "form-control", required = "" })
 				</div>
 				<div class="col-md-6 mb-3">
 					<label for="ddUoM">Unit of Measure</label>

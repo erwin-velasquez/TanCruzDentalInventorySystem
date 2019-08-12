@@ -16,6 +16,7 @@ namespace TanCruzDentalInventorySystem.ViewModels
 		[Display(Name = "Item Type")]
 		public ItemGroupViewModel ItemGroup { get; set; }
 		public ItemPriceViewModel ItemPrice { get; set; }
+		public decimal ItemPriceAmount { get; set; }
 
 		[Display(Name = "Currency")]
 		public CurrencyViewModel Currency { get; set; }

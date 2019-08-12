@@ -9,6 +9,7 @@ namespace TanCruzDentalInventorySystem.Models
 		public string ItemDescription { get; set; }
 		public ItemGroup ItemGroup { get; set; }
 		public ItemPrice ItemPrice { get; set; }
+		public decimal ItemPriceAmount { get; set; }
 		public Currency Currency { get; set; }
 		public UnitOfMeasure UnitOfMeasure { get; set; }
 		public BusinessPartner BusinessPartner { get; set; }

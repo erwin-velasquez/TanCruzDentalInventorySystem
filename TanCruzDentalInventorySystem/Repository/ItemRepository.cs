@@ -145,7 +145,7 @@ namespace TanCruzDentalInventorySystem.Repository
 			parameters.Add("@CurrencyId", item.Currency.CurrencyId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 			
 			// temporary
-			parameters.Add("@PriceAmount", item.ItemPrice.PriceAmount, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
+			parameters.Add("@ItemPriceAmount", item.ItemPriceAmount, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
 
 			parameters.Add("@UnitOfMeasureId", item.UnitOfMeasure.UnitOfMeasureId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 			parameters.Add("@BusinessPartnerId", item.BusinessPartner.BusinessPartnerId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
