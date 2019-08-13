@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Dapper;
 using TanCruzDentalInventorySystem.Models;
 using TanCruzDentalInventorySystem.Repository.DataServiceInterface;
 
@@ -90,22 +90,6 @@ namespace TanCruzDentalInventorySystem.Repository
 				commandType: System.Data.CommandType.StoredProcedure,
 				splitOn: "ItemGroupId, ItemPriceId, CurrencyId, UnitOfMeasureId, BusinessPartnerId, PurchasingUnitOfMeasureId, InventoryUnitOfMeasureId");
 
-			//var item = await UnitOfWork.Connection.QueryAsync<Item, ItemGroup, ItemPrice, Currency, UnitOfMeasure, BusinessPartner, Item>(
-			//	sql: SP_GET_ITEM,
-			//	(itemUnit, itemGroup, itemPrice, currency, unitOfMeasure, businessPartner) =>
-			//	{
-			//		itemUnit.ItemGroup = itemGroup;
-			//		itemUnit.ItemPrice = itemPrice;
-			//		itemUnit.Currency = currency;
-			//		itemUnit.UnitOfMeasure = unitOfMeasure;
-			//		itemUnit.BusinessPartner = businessPartner;
-			//		return itemUnit;
-			//	},
-			//	param: parameters,
-			//	transaction: UnitOfWork.Transaction,
-			//	commandType: System.Data.CommandType.StoredProcedure,
-			//	splitOn: "ItemGroupId,ItemPriceId,CurrencyId,UnitOfMeasureId,BusinessPartnerId");
-
 			var versionedItem = item.AsList().SingleOrDefault();
 			versionedItem.VersionTimeStamp = versionedItem.ChangedDate.Value.Ticks;
 			return versionedItem;
@@ -179,21 +163,6 @@ namespace TanCruzDentalInventorySystem.Repository
 
 			return itemId;
 		}
-
-		//public UserProfile Login(string userName, string password)
-		//      {
-		//          var parameters = new DynamicParameters();
-		//          parameters.Add("@USER_NAME", userName, System.Data.DbType.String, System.Data.ParameterDirection.Input);
-
-		//          var userProfile = UnitOfWork.Connection.QuerySingleOrDefault<UserProfile>(
-		//              sql: GET_USERPROFILE,
-		//              param: parameters,
-		//              transaction: UnitOfWork.Transaction,
-		//              commandType: System.Data.CommandType.Text);
-
-		//          return userProfile;
-		//      }
-
 
 		private const string SP_GET_ITEM_LIST = "dbo.GetItems";
 		private const string SP_GET_ITEM = "dbo.GetItem";
