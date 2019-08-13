@@ -105,7 +105,7 @@ namespace TanCruzDentalInventorySystem.Repository
 			return versionedSalesOrder;
 		}
 
-		public async Task<IEnumerable<SalesOrderDetail>> GetSalesOrderDetailList(string salesOrderId)
+		private async Task<IEnumerable<SalesOrderDetail>> GetSalesOrderDetailList(string salesOrderId)
 		{
 			var parameters = new DynamicParameters();
 			parameters.Add("@SalesOrderId", salesOrderId, System.Data.DbType.String, System.Data.ParameterDirection.Input);

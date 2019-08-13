@@ -11,5 +11,6 @@ namespace TanCruzDentalInventorySystem.Repository.DataServiceInterface
 		Task<SalesOrder> GetSalesOrder(string salesOrderId);
 		Task<int> SaveSalesOrder(SalesOrder salesOrder);
 		Task<string> CreateSalesOrderAsync(string userId);
+//		Task<IEnumerable<SalesOrderDetail>> GetSalesOrderDetailList(string salesOrderId);
 	}
 }
