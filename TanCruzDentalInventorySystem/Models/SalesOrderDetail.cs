@@ -8,6 +8,7 @@ namespace TanCruzDentalInventorySystem.Models
 		public string SalesOrderId { get; set; }
 		public Item Item { get; set; }
 		public ItemPrice ItemPrice { get; set; }
+		public decimal ItemPriceAmount { get; set; }
 		public decimal Quantity { get; set; }
 		public decimal QuantityOnHand { get; set; }
 		public decimal SalesOrderDetailDiscount { get; set; }
