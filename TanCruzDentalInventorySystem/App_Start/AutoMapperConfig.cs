@@ -20,6 +20,7 @@ namespace TanCruzDentalInventorySystem
 				cfg.CreateMap<InventoryUnitOfMeasure, InventoryUnitOfMeasureViewModel>().ReverseMap();
 
 				cfg.CreateMap<PurchaseOrder, PurchaseOrderViewModel>().ReverseMap();
+				cfg.CreateMap<SalesOrder, SalesOrderViewModel>().ReverseMap();
 			});
 		}
 	}
