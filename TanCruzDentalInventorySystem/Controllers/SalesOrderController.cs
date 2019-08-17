@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.Identity;
-using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface;
@@ -37,17 +36,14 @@ namespace TanCruzDentalInventorySystem.Controllers
 
 			// TODO: James to create the SalesOrder create view
 			return View(salesOrderForm);
-
-
 		}
 
 		[Authorize(Roles = "Editor")]
 		public async Task<ActionResult> EditSalesOrderRecord(string salesOrderId)
 		{
 			var salesOrderForm = await _salesOrderService.GetSalesOrderForm(salesOrderId);
-            salesOrderForm.SalesOrder.SalesOrderDetailsJson = JsonConvert.SerializeObject(salesOrderForm.SalesOrder.SalesOrderDetails);
 
-            return View(salesOrderForm);
+			return View(salesOrderForm);
 		}
 
 		public async Task<ActionResult> GetSalesOrderList()
