@@ -99,7 +99,6 @@
         </div>
 
 
-
         <div class="form-group">
             @Html.LabelFor(model => model.SalesOrder.SalesOrderDiscount, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -190,12 +189,11 @@
         $(document).ready(function () {
 
             var json = JSON.parse('@Html.Raw(@Model.SalesOrder.SalesOrderDetailsJson)');
+
+            
             var table = $('#salesOrderDetailTable').DataTable({
                 "scrollX": true,
                 data: json,
-                buttons: [
-                    'copy', 'excel', 'pdf'
-                ],
                 "columns": [
                     {
                         "data": null,
@@ -257,7 +255,15 @@
                 "paging": true,
                 "autoWidth": true,
                 "bLengthChange": false,
-                "bPaginate": false
+                "bPaginate": false,
+                buttons: [
+                    {
+                        text: 'Reload',
+                        action: function ( e, dt, node, config ) {
+                            dt.ajax.reload();
+                        }
+                    }
+                ]
             });
         });
     </script>

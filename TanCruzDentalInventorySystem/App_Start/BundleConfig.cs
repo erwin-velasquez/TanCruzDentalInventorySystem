@@ -22,13 +22,18 @@ namespace TanCruzDentalInventorySystem
                       "~/Scripts/bootstrap.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
-                      "~/Scripts/jquery.dataTables.js",
-                      "~/Scripts/jquery.dataTables.buttons.js",
+                      "~/Scripts/DataTables/DataTables-1.10.18/js/jquery.dataTables.js",
+                      "~/Scripts/DataTables/DataTables-1.10.18/js/dataTables.bootstrap4.js",
+                      "~/Scripts/DataTables/Buttons-1.5.6/js/dataTables.buttons.js",
+                      "~/Scripts/DataTables/Buttons-1.5.6/js/buttons.bootstrap4.js",
+                      "~/Scripts/DataTables/Buttons-1.5.6/js/buttons.flash.js",
+                      "~/Scripts/DataTables/Buttons-1.5.6/js/buttons.html5.js",
                       "~/Scripts/datetime.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/css/jquery.dataTables.css",
+                      "~/Scripts/DataTables/Buttons-1.5.6/css/buttons.bootstrap4.min.css",
                       "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/css/login").Include(
