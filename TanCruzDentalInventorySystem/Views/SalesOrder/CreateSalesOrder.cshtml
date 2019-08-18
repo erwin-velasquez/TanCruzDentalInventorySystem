@@ -1,91 +1,104 @@
 ﻿@model TanCruzDentalInventorySystem.ViewModels.SalesOrderFormViewModel
 
 
-@using (Html.BeginForm("SaveSalesOrderRecord", "SalesOrder", FormMethod.Post, new { @class = "form-horizontal needs-validation", role = "form" }))
+@using (Html.BeginForm("SaveSalesOrderRecord", "SalesOrder", FormMethod.Post, new { @class = "form-horizontal needs-validation bg-light", role = "form" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Sales Order</h4>
+    <div class="form-horizontal ">
+        <h4 class="form-title">Sales Order</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.SalesOrder.SalesOrderId, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.HiddenFor(model => model.SalesOrder.VersionTimeStamp)
-				@Html.EditorFor(model => model.SalesOrder.SalesOrderId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-				@Html.ValidationMessageFor(model => model.SalesOrder.SalesOrderId, "", new { @class = "text-danger" })
-			</div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.SalesOrder.SalesOrderControlNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SalesOrder.SalesOrderControlNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SalesOrder.SalesOrderControlNumber, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.SalesOrder.BusinessPartner.BusinessPartnerId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.SalesOrder.BusinessPartner.BusinessPartnerId, new SelectList(Model.BusinessPartners, "BusinessPartnerId", "BusinessPartnerName"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
+                    @Html.ValidationMessageFor(model => model.SalesOrder.BusinessPartner.BusinessPartnerId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.SalesOrder.DeliveryDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SalesOrder.DeliveryDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SalesOrder.DeliveryDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.SalesOrder.SalesOrderId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.HiddenFor(model => model.SalesOrder.VersionTimeStamp)
+                    @Html.EditorFor(model => model.SalesOrder.SalesOrderId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.SalesOrder.SalesOrderId, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SalesOrder.SalesOrderStatus, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SalesOrder.SalesOrderStatus, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SalesOrder.SalesOrderStatus, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.SalesOrder.SalesOrderStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SalesOrder.SalesOrderStatus, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SalesOrder.SalesOrderStatus, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.SalesOrder.Currency.CurrencyId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.SalesOrder.Currency.CurrencyId, new SelectList(Model.Currencies, "CurrencyId", "CurrencyName"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
-                @Html.ValidationMessageFor(model => model.SalesOrder.Currency.CurrencyId, "", new { @class = "text-danger" })
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.SalesOrder.PostingDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SalesOrder.PostingDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SalesOrder.PostingDate, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.SalesOrder.BusinessPartner.BusinessPartnerId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.SalesOrder.BusinessPartner.BusinessPartnerId, new SelectList(Model.BusinessPartners, "BusinessPartnerId", "BusinessPartnerName"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
-                @Html.ValidationMessageFor(model => model.SalesOrder.BusinessPartner.BusinessPartnerId, "", new { @class = "text-danger" })
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.SalesOrder.SalesOrderControlNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SalesOrder.SalesOrderControlNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SalesOrder.SalesOrderControlNumber, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SalesOrder.DeliveryDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SalesOrder.DeliveryDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SalesOrder.DeliveryDate, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.SalesOrder.Currency.CurrencyId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.SalesOrder.Currency.CurrencyId, new SelectList(Model.Currencies, "CurrencyId", "CurrencyName"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
+                    @Html.ValidationMessageFor(model => model.SalesOrder.Currency.CurrencyId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.SalesOrder.DocumentDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SalesOrder.DocumentDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SalesOrder.DocumentDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.SalesOrder.RefDocNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SalesOrder.RefDocNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SalesOrder.RefDocNumber, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SalesOrder.PostingDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SalesOrder.PostingDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SalesOrder.PostingDate, "", new { @class = "text-danger" })
+        <a href="/" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Launch demo modal
+        </a>
+
+        <div class="row">
+            <div class="form-group col-md-12">
+                <table id="salesOrderDetailTable" class="display hover"></table>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SalesOrder.DocumentDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SalesOrder.DocumentDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SalesOrder.DocumentDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SalesOrder.Remarks, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SalesOrder.Remarks, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SalesOrder.Remarks, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SalesOrder.RefDocNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SalesOrder.RefDocNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SalesOrder.RefDocNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.SalesOrder.SalesOrderDiscount, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -110,6 +123,7 @@
                 @Html.ValidationMessageFor(model => model.SalesOrder.SalesOrderTax, "", new { @class = "text-danger" })
             </div>
         </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.SalesOrder.SalesOrderTotal, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -125,9 +139,41 @@
                 @Html.ValidationMessageFor(model => model.SalesOrder.UserId, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.SalesOrder.Remarks, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.SalesOrder.Remarks, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SalesOrder.Remarks, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -137,6 +183,82 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
-    @*@Scripts.Render("~/bundles/jqueryval")*@
+@section scripts{
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            var json = JSON.parse('@Html.Raw(@Model.SalesOrder.SalesOrderDetailsJson)');
+            var table = $('#salesOrderDetailTable').DataTable({
+                "scrollX": true,
+                data: json,
+                buttons: [
+                    'copy', 'excel', 'pdf'
+                ],
+                "columns": [
+                    {
+                        "data": null,
+                        "title": "#",
+                        "width": "30px",
+                        "defaultContent" : '',
+                        "className": "dt-center"
+                    },
+                    {
+                        "data": "Item.ItemName",
+                        "title": "Item Name",
+                        "width" : "200px",
+                        "className": "dt-left"
+                    },
+                    {
+                        "data": "Item.ItemId",
+                        "title": "Item Id",
+                        "width" : "150px",
+                        "className": "dt-left"
+                    },
+                    {
+                        "data": "Item.ItemPrice",
+                        "title": "Item Price",
+                        "width" : "90px",
+                        "className": "dt-center"
+                    },
+                    {
+                        "data": null,
+                        "title": "Quantity On-hand",
+                        "width": "150px",
+                        "defaultContent" : '',
+                        "className": "dt-center"
+                    },
+                    {
+                        "data": null,
+                        "title": "Quantity",
+                        "width": "120px",
+                        "defaultContent" : '',
+                        "className": "dt-center"
+                    },
+                    {
+                        "data": null,
+                        "title": "Total",
+                        "width": "110px",
+                        "defaultContent" : '',
+                        "className": "dt-center"
+                    },
+                ],
+                "language": {
+                    "processing": "loading....",
+                    "emptyTable": "No data found"
+                },
+                createdRow: function (row) {
+                    var td = $(row).find("[class^=truncate]");
+                    if (td) {
+                        td.attr("title", td.html());
+                    }
+                },
+                "paging": true,
+                "autoWidth": true,
+                "bLengthChange": false,
+                "bPaginate": false
+            });
+        });
+    </script>
 }
