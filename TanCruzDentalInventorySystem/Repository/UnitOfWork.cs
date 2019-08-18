@@ -28,14 +28,14 @@ namespace TanCruzDentalInventorySystem.Repository
         public void Commit()
         {
             Transaction.Commit();
-            Dispose();
+			Connection.Close();
         }
 
         public void Rollback()
         {
             Transaction.Rollback();
-            Dispose();
-        }
+			Connection.Close();
+		}
 
         public void Dispose()
         {

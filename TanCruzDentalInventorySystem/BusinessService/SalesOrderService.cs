@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface;
@@ -54,7 +55,7 @@ namespace TanCruzDentalInventorySystem.BusinessService
 
 		public async Task<SalesOrderFormViewModel> CreateSalesOrderForm(string userId)
 		{
-			string salesOrderId = await _salesOrderRepository.CreateSalesOrderAsync(userId);
+			string salesOrderId = await _salesOrderRepository.CreateSalesOrder(userId);
 
 			var salesOrderForm = new SalesOrderFormViewModel()
 			{
@@ -68,7 +69,38 @@ namespace TanCruzDentalInventorySystem.BusinessService
 		public async Task<int> SaveSalesOrder(SalesOrderViewModel salesOrderViewModel)
 		{
 			var salesOrder = Mapper.Map<SalesOrder>(salesOrderViewModel);
-			return await _salesOrderRepository.SaveSalesOrder(salesOrder);
+
+
+			_salesOrderRepository.UnitOfWork.Begin();
+			try
+			{
+				var rowsAffected = await _salesOrderRepository.SaveSalesOrder(salesOrder);
+
+				if (rowsAffected > 0 && salesOrder.SalesOrderDetails != null)
+				{
+					foreach (var salesOrderDetail in salesOrder.SalesOrderDetails)
+					{
+						if (salesOrderDetail.SalesOrderDetailId == null)
+						{
+							// NEW SalesOrderDetail
+							salesOrderDetail.SalesOrderDetailId = await _salesOrderRepository.CreateSalesOrderDetail(salesOrderDetail.UserId);
+							var newSalesOrderDetail = await _salesOrderRepository.GetSalesOrderDetail(salesOrderDetail.SalesOrderDetailId);
+							salesOrderDetail.VersionTimeStamp = newSalesOrderDetail.VersionTimeStamp;
+						}
+
+						await _salesOrderRepository.SaveSalesOrderDetail(salesOrderDetail);
+					}
+				}
+
+				_salesOrderRepository.UnitOfWork.Commit();
+
+				return rowsAffected;
+			}
+			catch (Exception ex)
+			{
+				_salesOrderRepository.UnitOfWork.Rollback();
+				throw ex;
+			}
 		}
 	}
 }

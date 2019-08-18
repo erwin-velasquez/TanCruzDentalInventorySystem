@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
+using System.Linq;
 using System.Web.Mvc;
 using TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface;
 using TanCruzDentalInventorySystem.ViewModels;
@@ -60,7 +61,20 @@ namespace TanCruzDentalInventorySystem.Controllers
 		{
 			if (ModelState.IsValid)
 			{
+				// TODO: James, include the ChangeDate property value of each so detail when submitting if available.
+
+				//// test
+				//salesOrderForm = await _salesOrderService.GetSalesOrderForm("SO00000001");
+				////
+
 				salesOrderForm.SalesOrder.UserId = User.Identity.GetUserId();
+				salesOrderForm.SalesOrder.SalesOrderDetails?.Select(detail => detail.UserId = User.Identity.GetUserId()).ToList();
+
+				//// test sample
+				//var salesOrder = await _salesOrderService.GetSalesOrder(salesOrderForm.SalesOrder.SalesOrderId);
+				//var recordsSaved = await _salesOrderService.SaveSalesOrder(salesOrderForm.SalesOrder);
+				////
+
 				var recordsSaved = await _salesOrderService.SaveSalesOrder(salesOrderForm.SalesOrder);
 
 				if (recordsSaved >= 1)
