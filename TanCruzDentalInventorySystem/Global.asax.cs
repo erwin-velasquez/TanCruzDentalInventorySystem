@@ -12,8 +12,8 @@ namespace TanCruzDentalInventorySystem
         {
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            UnityConfig.RegisterComponents();
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+			UnityMvcActivator.Start();
+			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutoMapperConfig.RegisterComponents();
