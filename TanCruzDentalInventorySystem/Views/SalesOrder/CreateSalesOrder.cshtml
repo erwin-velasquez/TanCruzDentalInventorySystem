@@ -170,7 +170,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button id="saveChangesButton" type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -190,7 +190,7 @@
 
             var json = JSON.parse('@Html.Raw(@Model.SalesOrder.SalesOrderDetailsJson)');
 
-            
+
             var table = $('#salesOrderDetailTable').DataTable({
                 "scrollX": true,
                 data: json,
@@ -203,19 +203,19 @@
                         "className": "dt-center"
                     },
                     {
-                        "data": "Item.ItemName",
+                        "data": "Item\\.ItemName",
                         "title": "Item Name",
                         "width" : "200px",
                         "className": "dt-left"
                     },
                     {
-                        "data": "Item.ItemId",
+                        "data": "Item\\.ItemId",
                         "title": "Item Id",
                         "width" : "150px",
                         "className": "dt-left"
                     },
                     {
-                        "data": "Item.ItemPrice",
+                        "data": "Item\\.ItemPrice",
                         "title": "Item Price",
                         "width" : "90px",
                         "className": "dt-center"
@@ -265,6 +265,18 @@
                     }
                 ]
             });
+
+            $('#saveChangesButton').on('click', function () {
+                console.log(JSON.stringify(table.rows().data().toArray()));
+                table.row.add({
+                    "Item.ItemName": "James Manglinong",
+                    "Item.ItemId": "12345",
+                    "Item.ItemPrice" : "1500"
+                }).draw();
+
+            });
         });
+
+
     </script>
 }
