@@ -41,13 +41,7 @@ namespace TanCruzDentalInventorySystem.ViewModels
 		public DateTime? ChangedDate { get; set; }
 		public long VersionTimeStamp { get; set; }
 		public List<SalesOrderDetailViewModel> SalesOrderDetails { get; set; }
-        public string SalesOrderDetailsJson
-		{
-			get
-			{
-				return JsonConvert.SerializeObject(SalesOrderDetails);
-			}
-		}
+        public string SalesOrderDetailsJson { get; set; }
 	}
 
 	public class SalesOrderFormViewModel

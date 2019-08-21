@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web.Mvc;
 using TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface;
 using TanCruzDentalInventorySystem.ViewModels;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace TanCruzDentalInventorySystem.Controllers
 {
@@ -34,17 +36,17 @@ namespace TanCruzDentalInventorySystem.Controllers
 		public async Task<ActionResult> CreateSalesOrder()
 		{
 			var salesOrderForm = await _salesOrderService.CreateSalesOrderForm(User.Identity.GetUserId());
-
-			// TODO: James to create the SalesOrder create view
-			return View(salesOrderForm);
+            salesOrderForm.SalesOrder.SalesOrderDetailsJson = JsonConvert.SerializeObject(salesOrderForm.SalesOrder.SalesOrderDetails);
+            // TODO: James to create the SalesOrder create view
+            return View(salesOrderForm);
 		}
 
 		[Authorize(Roles = "Editor")]
 		public async Task<ActionResult> EditSalesOrderRecord(string salesOrderId)
 		{
 			var salesOrderForm = await _salesOrderService.GetSalesOrderForm(salesOrderId);
-
-			return View(salesOrderForm);
+            salesOrderForm.SalesOrder.SalesOrderDetailsJson = JsonConvert.SerializeObject(salesOrderForm.SalesOrder.SalesOrderDetails);
+            return View(salesOrderForm);
 		}
 
 		public async Task<ActionResult> GetSalesOrderList()
@@ -61,14 +63,20 @@ namespace TanCruzDentalInventorySystem.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				// TODO: James, include the ChangeDate property value of each so detail when submitting if available.
+                // TODO: James, include the ChangeDate property value of each so detail when submitting if available.
 
-				//// test
-				//salesOrderForm = await _salesOrderService.GetSalesOrderForm("SO00000001");
-				////
-
-				salesOrderForm.SalesOrder.UserId = User.Identity.GetUserId();
-				salesOrderForm.SalesOrder.SalesOrderDetails?.Select(detail => detail.UserId = User.Identity.GetUserId()).ToList();
+                //// test
+                //salesOrderForm = await _salesOrderService.GetSalesOrderForm("SO00000001");
+                ////
+                
+                ///Deserialized SalesOrderDetailsJason
+                //var t = JsonConvert.DeserializeObject<List<SalesOrderDetailViewModel>>(salesOrderForm.SalesOrder.SalesOrderDetailsJson);
+                //var t = JsonConvert.DeserializeObject<dynamic>(salesOrderForm.sale.SalesOrder.SalesOrderDetailsJson);
+                salesOrderForm.SalesOrder.SalesOrderDetails = JsonConvert.DeserializeObject<List<SalesOrderDetailViewModel>>(salesOrderForm.SalesOrder.SalesOrderDetailsJson);
+                salesOrderForm.SalesOrder.UserId = User.Identity.GetUserId();
+				salesOrderForm.SalesOrder.SalesOrderDetails?.Select(detail => { detail.UserId = User.Identity.GetUserId(); detail.SalesOrderId = salesOrderForm.SalesOrder.SalesOrderId; return detail; }
+                
+                ).ToList();
 
 				//// test sample
 				//var salesOrder = await _salesOrderService.GetSalesOrder(salesOrderForm.SalesOrder.SalesOrderId);

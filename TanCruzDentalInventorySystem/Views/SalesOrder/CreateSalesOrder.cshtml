@@ -13,6 +13,7 @@
             <div class="form-group col-md-4">
                 @Html.LabelFor(model => model.SalesOrder.BusinessPartner.BusinessPartnerId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
+                    @Html.HiddenFor(model => model.SalesOrder.SalesOrderDetailsJson, new { id = "SalesOrderDetailsJson" })
                     @Html.DropDownListFor(m => m.SalesOrder.BusinessPartner.BusinessPartnerId, new SelectList(Model.BusinessPartners, "BusinessPartnerId", "BusinessPartnerName"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
                     @Html.ValidationMessageFor(model => model.SalesOrder.BusinessPartner.BusinessPartnerId, "", new { @class = "text-danger" })
                 </div>
@@ -88,6 +89,10 @@
             </div>
         </div>
 
+        <a href="/" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItemDetailModal">
+            Add Item
+        </a>
+
         <a href="/" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
             Launch demo modal
         </a>
@@ -161,6 +166,27 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Item Modal -->
+        <div class="modal fade" id="addItemDetailModal" tabindex="-1" role="dialog" aria-labelledby="addItemDetailModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addItemDetailModalLabel">Add Item Detail</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -270,10 +296,70 @@
                 console.log(JSON.stringify(table.rows().data().toArray()));
                 table.row.add({
                     "Item.ItemName": "James Manglinong",
-                    "Item.ItemId": "12345",
+                    "Item.ItemId": "IT00000001",
                     "Item.ItemPrice" : "1500"
                 }).draw();
 
+                var itemList = [];
+
+                $.each(table.rows().data().toArray(), function (index, value) {
+                    var mm = value;
+                        var k = {
+                        "SalesOrderDetailId": null,
+		                "SalesOrderId": null,
+		                "Item": {
+			                    "ItemId": value["Item.ItemId"],
+			                    "ItemName": value["Item.ItemName"],
+			                    "ItemDescription": null,
+			                    "ItemGroup": null,
+			                    //"ItemPrice": "300.5m",//parseFloat(value["Item.ItemPrice"]),
+                                //"ItemPrice": parseFloat(value["Item.ItemPrice"]),
+			                    //"ItemPriceAmount": parseFloat(value["Item.ItemPrice"]),
+			                    "Currency": null,
+			                    "UnitOfMeasure": null,
+			                    "BusinessPartner": null,
+			                    "PurchasingUnitOfMeasure": null,
+			                    "ItemsPerUnitOfMeasure": 5,
+			                    "PurchasingRemarks": "testing edit",
+			                    "InventoryUnitOfMeasure": null,
+			                    "MinimumInventoryRequired": 100,
+			                    "IsActive": false,
+			                    "UserId": null,
+			                    "ChangedDate": null,
+			                    "VersionTimeStamp": 0
+                            },
+                            //"ItemPrice": {
+			                    //"ItemPriceId": "IP00000007",
+			                    //"ItemPriceName": "ItemPriceTHREEName",
+			                    //"ItemPriceDescription": "ItemPriceTHREE Description",
+			                    //"Type": "AC",
+			                    //"PriceAmount": 250.0,
+			                    //"BaseCurrency": "3"
+		                    //},
+		                    "ItemPriceAmount": parseFloat(value["Item.ItemPrice"]),
+		                    "Quantity": 10.0,
+		                    "QuantityOnHand": 8.0,
+		                    "SalesOrderDetailDiscount": 10.5,
+		                    "SalesOrderDetailDiscountAmount": 100.9,
+		                    //"Tax": {
+			                    //"TaxId": "TI00000001",
+			                    //"TaxName": "TaxName_1",
+			                    //"TaxDescription": "TaxDesc_1",
+			                    //"TaxValue": 2400.0,
+			                    //"IsDefault": false,
+			                    //"TaxStatus": null,
+			                    //"UserId": null
+		                    //},
+		                    "SalesOrderDetailTax": 200.0,
+		                    "SalesOrderDetailTotal": 500.0,
+		                    "Remarks": "First Sale",
+		                    //"UserId": null,
+		                    //"ChangedDate": "2019-08-18T08:10:37.6084235",
+		                    //"VersionTimeStamp": 637017126376084235
+                    };
+                    itemList.push(k);
+                });
+                $("#SalesOrderDetailsJson").val(JSON.stringify(itemList));
             });
         });
 
