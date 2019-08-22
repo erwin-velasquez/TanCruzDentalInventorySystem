@@ -69,9 +69,7 @@ namespace TanCruzDentalInventorySystem.Controllers
 				//salesOrderForm = await _salesOrderService.GetSalesOrderForm("SO00000001");
 				////
 
-				///Deserialized SalesOrderDetailsJason
-				//var t = JsonConvert.DeserializeObject<List<SalesOrderDetailViewModel>>(salesOrderForm.SalesOrder.SalesOrderDetailsJson);
-				//var t = JsonConvert.DeserializeObject<dynamic>(salesOrderForm.sale.SalesOrder.SalesOrderDetailsJson);
+
 				salesOrderForm.SalesOrder.SalesOrderDetails = JsonConvert.DeserializeObject<List<SalesOrderDetailViewModel>>(salesOrderForm.SalesOrder.SalesOrderDetailsJson);
 				salesOrderForm.SalesOrder.UserId = User.Identity.GetUserId();
 				salesOrderForm.SalesOrder.SalesOrderDetails?.Select
