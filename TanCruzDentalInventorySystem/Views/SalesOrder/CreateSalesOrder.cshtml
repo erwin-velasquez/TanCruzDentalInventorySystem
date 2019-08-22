@@ -183,7 +183,7 @@
 
         <!-- Add Item Modal -->
         <div class="modal fade" id="addItemDetailModal" tabindex="-1" role="dialog" aria-labelledby="addItemDetailModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addItemDetailModalLabel">Add Item Detail</h5>
@@ -192,7 +192,46 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        ...
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <span class="control-label col-md-2">Item Id</span>
+                                <div class="col-md-10">
+                                    <input type="text" id="txt-item-id" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <span class="control-label col-md-2">Item Name</span>
+                                <div class="col-md-10">
+                                    <input type="text" id="txt-item-name" class="form-control" readonly="readonly" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <span class="control-label col-md-2">Quantity on Hand</span>
+                                <div class="col-md-10">
+                                    <input type="text" id="txt-quantity-hand" class="form-control" readonly="readonly" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <span class="control-label col-md-2">Item Price</span>
+                                <div class="col-md-10">
+                                    <input type="text" id="txt-item-price" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <span class="control-label col-md-2">Quantity</span>
+                                <div class="col-md-10">
+                                    <input type="text" id="txt-item-quantity" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <span class="control-label col-md-2">Total</span>
+                                <div class="col-md-10">
+                                    <input type="text" id="txt-item-total" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -210,7 +249,7 @@
 
 @section scripts{
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
         $(document).ready(function () {
 
@@ -254,14 +293,14 @@
                         "className": "dt-center"
                     },
                     {
-                        "data": null,
+                        "data": "Item\\.Quantity",
                         "title": "Quantity",
                         "width": "120px",
                         "defaultContent" : '',
                         "className": "dt-center"
                     },
                     {
-                        "data": null,
+                        "data": "Item\\.Total",
                         "title": "Total",
                         "width": "110px",
                         "defaultContent" : '',
@@ -295,9 +334,11 @@
             $('#saveChangesButton').on('click', function () {
                 console.log(JSON.stringify(table.rows().data().toArray()));
                 table.row.add({
-                    "Item.ItemName": "James Manglinong",
-                    "Item.ItemId": "IT00000001",
-                    "Item.ItemPrice" : "1500"
+                    "Item.ItemName": $("#txt-item-name").val(),
+                    "Item.ItemId": $("#txt-item-id").val(),
+                    "Item.ItemPrice": $("#txt-item-price").val(),
+                    "Item.Quantity": $("#txt-item-quantity").val(),
+                    "Item.Total" : $("#txt-item-total").val(),
                 }).draw();
 
                 var itemList = [];
@@ -337,7 +378,7 @@
 			                    //"BaseCurrency": "3"
 		                    //},
 		                    "ItemPriceAmount": parseFloat(value["Item.ItemPrice"]),
-		                    "Quantity": 10.0,
+		                    "Quantity": value["Item.Quantity"],
 		                    "QuantityOnHand": 8.0,
 		                    "SalesOrderDetailDiscount": 10.5,
 		                    "SalesOrderDetailDiscountAmount": 100.9,
