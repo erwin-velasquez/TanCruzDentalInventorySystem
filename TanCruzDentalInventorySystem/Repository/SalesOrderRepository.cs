@@ -196,17 +196,13 @@ namespace TanCruzDentalInventorySystem.Repository
 			parameters.Add("@SalesOrderDetailId", salesOrderDetail.SalesOrderDetailId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 			parameters.Add("@SalesOrderId", salesOrderDetail.SalesOrderId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 			parameters.Add("@ItemId", salesOrderDetail.Item.ItemId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
-            //parameters.Add("@ItemPriceId", salesOrderDetail.ItemPrice.ItemPriceId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
-            //For testing purposes only by James
-            parameters.Add("@ItemPriceId", "IP00000005", System.Data.DbType.String, System.Data.ParameterDirection.Input);
+            parameters.Add("@ItemPriceId", null, System.Data.DbType.String, System.Data.ParameterDirection.Input);
             parameters.Add("@ItemPriceAmount", salesOrderDetail.ItemPriceAmount, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
 			parameters.Add("@Quantity", salesOrderDetail.Quantity, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
 			parameters.Add("@QuantityOnHand", salesOrderDetail.QuantityOnHand, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
 			parameters.Add("@SalesOrderDetailDiscount", salesOrderDetail.SalesOrderDetailDiscount, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
 			parameters.Add("@SalesOrderDetailDiscountAmount", salesOrderDetail.SalesOrderDetailDiscountAmount, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
-            //parameters.Add("@TaxId", salesOrderDetail.Tax.TaxId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
-            //For testing purposes only by James
-            parameters.Add("@TaxId", "TI00000001", System.Data.DbType.String, System.Data.ParameterDirection.Input);
+            parameters.Add("@TaxId", null, System.Data.DbType.String, System.Data.ParameterDirection.Input);
             parameters.Add("@SalesOrderDetailTax", salesOrderDetail.SalesOrderDetailTax, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
 			parameters.Add("@SalesOrderDetailTotal", salesOrderDetail.SalesOrderDetailTotal, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
 			parameters.Add("@Remarks", salesOrderDetail.Remarks, System.Data.DbType.String, System.Data.ParameterDirection.Input);
