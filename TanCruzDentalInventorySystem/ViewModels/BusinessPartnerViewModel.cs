@@ -4,6 +4,7 @@ namespace TanCruzDentalInventorySystem.ViewModels
 {
 	public class BusinessPartnerViewModel
 	{
+        [Display(Name ="Business Partner")]
 		public string BusinessPartnerId { get; set; }
 
 		[Display(Name = "Preferred Vendor")]

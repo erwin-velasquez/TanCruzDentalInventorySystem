@@ -27,9 +27,8 @@ namespace TanCruzDentalInventorySystem.Controllers
 		public async Task<ActionResult> SalesOrderRecord(string salesOrderId)
 		{
 			var salesOrder = await _salesOrderService.GetSalesOrder(salesOrderId);
-
-			// TODO: James to create the SalesOrder view
-			return View(salesOrder);
+            salesOrder.SalesOrderDetailsJson = JsonConvert.SerializeObject(salesOrder.SalesOrderDetails);
+            return View(salesOrder);
 		}
 
 		[Authorize(Roles = "Editor")]
@@ -37,7 +36,6 @@ namespace TanCruzDentalInventorySystem.Controllers
 		{
 			var salesOrderForm = await _salesOrderService.CreateSalesOrderForm(User.Identity.GetUserId());
 			salesOrderForm.SalesOrder.SalesOrderDetailsJson = JsonConvert.SerializeObject(salesOrderForm.SalesOrder.SalesOrderDetails);
-			// TODO: James to create the SalesOrder create view
 			return View(salesOrderForm);
 		}
 

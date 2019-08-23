@@ -1,132 +1,189 @@
 ﻿@model TanCruzDentalInventorySystem.ViewModels.SalesOrderViewModel
 
-<div>
-    <h4>Sales Order</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.SalesOrderId)
-        </dt>
+    <div class="form-horizontal">
+        <h4 class="form-title">
+            Sales Order
+            @if (Request.IsAuthenticated && User.IsInRole("Editor"))
+            {
+                @Html.ActionLink("[Edit]", "EditSalesOrderRecord", new { salesOrderId = Model.SalesOrderId }, new { @style = "font-size:8pt" })
+            }
+        </h4>
+        <hr />
+        <div class="row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.BusinessPartner.BusinessPartnerId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <p>@Html.DisplayFor(model => model.BusinessPartner.BusinessPartnerName, new { @class = "form-control" })</p>
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.SalesOrderId)
-        </dd>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.DeliveryDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <p>@Html.DisplayFor(model => model.DeliveryDate, new { @class = "form-control" })</p>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SalesOrderControlNumber)
-        </dt>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.SalesOrderId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <p>@Html.DisplayFor(model => model.SalesOrderId, new { @class = "form-control" })</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.SalesOrderStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <p>@Html.DisplayFor(model => model.SalesOrderStatus, new { @class = "form-control" })</p>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.PostingDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <p>@Html.DisplayFor(model => model.PostingDate, new { @class = "form-control" })</p>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.SalesOrderControlNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <p>@Html.DisplayFor(model => model.SalesOrderControlNumber, new { @class = "form-control" })</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.Currency, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <p>@Html.DisplayFor(model => model.Currency.CurrencyName, new { @class = "form-control" })</p>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.DocumentDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <p>@Html.DisplayFor(model => model.DocumentDate, new { @class = "form-control" })</p>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.RefDocNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <p>@Html.DisplayFor(model => model.RefDocNumber, new { @class = "form-control" })</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <table id="salesOrderDetailTable" class="display hover"></table>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.SalesOrderControlNumber)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SalesOrderDiscount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <p>@Html.DisplayFor(model => model.SalesOrderDiscount, new { @class = "form-control" })</p>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SalesOrderDiscountAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <p>@Html.DisplayFor(model => model.SalesOrderDiscountAmount, new { @class = "form-control" })</p>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SalesOrderTax, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <p>@Html.DisplayFor(model => model.SalesOrderTax, new { @class = "form-control" })</p>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <p>@Html.DisplayFor(model => model.UserId, new { @class = "form-control" })</p>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <p>@Html.DisplayFor(model => model.Remarks, new { @class = "form-control" })</p>
+            </div>
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SalesOrderStatus)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SalesOrderStatus)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DeliveryDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DeliveryDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PostingDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PostingDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DocumentDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DocumentDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Remarks)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Remarks)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RefDocNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RefDocNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SalesOrderDiscount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SalesOrderDiscount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SalesOrderDiscountAmount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SalesOrderDiscountAmount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SalesOrderTax)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SalesOrderTax)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SalesOrderTotal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SalesOrderTotal)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ChangedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ChangedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.VersionTimeStamp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.VersionTimeStamp)
-        </dd>
-
-    </dl>
-</div>
 <p>
-    @Html.ActionLink("Edit", "EditSalesOrderRecord", new { salesOrderId = Model.SalesOrderId}) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var json = JSON.parse('@Html.Raw(@Model.SalesOrderDetailsJson)');
+            var table = $('#salesOrderDetailTable').DataTable({
+                "scrollX": true,
+                data: json,
+                "columns": [
+                    {
+                        "data": null,
+                        "title": "#",
+                        "width": "30px",
+                        "defaultContent": '',
+                        "className": "dt-center"
+                    },
+                    {
+                        "data": "Item.ItemName",
+                        "title": "Item Name",
+                        "width": "200px",
+                        "className": "dt-left"
+                    },
+                    {
+                        "data": "Item.ItemId",
+                        "title": "Item Id",
+                        "width": "150px",
+                        "className": "dt-left"
+                    },
+                    {
+                        "data": "ItemPriceAmount",
+                        "title": "Item Price",
+                        "width": "90px",
+                        "className": "dt-center"
+                    },
+                    {
+                        "data": "QuantityOnHand",
+                        "title": "Quantity On-hand",
+                        "width": "150px",
+                        "defaultContent": '',
+                        "className": "dt-center"
+                    },
+                    {
+                        "data": "Quantity",
+                        "title": "Quantity",
+                        "width": "120px",
+                        "defaultContent": '',
+                        "className": "dt-center"
+                    },
+                    {
+                        "data": null,
+                        "title": "Total",
+                        "width": "110px",
+                        "defaultContent": '',
+                        "className": "dt-center"
+                    },
+                ],
+                "language": {
+                    "processing": "loading....",
+                    "emptyTable": "No data found"
+                },
+                createdRow: function (row) {
+                    var td = $(row).find("[class^=truncate]");
+                    if (td) {
+                        td.attr("title", td.html());
+                    }
+                },
+                "paging": true,
+                "autoWidth": true,
+            });
+
+        });
+
+    </script>
+}
