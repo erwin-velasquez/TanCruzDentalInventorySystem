@@ -75,16 +75,6 @@
         </div>
 
         <div class="row">
-            <div class="form-group col-md-4">
-                <div class="col-md-10">
-                    <a href="/" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItemDetailModal">
-                        Add Item
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
             <div class="form-group col-md-12">
                 <table id="purchaseOrderDetailTable" class="display hover"></table>
             </div>
@@ -133,8 +123,7 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            @*var json = JSON.parse('@Html.Raw(@Model.PurchaseOrder.SalesOrderDetailsJson)');*@
-            var json = [];
+            var json = JSON.parse('@Html.Raw(@Model.PurchaseOrderDetailsJson)');
 
             var table = $('#purchaseOrderDetailTable').DataTable({
                 "scrollX": true,
@@ -148,19 +137,19 @@
                         "className": "dt-center"
                     },
                     {
-                        "data": "Item\\.ItemName",
+                        "data": "Item.ItemName",
                         "title": "Item Name",
                         "width": "200px",
                         "className": "dt-left"
                     },
                     {
-                        "data": "Item\\.ItemId",
+                        "data": "Item.ItemId",
                         "title": "Item Id",
                         "width": "150px",
                         "className": "dt-left"
                     },
                     {
-                        "data": "Item\\.ItemPrice",
+                        "data": "Item.ItemPrice",
                         "title": "Item Price",
                         "width": "90px",
                         "className": "dt-center"
@@ -173,14 +162,14 @@
                         "className": "dt-center"
                     },
                     {
-                        "data": "Item\\.Quantity",
+                        "data": "Item.Quantity",
                         "title": "Quantity",
                         "width": "120px",
                         "defaultContent": '',
                         "className": "dt-center"
                     },
                     {
-                        "data": "Item\\.Total",
+                        "data": "Item.Total",
                         "title": "Total",
                         "width": "110px",
                         "defaultContent": '',
