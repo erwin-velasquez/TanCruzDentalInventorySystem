@@ -312,8 +312,8 @@
 
                 $.each(table.rows().data().toArray(), function (index, value) {
                         var k = {
-                        "SalesOrderDetailId": null,
-		                "SalesOrderId": null,
+                        "PurchaseOrderDetailId": null,
+		                "PurchaseOrderId": null,
 		                "Item": {
 			                    "ItemId": value["Item.ItemId"],
 			                    "ItemName": value["Item.ItemName"],
@@ -335,10 +335,10 @@
 		                    "ItemPriceAmount": parseFloat(value["Item.ItemPrice"]),
 		                    "Quantity": value["Item.Quantity"],
 		                    "QuantityOnHand": 8.0,
-		                    "SalesOrderDetailDiscount": 10.5,
-		                    "SalesOrderDetailDiscountAmount": 100.9,
-		                    "SalesOrderDetailTax": 200.0,
-		                    "SalesOrderDetailTotal": 500.0,
+		                    "PurchaseOrderDetailDiscount": 10.5,
+		                    "PurchaseOrderDetailDiscountAmount": 100.9,
+		                    "PurchaseOrderDetailTax": 200.0,
+		                    "PurchaseOrderDetailTotal": 500.0,
 		                    "Remarks": "First Sale",
                     };
                     itemList.push(k);
