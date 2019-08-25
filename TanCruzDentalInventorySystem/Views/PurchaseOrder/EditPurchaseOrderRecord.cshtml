@@ -198,7 +198,7 @@
                             <div class="form-group col-md-4">
                                 <span class="control-label col-md-2">Total</span>
                                 <div class="col-md-10">
-                                    <input type="text" id="txt-item-total" class="form-control" />
+                                    <input type="text" id="txt-item-total" class="form-control" readonly="readonly" />
                                 </div>
                             </div>
                         </div>
@@ -267,7 +267,7 @@
                         "className": "dt-center"
                     },
                     {
-                        "data": null,
+                        "data": "Total",
                         "title": "Total",
                         "width": "110px",
                         "defaultContent": '',
@@ -332,6 +332,14 @@
                         $("#addItemDetailModal").modal('hide');
                     }
                 });
+            });
+
+            $("#txt-item-price").bind('keyup mouseup', function () {
+                $("#txt-item-total").val($("#txt-item-price").val() * $("#txt-item-quantity").val());
+            });
+
+            $("#txt-item-quantity").bind('keyup mouseup', function () {
+                $("#txt-item-total").val($("#txt-item-price").val() * $("#txt-item-quantity").val());
             });
         });
     </script>
