@@ -77,6 +77,7 @@ namespace TanCruzDentalInventorySystem.Controllers
                 if (recordsSaved >= 1)
                 {
                     var purchaseOrder = await _purchaseOrderService.GetPurchaseOrder(purchaseOrderForm.PurchaseOrder.PurchaseOrderId);
+                    purchaseOrder.PurchaseOrderDetailsJson = JsonConvert.SerializeObject(purchaseOrderForm.PurchaseOrder.PurchaseOrderDetails);
                     return View("PurchaseOrderRecord", purchaseOrder);
                 }
                 ModelState.AddModelError(string.Empty, "There was a problem and the PurchaseOrder was not saved.");

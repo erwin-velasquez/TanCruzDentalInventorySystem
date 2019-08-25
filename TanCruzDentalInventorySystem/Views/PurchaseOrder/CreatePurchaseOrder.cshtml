@@ -234,39 +234,39 @@
                         "className": "dt-center"
                     },
                     {
-                        "data": "Item\\.ItemName",
+                        "data": "Item.ItemName",
                         "title": "Item Name",
                         "width": "200px",
                         "className": "dt-left"
                     },
                     {
-                        "data": "Item\\.ItemId",
+                        "data": "Item.ItemId",
                         "title": "Item Id",
                         "width": "150px",
                         "className": "dt-left"
                     },
                     {
-                        "data": "Item\\.ItemPrice",
+                        "data": "ItemPriceAmount",
                         "title": "Item Price",
                         "width": "90px",
                         "className": "dt-center"
                     },
                     {
-                        "data": null,
+                        "data": "QuantityOnHand",
                         "title": "Quantity On-hand",
                         "width": "150px",
                         "defaultContent": '',
                         "className": "dt-center"
                     },
                     {
-                        "data": "Item\\.Quantity",
+                        "data": "Quantity",
                         "title": "Quantity",
                         "width": "120px",
                         "defaultContent": '',
                         "className": "dt-center"
                     },
                     {
-                        "data": "Item\\.Total",
+                        "data": null,
                         "title": "Total",
                         "width": "110px",
                         "defaultContent": '',
@@ -299,51 +299,39 @@
 
 
             $('#saveChangesButton').on('click', function () {
-                console.log(JSON.stringify(table.rows().data().toArray()));
-                table.row.add({
-                    "Item.ItemName": $("#txt-item-name").val(),
-                    "Item.ItemId": $("#txt-item-id").val(),
-                    "Item.ItemPrice": $("#txt-item-price").val(),
-                    "Item.Quantity": $("#txt-item-quantity").val(),
-                    "Item.Total" : $("#txt-item-total").val(),
-                }).draw();
-
-                var itemList = [];
-
-                $.each(table.rows().data().toArray(), function (index, value) {
-                        var k = {
-                        "SalesOrderDetailId": null,
-		                "SalesOrderId": null,
-		                "Item": {
-			                    "ItemId": value["Item.ItemId"],
-			                    "ItemName": value["Item.ItemName"],
-			                    "ItemDescription": null,
-			                    "ItemGroup": null,
-			                    "Currency": null,
-			                    "UnitOfMeasure": null,
-			                    "BusinessPartner": null,
-			                    "PurchasingUnitOfMeasure": null,
-			                    "ItemsPerUnitOfMeasure": 5,
-			                    //"PurchasingRemarks": "testing edit",
-			                    "InventoryUnitOfMeasure": null,
-			                    //"MinimumInventoryRequired": 100,
-			                    "IsActive": false,
-			                    "UserId": null,
-			                    "ChangedDate": null,
-			                    "VersionTimeStamp": 0
+                var url = "/api/ItemApi/ItemRecord?itemId=" + $("#txt-item-id").val();
+                $.get(url, function (data) {
+                    if (data) {
+                        $("#txt-item-name").val(data.item.ItemName);
+                        $("#txt-item-id").val(data.item.ItemId);
+                        var Item = {
+                            "Item": {
+                                "ItemName": $("#txt-item-name").val(),
+                                "ItemId": $("#txt-item-id").val(),
                             },
-		                    "ItemPriceAmount": parseFloat(value["Item.ItemPrice"]),
-		                    "Quantity": value["Item.Quantity"],
-		                    "QuantityOnHand": 8.0,
-		                    "SalesOrderDetailDiscount": 10.5,
-		                    "SalesOrderDetailDiscountAmount": 100.9,
-		                    "SalesOrderDetailTax": 200.0,
-		                    "SalesOrderDetailTotal": 500.0,
-		                    "Remarks": "First Sale",
-                    };
-                    itemList.push(k);
+                            "ItemPriceAmount": $("#txt-item-price").val(),
+                            "Quantity": $("#txt-item-quantity").val(),
+                            "QuantityOnHand": 1000,
+                            "Total": $("#txt-item-total").val(),
+                        }
+                        table.row.add(Item).draw();
+                        var itemList = [];
+                        $.each(table.rows().data().toArray(), function (index, value) {
+                            var k = {
+                                "Item": {
+                                    "ItemId": value.Item.ItemId,
+                                    "ItemName": value.Item.ItemName
+                                },
+                                "ItemPriceAmount": parseFloat(value.ItemPriceAmount),
+                                "Quantity": value.Quantity,
+                                "QuantityOnHand": value.QuantityOnHand,
+                            };
+                            itemList.push(k);
+                        });
+                        $("#PurchaseOrderDetailsJson").val(JSON.stringify(itemList));
+                        $("#addItemDetailModal").modal('hide');
+                    }
                 });
-                $("#PurchaseOrderDetailsJson").val(JSON.stringify(itemList));
             });
         });
     </script>
