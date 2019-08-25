@@ -10,6 +10,9 @@ namespace TanCruzDentalInventorySystem.Repository.DataServiceInterface
 		Task<IEnumerable<PurchaseOrder>> GetPurchaseOrderList();
 		Task<PurchaseOrder> GetPurchaseOrder(string purchaseOrderId);
 		Task<int> SavePurchaseOrder(PurchaseOrder purchaseOrder);
-		Task<string> CreatePurchaseOrderAsync(string userId);
+		Task<string> CreatePurchaseOrder(string userId);
+		Task<int> SavePurchaseOrderDetail(PurchaseOrderDetail purchaseOrderDetail);
+		Task<string> CreatePurchaseOrderDetail(string userId);
+		Task<PurchaseOrderDetail> GetPurchaseOrderDetail(string purchaseOrderDetailId);
 	}
 }
