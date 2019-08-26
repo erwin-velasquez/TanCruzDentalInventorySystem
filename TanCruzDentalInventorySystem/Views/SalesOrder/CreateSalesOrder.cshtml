@@ -93,9 +93,9 @@
             Add Item
         </a>
 
-        <a href="/" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Launch demo modal
-        </a>
+        <button type="button" class="btn btn-primary" id="searchItemButton">
+            Insert Multiple Items
+        </button>
 
         <div class="row">
             <div class="form-group col-md-12">
@@ -161,25 +161,7 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @Html.Partial("~/Views/Item/ItemSearchModal.cshtml")
 
         <!-- Add Item Modal -->
         <div class="modal fade" id="addItemDetailModal" tabindex="-1" role="dialog" aria-labelledby="addItemDetailModalLabel" aria-hidden="true">
@@ -235,7 +217,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button id="saveChangesButton" type="button" class="btn btn-primary">Save changes</button>
+                        <button id="doneBtn" type="button" class="btn btn-primary">Done</button>
                     </div>
                 </div>
             </div>
@@ -249,161 +231,5 @@
 
 @section scripts{
 
-<script type="text/javascript">
-
-        $(document).ready(function () {
-
-            var json = JSON.parse('@Html.Raw(@Model.SalesOrder.SalesOrderDetailsJson)');
-
-
-            var table = $('#salesOrderDetailTable').DataTable({
-                "scrollX": true,
-                data: json,
-                "columns": [
-                    {
-                        "data": null,
-                        "title": "#",
-                        "width": "30px",
-                        "defaultContent" : '',
-                        "className": "dt-center"
-                    },
-                    {
-                        "data": "Item\\.ItemName",
-                        "title": "Item Name",
-                        "width" : "200px",
-                        "className": "dt-left"
-                    },
-                    {
-                        "data": "Item\\.ItemId",
-                        "title": "Item Id",
-                        "width" : "150px",
-                        "className": "dt-left"
-                    },
-                    {
-                        "data": "Item\\.ItemPrice",
-                        "title": "Item Price",
-                        "width" : "90px",
-                        "className": "dt-center"
-                    },
-                    {
-                        "data": null,
-                        "title": "Quantity On-hand",
-                        "width": "150px",
-                        "defaultContent" : '',
-                        "className": "dt-center"
-                    },
-                    {
-                        "data": "Item\\.Quantity",
-                        "title": "Quantity",
-                        "width": "120px",
-                        "defaultContent" : '',
-                        "className": "dt-center"
-                    },
-                    {
-                        "data": "Item\\.Total",
-                        "title": "Total",
-                        "width": "110px",
-                        "defaultContent" : '',
-                        "className": "dt-center"
-                    },
-                ],
-                "language": {
-                    "processing": "loading....",
-                    "emptyTable": "No data found"
-                },
-                createdRow: function (row) {
-                    var td = $(row).find("[class^=truncate]");
-                    if (td) {
-                        td.attr("title", td.html());
-                    }
-                },
-                "paging": true,
-                "autoWidth": true,
-                "bLengthChange": false,
-                "bPaginate": false,
-                buttons: [
-                    {
-                        text: 'Reload',
-                        action: function ( e, dt, node, config ) {
-                            dt.ajax.reload();
-                        }
-                    }
-                ]
-            });
-
-            $('#saveChangesButton').on('click', function () {
-                console.log(JSON.stringify(table.rows().data().toArray()));
-                table.row.add({
-                    "Item.ItemName": $("#txt-item-name").val(),
-                    "Item.ItemId": $("#txt-item-id").val(),
-                    "Item.ItemPrice": $("#txt-item-price").val(),
-                    "Item.Quantity": $("#txt-item-quantity").val(),
-                    "Item.Total" : $("#txt-item-total").val(),
-                }).draw();
-
-                var itemList = [];
-
-                $.each(table.rows().data().toArray(), function (index, value) {
-                    var mm = value;
-                        var k = {
-                        "SalesOrderDetailId": null,
-		                "SalesOrderId": null,
-		                "Item": {
-			                    "ItemId": value["Item.ItemId"],
-			                    "ItemName": value["Item.ItemName"],
-			                    "ItemDescription": null,
-			                    "ItemGroup": null,
-			                    //"ItemPrice": "300.5m",//parseFloat(value["Item.ItemPrice"]),
-                                //"ItemPrice": parseFloat(value["Item.ItemPrice"]),
-			                    //"ItemPriceAmount": parseFloat(value["Item.ItemPrice"]),
-			                    "Currency": null,
-			                    "UnitOfMeasure": null,
-			                    "BusinessPartner": null,
-			                    "PurchasingUnitOfMeasure": null,
-			                    "ItemsPerUnitOfMeasure": 5,
-			                    "PurchasingRemarks": "testing edit",
-			                    "InventoryUnitOfMeasure": null,
-			                    "MinimumInventoryRequired": 100,
-			                    "IsActive": false,
-			                    "UserId": null,
-			                    "ChangedDate": null,
-			                    "VersionTimeStamp": 0
-                            },
-                            //"ItemPrice": {
-			                    //"ItemPriceId": "IP00000007",
-			                    //"ItemPriceName": "ItemPriceTHREEName",
-			                    //"ItemPriceDescription": "ItemPriceTHREE Description",
-			                    //"Type": "AC",
-			                    //"PriceAmount": 250.0,
-			                    //"BaseCurrency": "3"
-		                    //},
-		                    "ItemPriceAmount": parseFloat(value["Item.ItemPrice"]),
-		                    "Quantity": value["Item.Quantity"],
-		                    "QuantityOnHand": 8.0,
-		                    "SalesOrderDetailDiscount": 10.5,
-		                    "SalesOrderDetailDiscountAmount": 100.9,
-		                    //"Tax": {
-			                    //"TaxId": "TI00000001",
-			                    //"TaxName": "TaxName_1",
-			                    //"TaxDescription": "TaxDesc_1",
-			                    //"TaxValue": 2400.0,
-			                    //"IsDefault": false,
-			                    //"TaxStatus": null,
-			                    //"UserId": null
-		                    //},
-		                    "SalesOrderDetailTax": 200.0,
-		                    "SalesOrderDetailTotal": 500.0,
-		                    "Remarks": "First Sale",
-		                    //"UserId": null,
-		                    //"ChangedDate": "2019-08-18T08:10:37.6084235",
-		                    //"VersionTimeStamp": 637017126376084235
-                    };
-                    itemList.push(k);
-                });
-                $("#SalesOrderDetailsJson").val(JSON.stringify(itemList));
-            });
-        });
-
-
-    </script>
+    @Scripts.Render("~/Scripts/Items/CreateSalesOrder.js");
 }
