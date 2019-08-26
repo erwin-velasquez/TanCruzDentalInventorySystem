@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface;
@@ -54,7 +55,7 @@ namespace TanCruzDentalInventorySystem.BusinessService
 
 		public async Task<PurchaseOrderFormViewModel> CreatePurchaseOrderForm(string userId)
 		{
-			string purchaseOrderId = await _purchaseOrderRepository.CreatePurchaseOrderAsync(userId);
+			string purchaseOrderId = await _purchaseOrderRepository.CreatePurchaseOrder(userId);
 
 			var purchaseOrderForm = new PurchaseOrderFormViewModel()
 			{
@@ -68,7 +69,38 @@ namespace TanCruzDentalInventorySystem.BusinessService
 		public async Task<int> SavePurchaseOrder(PurchaseOrderViewModel purchaseOrderViewModel)
 		{
 			var purchaseOrder = Mapper.Map<PurchaseOrder>(purchaseOrderViewModel);
-			return await _purchaseOrderRepository.SavePurchaseOrder(purchaseOrder);
+
+
+			_purchaseOrderRepository.UnitOfWork.Begin();
+			try
+			{
+				var rowsAffected = await _purchaseOrderRepository.SavePurchaseOrder(purchaseOrder);
+
+				if (rowsAffected > 0 && purchaseOrder.PurchaseOrderDetails != null)
+				{
+					foreach (var purchaseOrderDetail in purchaseOrder.PurchaseOrderDetails)
+					{
+						if (purchaseOrderDetail.PurchaseOrderDetailId == null)
+						{
+							// NEW PurchaseOrderDetail
+							purchaseOrderDetail.PurchaseOrderDetailId = await _purchaseOrderRepository.CreatePurchaseOrderDetail(purchaseOrderDetail.UserId);
+							var newPurchaseOrderDetail = await _purchaseOrderRepository.GetPurchaseOrderDetail(purchaseOrderDetail.PurchaseOrderDetailId);
+							purchaseOrderDetail.VersionTimeStamp = newPurchaseOrderDetail.VersionTimeStamp;
+						}
+
+						await _purchaseOrderRepository.SavePurchaseOrderDetail(purchaseOrderDetail);
+					}
+				}
+
+				_purchaseOrderRepository.UnitOfWork.Commit();
+
+				return rowsAffected;
+			}
+			catch (Exception ex)
+			{
+				_purchaseOrderRepository.UnitOfWork.Rollback();
+				throw ex;
+			}
 		}
 	}
 }

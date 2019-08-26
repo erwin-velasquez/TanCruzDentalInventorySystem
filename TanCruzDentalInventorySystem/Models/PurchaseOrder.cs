@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TanCruzDentalInventorySystem.Models
 {
@@ -21,5 +22,6 @@ namespace TanCruzDentalInventorySystem.Models
 		public string UserId { get; set; }
 		public DateTime? ChangedDate { get; set; }
 		public long VersionTimeStamp { get; set; }
+		public IEnumerable<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
 	}
 }

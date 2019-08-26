@@ -13,6 +13,7 @@
             <div class="form-group col-md-4">
                 @Html.LabelFor(model => model.PurchaseOrder.BusinessPartner.BusinessPartnerId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
+                    @Html.HiddenFor(model => model.PurchaseOrder.PurchaseOrderDetailsJson, new { id = "PurchaseOrderDetailsJson" })
                     @Html.DropDownListFor(m => m.PurchaseOrder.BusinessPartner.BusinessPartnerId, new SelectList(Model.BusinessPartners, "BusinessPartnerId", "BusinessPartnerName"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
                     @Html.ValidationMessageFor(model => model.PurchaseOrder.BusinessPartner.BusinessPartnerId, "", new { @class = "text-danger" })
                 </div>
@@ -160,7 +161,46 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <span class="control-label col-md-2">Item Id</span>
+                                <div class="col-md-10">
+                                    <input type="text" id="txt-item-id" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <span class="control-label col-md-2">Item Name</span>
+                                <div class="col-md-10">
+                                    <input type="text" id="txt-item-name" class="form-control" readonly="readonly" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <span class="control-label col-md-2">Quantity on Hand</span>
+                                <div class="col-md-10">
+                                    <input type="text" id="txt-quantity-hand" class="form-control" readonly="readonly" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <span class="control-label col-md-2">Item Price</span>
+                                <div class="col-md-10">
+                                    <input type="number" id="txt-item-price" class="form-control" min="0" value="0" step=".01" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <span class="control-label col-md-2">Quantity</span>
+                                <div class="col-md-10">
+                                    <input type="number" id="txt-item-quantity" class="form-control" min="0" value="0" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <span class="control-label col-md-2">Total</span>
+                                <div class="col-md-10">
+                                    <input type="text" id="txt-item-total" class="form-control" min="0" value="0" readonly="readonly" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -180,8 +220,7 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-                        @*var json = JSON.parse('@Html.Raw(@Model.PurchaseOrder.SalesOrderDetailsJson)');*@
-            var json = [];
+            var json = JSON.parse('@Html.Raw(@Model.PurchaseOrder.PurchaseOrderDetailsJson)');
 
             var table = $('#purchaseOrderDetailTable').DataTable({
                 "scrollX": true,
@@ -195,39 +234,39 @@
                         "className": "dt-center"
                     },
                     {
-                        "data": "Item\\.ItemName",
+                        "data": "Item.ItemName",
                         "title": "Item Name",
                         "width": "200px",
                         "className": "dt-left"
                     },
                     {
-                        "data": "Item\\.ItemId",
+                        "data": "Item.ItemId",
                         "title": "Item Id",
                         "width": "150px",
                         "className": "dt-left"
                     },
                     {
-                        "data": "Item\\.ItemPrice",
+                        "data": "ItemPriceAmount",
                         "title": "Item Price",
                         "width": "90px",
                         "className": "dt-center"
                     },
                     {
-                        "data": null,
+                        "data": "QuantityOnHand",
                         "title": "Quantity On-hand",
                         "width": "150px",
                         "defaultContent": '',
                         "className": "dt-center"
                     },
                     {
-                        "data": "Item\\.Quantity",
+                        "data": "Quantity",
                         "title": "Quantity",
                         "width": "120px",
                         "defaultContent": '',
                         "className": "dt-center"
                     },
                     {
-                        "data": "Item\\.Total",
+                        "data": "Total",
                         "title": "Total",
                         "width": "110px",
                         "defaultContent": '',
@@ -256,6 +295,51 @@
                         }
                     }
                 ]
+            });
+
+
+            $('#saveChangesButton').on('click', function () {
+                var url = "/api/ItemApi/ItemRecord?itemId=" + $("#txt-item-id").val();
+                $.get(url, function (data) {
+                    if (data) {
+                        $("#txt-item-name").val(data.item.ItemName);
+                        $("#txt-item-id").val(data.item.ItemId);
+                        var Item = {
+                            "Item": {
+                                "ItemName": $("#txt-item-name").val(),
+                                "ItemId": $("#txt-item-id").val(),
+                            },
+                            "ItemPriceAmount": $("#txt-item-price").val(),
+                            "Quantity": $("#txt-item-quantity").val(),
+                            "QuantityOnHand": 1000,
+                            "Total": $("#txt-item-total").val(),
+                        }
+                        table.row.add(Item).draw();
+                        var itemList = [];
+                        $.each(table.rows().data().toArray(), function (index, value) {
+                            var k = {
+                                "Item": {
+                                    "ItemId": value.Item.ItemId,
+                                    "ItemName": value.Item.ItemName
+                                },
+                                "ItemPriceAmount": parseFloat(value.ItemPriceAmount),
+                                "Quantity": value.Quantity,
+                                "QuantityOnHand": value.QuantityOnHand,
+                            };
+                            itemList.push(k);
+                        });
+                        $("#PurchaseOrderDetailsJson").val(JSON.stringify(itemList));
+                        $("#addItemDetailModal").modal('hide');
+                    }
+                });
+            });
+
+            $("#txt-item-price").bind('keyup mouseup', function () {
+                $("#txt-item-total").val($("#txt-item-price").val() * $("#txt-item-quantity").val());
+            });
+
+            $("#txt-item-quantity").bind('keyup mouseup', function () {
+                $("#txt-item-total").val($("#txt-item-price").val() * $("#txt-item-quantity").val());
             });
         });
     </script>
