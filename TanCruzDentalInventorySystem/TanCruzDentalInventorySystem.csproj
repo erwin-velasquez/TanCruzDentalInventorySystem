@@ -251,6 +251,7 @@
     <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\PurchaseOrder.cs" />
+    <Compile Include="Models\PurchaseOrderDetail.cs" />
     <Compile Include="Models\SalesOrderDetail.cs" />
     <Compile Include="Models\Tax.cs" />
     <Compile Include="Models\SalesOrder.cs" />
@@ -273,6 +274,7 @@
     <Compile Include="ViewModels\CurrencyViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModels.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="ViewModels\PurchaseOrderDetailViewModel.cs" />
     <Compile Include="ViewModels\TaxViewModel.cs" />
     <Compile Include="ViewModels\SalesOrderDetailViewModel.cs" />
     <Compile Include="ViewModels\SalesOrderViewModel.cs" />
