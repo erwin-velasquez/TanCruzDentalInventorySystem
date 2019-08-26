@@ -91,7 +91,7 @@
         <div class="row">
             <div class="form-group col-md-4">
                 <div class="col-md-10">
-                    <a href="/" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItemDetailModal">
+                    <a href="/" id="addItemButton" type="button" class="btn btn-primary">
                         Add Item
                     </a>
                 </div>
@@ -219,6 +219,8 @@
 @section Scripts {
     <script type="text/javascript">
 
+        var selectedRow;
+
         $(document).ready(function () {
             var json = JSON.parse('@Html.Raw(@Model.PurchaseOrder.PurchaseOrderDetailsJson)');
 
@@ -226,6 +228,12 @@
                 "scrollX": true,
                 data: json,
                 "columns": [
+                         {
+                            "data": null,
+                            "className": "center",
+                            "defaultContent" : '<a href="" class="editor_edit">Edit</a> <a href="" class="editor_remove">Delete</a>',
+                            "width": "70px",
+                        },
                     {
                         "data": null,
                         "title": "#",
@@ -234,15 +242,15 @@
                         "className": "dt-center"
                     },
                     {
-                        "data": "Item.ItemName",
-                        "title": "Item Name",
-                        "width": "200px",
+                        "data": "Item.ItemId",
+                        "title": "Item Id",
+                        "width": "80px",
                         "className": "dt-left"
                     },
                     {
-                        "data": "Item.ItemId",
-                        "title": "Item Id",
-                        "width": "150px",
+                        "data": "Item.ItemName",
+                        "title": "Item Name",
+                        "width": "200px",
                         "className": "dt-left"
                     },
                     {
@@ -261,14 +269,14 @@
                     {
                         "data": "Quantity",
                         "title": "Quantity",
-                        "width": "120px",
+                        "width": "100px",
                         "defaultContent": '',
                         "className": "dt-center"
                     },
                     {
                         "data": "Total",
                         "title": "Total",
-                        "width": "110px",
+                        "width": "100px",
                         "defaultContent": '',
                         "className": "dt-center"
                     },
@@ -297,10 +305,21 @@
                 ]
             });
 
+            $("#addItemButton").on('click', function (e) {
+                selectedRow = null;
+                $("#txt-item-name").val(null);
+                $("#txt-item-id").val(null);
+                $("#txt-item-price").val(0);
+                $("#txt-item-quantity").val(0);
+                $("#txt-quantity-hand").val(null);
+                 $("#txt-item-total").val(0);
+                e.preventDefault();
+                $("#addItemDetailModal").modal('show');
+            });
 
             $('#saveChangesButton').on('click', function () {
                 var url = "/api/ItemApi/ItemRecord?itemId=" + $("#txt-item-id").val();
-                $.get(url, function (data) {
+                $.get(url, function (data,res) {
                     if (data) {
                         $("#txt-item-name").val(data.item.ItemName);
                         $("#txt-item-id").val(data.item.ItemId);
@@ -314,7 +333,15 @@
                             "QuantityOnHand": 1000,
                             "Total": $("#txt-item-total").val(),
                         }
-                        table.row.add(Item).draw();
+
+                        if (selectedRow != null) {
+                            $('#purchaseOrderDetailTable').dataTable().fnUpdate(Item, selectedRow, undefined, false)
+                        }
+                        else {
+                            console.log("Added");
+                            table.row.add(Item).draw();
+                        }
+
                         var itemList = [];
                         $.each(table.rows().data().toArray(), function (index, value) {
                             var k = {
@@ -341,6 +368,40 @@
             $("#txt-item-quantity").bind('keyup mouseup', function () {
                 $("#txt-item-total").val($("#txt-item-price").val() * $("#txt-item-quantity").val());
             });
+
+            $('#purchaseOrderDetailTable').on('click', 'a.editor_edit', function (e) {
+                e.preventDefault();
+                selectedRow = table.row($(this).parents('tr')).index();
+                var row = table.row($(this).parents('tr')).data();
+                $("#txt-item-name").val(row.Item.ItemName);
+                $("#txt-item-id").val(row.Item.ItemId);
+                $("#txt-item-price").val(row.ItemPriceAmount);
+                $("#txt-item-quantity").val(row.Quantity);
+                $("#txt-quantity-hand").val(row.QuantityOnHand);
+                $("#txt-item-total").val(row.Total);
+                $("#addItemDetailModal").modal('show');
+            });
+
+            $('#purchaseOrderDetailTable').on('click', 'a.editor_remove', function (e) {
+                e.preventDefault();
+                var ItemList = $('#purchaseOrderDetailTable').DataTable();
+                ItemList.row(jQuery(this).parents('tr')).remove().draw(false);
+                var itemList = [];
+                $.each(table.rows().data().toArray(), function (index, value) {
+                    var k = {
+                        "Item": {
+                            "ItemId": value.Item.ItemId,
+                            "ItemName": value.Item.ItemName
+                        },
+                        "ItemPriceAmount": parseFloat(value.ItemPriceAmount),
+                        "Quantity": value.Quantity,
+                        "QuantityOnHand": value.QuantityOnHand,
+                    };
+                    itemList.push(k);
+                });
+                $("#PurchaseOrderDetailsJson").val(JSON.stringify(itemList));
+            });
+
         });
     </script>
 }
