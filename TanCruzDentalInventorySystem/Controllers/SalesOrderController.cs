@@ -19,11 +19,13 @@ namespace TanCruzDentalInventorySystem.Controllers
 			_salesOrderService = salesOrderService;
 		}
 
+		[HttpGet]
 		public ActionResult Index()
 		{
 			return View();
 		}
 
+		[HttpGet]
 		public async Task<ActionResult> SalesOrderRecord(string salesOrderId)
 		{
 			var salesOrder = await _salesOrderService.GetSalesOrder(salesOrderId);
@@ -59,6 +61,7 @@ namespace TanCruzDentalInventorySystem.Controllers
 			return View(salesOrderForm);
 		}
 
+		[HttpGet]
 		[Authorize(Roles = "Editor")]
 		public async Task<ActionResult> EditSalesOrderRecord(string salesOrderId)
 		{
@@ -77,6 +80,7 @@ namespace TanCruzDentalInventorySystem.Controllers
 			return View(salesOrderForm);
 		}
 
+		[HttpGet]
 		public async Task<ActionResult> GetSalesOrderList()
 		{
 			var salesOrders = await _salesOrderService.GetSalesOrderList();

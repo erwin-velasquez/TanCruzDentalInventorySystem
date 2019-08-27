@@ -16,6 +16,7 @@ namespace TanCruzDentalInventorySystem.Controllers
 			_itemService = itemService;
 		}
 
+		[HttpGet]
 		public async Task<ActionResult> Index()
 		{
 			var items = await _itemService.GetItemList();
@@ -23,6 +24,7 @@ namespace TanCruzDentalInventorySystem.Controllers
 			return View(items);
 		}
 
+		[HttpGet]
 		public async Task<ActionResult> ItemRecord(string itemId)
 		{
 			var item = await _itemService.GetItem(itemId);
@@ -38,6 +40,7 @@ namespace TanCruzDentalInventorySystem.Controllers
 			return View(itemForm);
 		}
 
+		[HttpGet]
 		[Authorize(Roles = "Editor")]
 		public async Task<ActionResult> EditItemRecord(string itemId)
 		{

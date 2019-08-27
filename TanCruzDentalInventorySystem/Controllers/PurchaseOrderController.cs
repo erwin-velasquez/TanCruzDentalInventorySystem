@@ -19,12 +19,14 @@ namespace TanCruzDentalInventorySystem.Controllers
             _purchaseOrderService = purchaseService;
         }
 
-        public ActionResult Index()
+		[HttpGet]
+		public ActionResult Index()
         {
             return View();
         }
 
-        public async Task<ActionResult> PurchaseOrderRecord(string purchaseOrderId)
+		[HttpGet]
+		public async Task<ActionResult> PurchaseOrderRecord(string purchaseOrderId)
         {
             var purchaseOrder = await _purchaseOrderService.GetPurchaseOrder(purchaseOrderId);
 
@@ -41,8 +43,8 @@ namespace TanCruzDentalInventorySystem.Controllers
 			return View(purchaseOrder);
         }
 
-        [Authorize(Roles = "Editor")]
-        public async Task<ActionResult> CreatePurchaseOrder()
+		[Authorize(Roles = "Editor")]
+		public async Task<ActionResult> CreatePurchaseOrder()
         {
             var purchaseOrderForm = await _purchaseOrderService.CreatePurchaseOrderForm(User.Identity.GetUserId());
 
@@ -59,7 +61,8 @@ namespace TanCruzDentalInventorySystem.Controllers
 			return View(purchaseOrderForm);
         }
 
-        [Authorize(Roles = "Editor")]
+		[HttpGet]
+		[Authorize(Roles = "Editor")]
         public async Task<ActionResult> EditPurchaseOrderRecord(string purchaseOrderId)
         {
             var purchaseOrderForm = await _purchaseOrderService.GetPurchaseOrderForm(purchaseOrderId);
@@ -77,7 +80,8 @@ namespace TanCruzDentalInventorySystem.Controllers
 			return View(purchaseOrderForm);
         }
 
-        public async Task<ActionResult> GetPurchaseOrderList()
+		[HttpGet]
+		public async Task<ActionResult> GetPurchaseOrderList()
         {
             var purchaseOrders = await _purchaseOrderService.GetPurchaseOrderList();
 
