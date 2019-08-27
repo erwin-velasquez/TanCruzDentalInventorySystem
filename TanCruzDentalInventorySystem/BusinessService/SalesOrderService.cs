@@ -62,11 +62,22 @@ namespace TanCruzDentalInventorySystem.BusinessService
 				SalesOrder = Mapper.Map<SalesOrderViewModel>(await _salesOrderRepository.GetSalesOrder(salesOrderId)),
 				Currencies = Mapper.Map<IEnumerable<CurrencyViewModel>>(await _currencyRepository.GetCurrencyList()),
 				BusinessPartners = Mapper.Map<IEnumerable<BusinessPartnerViewModel>>(await _businessPartnerRepository.GetBusinessPartnerList())
-			};
+            };
+
+            salesOrderForm.SalesOrder.SalesOrderStatus = "Open";
+
 			return salesOrderForm;
 		}
 
-		public async Task<int> SaveSalesOrder(SalesOrderViewModel salesOrderViewModel)
+        public async Task<SalesOrderFormViewModel> UpdateSalesOrderForm(SalesOrderFormViewModel salesOrderFormViewModel)
+        {
+            salesOrderFormViewModel.Currencies = Mapper.Map<IEnumerable<CurrencyViewModel>>(await _currencyRepository.GetCurrencyList());
+            salesOrderFormViewModel.BusinessPartners = Mapper.Map<IEnumerable<BusinessPartnerViewModel>>(await _businessPartnerRepository.GetBusinessPartnerList());
+
+            return salesOrderFormViewModel;
+        }
+
+        public async Task<int> SaveSalesOrder(SalesOrderViewModel salesOrderViewModel)
 		{
 			var salesOrder = Mapper.Map<SalesOrder>(salesOrderViewModel);
 

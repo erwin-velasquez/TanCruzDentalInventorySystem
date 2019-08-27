@@ -17,7 +17,7 @@ namespace TanCruzDentalInventorySystem.ViewModels
 		[Display(Name = "Currency")]
 		public CurrencyViewModel Currency { get; set; }
 		[Required]
-		[Display(Name = "Sales Order Status")]
+		[Display(Name = "Status")]
 		public string SalesOrderStatus { get; set; }
 		[Display(Name = "Delivery Date")]
 		public DateTime? DeliveryDate { get; set; }
@@ -29,13 +29,13 @@ namespace TanCruzDentalInventorySystem.ViewModels
 		public string Remarks { get; set; }
 		[Display(Name = "Reference Document Number")]
 		public string RefDocNumber { get; set; }
-		[Display(Name = "Sales Order Discount")]
+		[Display(Name = "Discount")]
 		public decimal SalesOrderDiscount { get; set; }
-		[Display(Name = "Sales Order Discount Amount")]
+		[Display(Name = "Discount Amount")]
 		public decimal SalesOrderDiscountAmount { get; set; }
-		[Display(Name = "Sales Order Tax")]
+		[Display(Name = "Tax")]
 		public decimal SalesOrderTax { get; set; }
-		[Display(Name = "Sales Order Total")]
+		[Display(Name = "Total")]
 		public decimal SalesOrderTotal { get; set; }
 		public string UserId { get; set; }
 		public DateTime? ChangedDate { get; set; }

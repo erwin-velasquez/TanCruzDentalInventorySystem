@@ -49,7 +49,6 @@ namespace TanCruzDentalInventorySystem.Controllers
 			var salesOrderForm = await _salesOrderService.CreateSalesOrderForm(User.Identity.GetUserId());
 
             salesOrderForm.SalesOrder.SalesOrderDetails.Add(new SalesOrderDetailViewModel());
-            
 
             // ======================================================================
             // ----------------------------------------------------------------------
@@ -95,15 +94,21 @@ namespace TanCruzDentalInventorySystem.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> SaveSalesOrderRecord(SalesOrderFormViewModel salesOrderForm)
 		{
-			if (ModelState.IsValid)
+            //-------------------------Validation Section-----------------------------------------------//
+            if (salesOrderForm.SalesOrder.SalesOrderDetails == null)
+            {
+                ModelState.AddModelError(string.Empty, "No items were selected.");
+            }
+
+            if (salesOrderForm.SalesOrder.BusinessPartner.BusinessPartnerId == "" ||
+                salesOrderForm.SalesOrder.BusinessPartner.BusinessPartnerId == null)
+            {
+                ModelState.AddModelError(string.Empty, "No Business Partner selected.");
+            }
+            //------------------------------------------------------------------------------------------//
+
+            if (ModelState.IsValid)
 			{
-				// =======================================================================================
-				// ---------------------------------------------------------------------------------------
-				// Remove these lines of codes from here
-				// Implement the persistence of data in the object model from the UI (as Miko explained)
-				// ---------------------------------------------------------------------------------------
-				salesOrderForm.SalesOrder.SalesOrderDetails = JsonConvert.DeserializeObject<List<SalesOrderDetailViewModel>>(salesOrderForm.SalesOrder.SalesOrderDetailsJson);
-				// =======================================================================================
 
 				salesOrderForm.SalesOrder.UserId = User.Identity.GetUserId();
 				salesOrderForm.SalesOrder.SalesOrderDetails?.Select
@@ -124,10 +129,10 @@ namespace TanCruzDentalInventorySystem.Controllers
 				ModelState.AddModelError(string.Empty, "There was a problem and the SalesOrder was not saved.");
 			}
 
-			salesOrderForm = await _salesOrderService.GetSalesOrderForm(salesOrderForm.SalesOrder.SalesOrderId);
+            salesOrderForm = await _salesOrderService.UpdateSalesOrderForm(salesOrderForm);
 
-			return View("EditSalesOrderRecord", salesOrderForm);
-		}
+            return View("CreateSalesOrder", salesOrderForm);
+        }
 
 	}
 }
