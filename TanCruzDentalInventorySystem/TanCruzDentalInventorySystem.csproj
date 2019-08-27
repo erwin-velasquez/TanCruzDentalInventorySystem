@@ -241,6 +241,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ItemApiController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Controllers\PurchaseOrderApiController.cs" />
+    <Compile Include="Controllers\SalesOrderApiController.cs" />
     <Compile Include="Controllers\SalesOrderController.cs" />
     <Compile Include="Controllers\PurchaseOrderController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />

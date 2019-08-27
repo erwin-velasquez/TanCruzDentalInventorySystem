@@ -27,15 +27,35 @@ namespace TanCruzDentalInventorySystem.Controllers
 		public async Task<ActionResult> SalesOrderRecord(string salesOrderId)
 		{
 			var salesOrder = await _salesOrderService.GetSalesOrder(salesOrderId);
-            salesOrder.SalesOrderDetailsJson = JsonConvert.SerializeObject(salesOrder.SalesOrderDetails);
-            return View(salesOrder);
+
+
+			// ==============================================================================
+			// ------------------------------------------------------------------------------
+			// Remove these lines of codes from here
+			// Use the SalesOrderRecord action exposed from SalesOrderApiController instead
+			// ------------------------------------------------------------------------------
+			salesOrder.SalesOrderDetailsJson = JsonConvert.SerializeObject(salesOrder.SalesOrderDetails);
+			// ==============================================================================
+
+
+			return View(salesOrder);
 		}
 
 		[Authorize(Roles = "Editor")]
 		public async Task<ActionResult> CreateSalesOrder()
 		{
 			var salesOrderForm = await _salesOrderService.CreateSalesOrderForm(User.Identity.GetUserId());
+
+
+			// ======================================================================
+			// ----------------------------------------------------------------------
+			// Remove these lines of codes from here
+			// SalesOrderDetails is not expected to have anything at this point yet
+			// ----------------------------------------------------------------------
 			salesOrderForm.SalesOrder.SalesOrderDetailsJson = JsonConvert.SerializeObject(salesOrderForm.SalesOrder.SalesOrderDetails);
+			// ======================================================================
+
+
 			return View(salesOrderForm);
 		}
 
@@ -43,7 +63,17 @@ namespace TanCruzDentalInventorySystem.Controllers
 		public async Task<ActionResult> EditSalesOrderRecord(string salesOrderId)
 		{
 			var salesOrderForm = await _salesOrderService.GetSalesOrderForm(salesOrderId);
+
+
+			// =================================================================================================================
+			// -----------------------------------------------------------------------------------------------------------------
+			// Remove these lines of codes from here
+			// If you need just Json objects, use the EditSalesOrderRecord action exposed from SalesOrderApiController instead
+			// -----------------------------------------------------------------------------------------------------------------
 			salesOrderForm.SalesOrder.SalesOrderDetailsJson = JsonConvert.SerializeObject(salesOrderForm.SalesOrder.SalesOrderDetails);
+			// =================================================================================================================
+
+
 			return View(salesOrderForm);
 		}
 
@@ -61,14 +91,15 @@ namespace TanCruzDentalInventorySystem.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				// TODO: James, include the ChangeDate property value of each so detail when submitting if available.
-
-				//// test
-				//salesOrderForm = await _salesOrderService.GetSalesOrderForm("SO00000001");
-				////
-
-
+				// =======================================================================================
+				// ---------------------------------------------------------------------------------------
+				// Remove these lines of codes from here
+				// Implement the persistence of data in the object model from the UI (as Miko explained)
+				// ---------------------------------------------------------------------------------------
 				salesOrderForm.SalesOrder.SalesOrderDetails = JsonConvert.DeserializeObject<List<SalesOrderDetailViewModel>>(salesOrderForm.SalesOrder.SalesOrderDetailsJson);
+				// =======================================================================================
+
+
 				salesOrderForm.SalesOrder.UserId = User.Identity.GetUserId();
 				salesOrderForm.SalesOrder.SalesOrderDetails?.Select
 					(detail =>
@@ -77,11 +108,6 @@ namespace TanCruzDentalInventorySystem.Controllers
 						detail.SalesOrderId = salesOrderForm.SalesOrder.SalesOrderId;
 						return detail;
 					}).ToList();
-
-				//// test sample
-				//var salesOrder = await _salesOrderService.GetSalesOrder(salesOrderForm.SalesOrder.SalesOrderId);
-				//var recordsSaved = await _salesOrderService.SaveSalesOrder(salesOrderForm.SalesOrder);
-				////
 
 				var recordsSaved = await _salesOrderService.SaveSalesOrder(salesOrderForm.SalesOrder);
 
@@ -95,7 +121,6 @@ namespace TanCruzDentalInventorySystem.Controllers
 
 			salesOrderForm = await _salesOrderService.GetSalesOrderForm(salesOrderForm.SalesOrder.SalesOrderId);
 
-			// TODO: James to create the SalesOrder input view
 			return View("EditSalesOrderRecord", salesOrderForm);
 		}
 

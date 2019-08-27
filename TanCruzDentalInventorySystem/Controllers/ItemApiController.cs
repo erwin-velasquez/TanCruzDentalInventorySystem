@@ -26,7 +26,7 @@ namespace TanCruzDentalInventorySystem.Controllers
 		}
 
 		[HttpGet]
-		// GET api/ItemApi/ItemRecord?itemId=1
+		// GET api/ItemApi/ItemRecord?itemId=IT00000001
 		public async Task<IHttpActionResult> ItemRecord(string itemId)
 		{
 			var item = await _itemService.GetItem(itemId);

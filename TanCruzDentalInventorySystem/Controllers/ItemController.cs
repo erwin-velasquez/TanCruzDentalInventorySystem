@@ -68,7 +68,15 @@ namespace TanCruzDentalInventorySystem.Controllers
 			return View("EditItemRecord", itemForm);
 		}
 
-        [HttpGet]
+
+
+
+		// ================================================================================
+		// --------------------------------------------------------------------------------
+		// Remove these lines of codes from here
+		// Use the GetItems and ItemRecord actions exposed from ItemApiController instead
+		// --------------------------------------------------------------------------------
+		[HttpGet]
         [Authorize]
         public async Task<JsonResult> GetItemList()
         {
@@ -85,5 +93,6 @@ namespace TanCruzDentalInventorySystem.Controllers
 
             return Json(itemList, JsonRequestBehavior.AllowGet);
         }
-    }
+		// ================================================================================
+	}
 }

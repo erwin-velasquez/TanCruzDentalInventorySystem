@@ -27,26 +27,54 @@ namespace TanCruzDentalInventorySystem.Controllers
         public async Task<ActionResult> PurchaseOrderRecord(string purchaseOrderId)
         {
             var purchaseOrder = await _purchaseOrderService.GetPurchaseOrder(purchaseOrderId);
-            purchaseOrder.PurchaseOrderDetailsJson = JsonConvert.SerializeObject(purchaseOrder.PurchaseOrderDetails);
 
-            return View(purchaseOrder);
+
+			// ====================================================================================
+			// ------------------------------------------------------------------------------------
+			// Remove these lines of codes from here
+			// Use the PurchaseOrderRecord action exposed from PurchaseOrderApiController instead
+			// ------------------------------------------------------------------------------------
+			purchaseOrder.PurchaseOrderDetailsJson = JsonConvert.SerializeObject(purchaseOrder.PurchaseOrderDetails);
+			// ====================================================================================
+
+
+			return View(purchaseOrder);
         }
 
         [Authorize(Roles = "Editor")]
         public async Task<ActionResult> CreatePurchaseOrder()
         {
             var purchaseOrderForm = await _purchaseOrderService.CreatePurchaseOrderForm(User.Identity.GetUserId());
-			purchaseOrderForm.PurchaseOrder.PurchaseOrderDetailsJson = JsonConvert.SerializeObject(purchaseOrderForm.PurchaseOrder.PurchaseOrderDetails);
 
-            return View(purchaseOrderForm);
+
+			// =========================================================================
+			// -------------------------------------------------------------------------
+			// Remove these lines of codes from here
+			// PurchaseOrderDetails is not expected to have anything at this point yet
+			// -------------------------------------------------------------------------
+			purchaseOrderForm.PurchaseOrder.PurchaseOrderDetailsJson = JsonConvert.SerializeObject(purchaseOrderForm.PurchaseOrder.PurchaseOrderDetails);
+			// =========================================================================
+
+
+			return View(purchaseOrderForm);
         }
 
         [Authorize(Roles = "Editor")]
         public async Task<ActionResult> EditPurchaseOrderRecord(string purchaseOrderId)
         {
             var purchaseOrderForm = await _purchaseOrderService.GetPurchaseOrderForm(purchaseOrderId);
+
+
+			// =======================================================================================================================
+			// -----------------------------------------------------------------------------------------------------------------------
+			// Remove these lines of codes from here
+			// If you need just Json objects, use the EditPurchaseOrderRecord action exposed from PurchaseOrderApiController instead
+			// -----------------------------------------------------------------------------------------------------------------------
 			purchaseOrderForm.PurchaseOrder.PurchaseOrderDetailsJson = JsonConvert.SerializeObject(purchaseOrderForm.PurchaseOrder.PurchaseOrderDetails);
-            return View(purchaseOrderForm);
+			// =======================================================================================================================
+
+
+			return View(purchaseOrderForm);
         }
 
         public async Task<ActionResult> GetPurchaseOrderList()
@@ -63,8 +91,16 @@ namespace TanCruzDentalInventorySystem.Controllers
         {
             if (ModelState.IsValid)
             {
+				// =======================================================================================
+				// ---------------------------------------------------------------------------------------
+				// Remove these lines of codes from here
+				// Implement the persistence of data in the object model from the UI (as Miko explained)
+				// ---------------------------------------------------------------------------------------
 				purchaseOrderForm.PurchaseOrder.PurchaseOrderDetails = JsonConvert.DeserializeObject<List<PurchaseOrderDetailViewModel>>(purchaseOrderForm.PurchaseOrder.PurchaseOrderDetailsJson);
-                purchaseOrderForm.PurchaseOrder.UserId = User.Identity.GetUserId();
+				// =======================================================================================
+
+
+				purchaseOrderForm.PurchaseOrder.UserId = User.Identity.GetUserId();
 				purchaseOrderForm.PurchaseOrder.PurchaseOrderDetails?.Select
 					(detail =>
 					{
@@ -72,20 +108,31 @@ namespace TanCruzDentalInventorySystem.Controllers
 						detail.PurchaseOrderId = purchaseOrderForm.PurchaseOrder.PurchaseOrderId;
 						return detail;
 					}).ToList();
+
                 var recordsSaved = await _purchaseOrderService.SavePurchaseOrder(purchaseOrderForm.PurchaseOrder);
 
                 if (recordsSaved >= 1)
                 {
                     var purchaseOrder = await _purchaseOrderService.GetPurchaseOrder(purchaseOrderForm.PurchaseOrder.PurchaseOrderId);
-                    purchaseOrder.PurchaseOrderDetailsJson = JsonConvert.SerializeObject(purchaseOrderForm.PurchaseOrder.PurchaseOrderDetails);
-                    return View("PurchaseOrderRecord", purchaseOrder);
+
+
+					// ====================================================================================
+					// ------------------------------------------------------------------------------------
+					// Remove these lines of codes from here
+					// 
+					// ------------------------------------------------------------------------------------
+					purchaseOrder.PurchaseOrderDetailsJson = JsonConvert.SerializeObject(purchaseOrderForm.PurchaseOrder.PurchaseOrderDetails);
+					// ====================================================================================
+
+
+
+					return View("PurchaseOrderRecord", purchaseOrder);
                 }
                 ModelState.AddModelError(string.Empty, "There was a problem and the PurchaseOrder was not saved.");
             }
 
             purchaseOrderForm = await _purchaseOrderService.GetPurchaseOrderForm(purchaseOrderForm.PurchaseOrder.PurchaseOrderId);
 
-            // TODO: James to create the PurchaseOrder input view
             return View("EditPurchaseOrderRecord", purchaseOrderForm);
         }
 
