@@ -1,0 +1,48 @@
+﻿@model IEnumerable<TanCruzDentalInventorySystem.ViewModels.BusinessPartnerViewModel>
+
+<!-- Modal -->
+<div class="modal fade" id="BusinessPartnerSearchModal" tabindex="-1" role="dialog" aria-labelledby="BusinessPartnerSearchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="BusinessPartnerSearchModalLabel">Select Business Partner</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <table id="BusinessPartnerSearchTable" class="display hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>First Name</th>
+                                    <th>Middle Name</th>
+                                    <th>Last Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>@item.BusinessPartnerName</td>
+                                    <td>@item.BusinessPartnerType</td>
+                                    <td>@item.BusinessPartnerFirstName</td>
+                                    <td>@item.BusinessPartnerMiddleName</td>
+                                    <td>@item.BusinessPartnerLastName</td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="BusinessPartnerSearchModalDoneButton" type="button" class="btn btn-primary">Done</button>
+            </div>
+        </div>
+    </div>
+</div>

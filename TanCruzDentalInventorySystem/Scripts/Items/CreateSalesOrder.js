@@ -2,8 +2,6 @@
 
 $(document).ready(function () {
 
-    
-
     var table = $('#salesOrderDetailTable').DataTable({
         "scrollX": true,
         data: {},
@@ -54,7 +52,7 @@ $(document).ready(function () {
                 "width": "110px",
                 "defaultContent": '',
                 "className": "dt-center"
-            },
+            }
         ],
         "language": {
             "processing": "loading....",
@@ -179,6 +177,15 @@ $(document).ready(function () {
             }
         ]
     });
+
+    var table2 = $('#BusinessPartnerSearchTable').DataTable({
+        "searching": false,
+        "language": {
+            "processing": "loading....",
+            "emptyTable": "No data found"
+        },
+        "bLengthChange": false
+    });
     
     $('#saveChangesButton').on('click', function () {
         console.log(JSON.stringify(table.rows().data().toArray()));
@@ -283,5 +290,14 @@ $(document).ready(function () {
         });
 
         $('#ItemSearchModal').modal("hide");
+    });
+
+    $('#SalesOrder_BusinessPartner_BusinessPartnerId').on('click', function () {
+        $('#BusinessPartnerSearchModal').modal("show");
+    });
+
+    $('#BusinessPartnerSearchModalDoneButton').on('click', function () {
+
+        $('#BusinessPartnerSearchModal').modal("hide");
     });
 });

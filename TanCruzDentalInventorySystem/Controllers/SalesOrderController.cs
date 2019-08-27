@@ -49,13 +49,14 @@ namespace TanCruzDentalInventorySystem.Controllers
 			var salesOrderForm = await _salesOrderService.CreateSalesOrderForm(User.Identity.GetUserId());
 
             salesOrderForm.SalesOrder.SalesOrderDetails.Add(new SalesOrderDetailViewModel());
+            
 
-			// ======================================================================
-			// ----------------------------------------------------------------------
-			// Remove these lines of codes from here
-			// SalesOrderDetails is not expected to have anything at this point yet
-			// ----------------------------------------------------------------------
-			salesOrderForm.SalesOrder.SalesOrderDetailsJson = JsonConvert.SerializeObject(salesOrderForm.SalesOrder.SalesOrderDetails);
+            // ======================================================================
+            // ----------------------------------------------------------------------
+            // Remove these lines of codes from here
+            // SalesOrderDetails is not expected to have anything at this point yet
+            // ----------------------------------------------------------------------
+            salesOrderForm.SalesOrder.SalesOrderDetailsJson = JsonConvert.SerializeObject(salesOrderForm.SalesOrder.SalesOrderDetails);
 			// ======================================================================
 
 
@@ -103,7 +104,6 @@ namespace TanCruzDentalInventorySystem.Controllers
 				// ---------------------------------------------------------------------------------------
 				salesOrderForm.SalesOrder.SalesOrderDetails = JsonConvert.DeserializeObject<List<SalesOrderDetailViewModel>>(salesOrderForm.SalesOrder.SalesOrderDetailsJson);
 				// =======================================================================================
-
 
 				salesOrderForm.SalesOrder.UserId = User.Identity.GetUserId();
 				salesOrderForm.SalesOrder.SalesOrderDetails?.Select

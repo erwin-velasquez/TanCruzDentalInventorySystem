@@ -14,7 +14,7 @@
                 @Html.LabelFor(model => model.SalesOrder.BusinessPartner.BusinessPartnerId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.HiddenFor(model => model.SalesOrder.SalesOrderDetailsJson, new { id = "SalesOrderDetailsJson" })
-                    @Html.DropDownListFor(m => m.SalesOrder.BusinessPartner.BusinessPartnerId, new SelectList(Model.BusinessPartners, "BusinessPartnerId", "BusinessPartnerName"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
+                    @Html.EditorFor(m => m.SalesOrder.BusinessPartner.BusinessPartnerId, new { @class = "form-control", required = "" })
                     @Html.ValidationMessageFor(model => model.SalesOrder.BusinessPartner.BusinessPartnerId, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -164,6 +164,7 @@
 
         <!-- Modal -->
         @Html.Partial("~/Views/Item/ItemSearchModal.cshtml")
+        @Html.Partial("~/Views/Shared/BusinessPartnerSearchModal.cshtml", Model.BusinessPartners)
 
         <!-- Add Item Modal -->
         <div class="modal fade" id="addItemDetailModal" tabindex="-1" role="dialog" aria-labelledby="addItemDetailModalLabel" aria-hidden="true">
