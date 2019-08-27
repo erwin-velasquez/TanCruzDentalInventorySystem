@@ -34,7 +34,9 @@ namespace TanCruzDentalInventorySystem
                       "~/Scripts/datetime.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                      //"~/Content/fontawesome/css/all.css",
                       "~/Content/bootstrap.css",
+                      "~/Content/jquery-bootstrap-datepicker.css",
                       "~/Content/css/jquery.dataTables.css",
                       "~/Scripts/DataTables/Buttons-1.5.6/css/buttons.bootstrap4.min.css",
                       "~/Scripts/DataTables/Select-1.3.0/css/select.bootstrap.min.css",

@@ -27,7 +27,7 @@
                                 @foreach (var item in Model)
                                 {
                                 <tr>
-                                    <td>@item.BusinessPartnerName</td>
+                                    <td><input type="hidden" value="@item.BusinessPartnerId" />@item.BusinessPartnerName</td>
                                     <td>@item.BusinessPartnerType</td>
                                     <td>@item.BusinessPartnerFirstName</td>
                                     <td>@item.BusinessPartnerMiddleName</td>
@@ -40,8 +40,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button id="BusinessPartnerSearchModalDoneButton" type="button" class="btn btn-primary">Done</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Select</button>
             </div>
         </div>
     </div>

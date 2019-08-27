@@ -184,7 +184,22 @@ $(document).ready(function () {
             "processing": "loading....",
             "emptyTable": "No data found"
         },
-        "bLengthChange": false
+        "bLengthChange": false,
+        "select": {
+            style: 'single',
+            selector: 'td'
+        }
+    });
+
+    table2.on('select', function (e, dt, type, indexes) {
+        console.log('asdf');
+        var rowData = table2.rows(indexes).data().toArray();
+        var BusinessPartnerId = $(rowData[0][0])[0].defaultValue;
+
+        var BusinessPartnerName = $('<div>' + rowData[0][0] + '</div>').text();
+
+        $('#SalesOrder_BusinessPartner_BusinessPartnerName').val(BusinessPartnerName);
+        $('#SalesOrder_BusinessPartner_BusinessPartnerId').val(BusinessPartnerId);
     });
     
     $('#saveChangesButton').on('click', function () {
@@ -292,12 +307,12 @@ $(document).ready(function () {
         $('#ItemSearchModal').modal("hide");
     });
 
-    $('#SalesOrder_BusinessPartner_BusinessPartnerId').on('click', function () {
+    $('#SalesOrder_BusinessPartner_BusinessPartnerName').on('click', function () {
         $('#BusinessPartnerSearchModal').modal("show");
     });
 
-    $('#BusinessPartnerSearchModalDoneButton').on('click', function () {
-
-        $('#BusinessPartnerSearchModal').modal("hide");
-    });
+    //Date pickers
+    $("#SalesOrder_DeliveryDate").datepicker();
+    $("#SalesOrder_PostingDate").datepicker();
+    $("#SalesOrder_DocumentDate").datepicker();
 });
