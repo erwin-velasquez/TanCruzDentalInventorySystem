@@ -1,6 +1,11 @@
 ﻿
 
+
 $(document).ready(function () {
+
+    $("#MainForm").submit(function (e) {
+        $("#MainForm").validate();
+    });
 
     var table = $('#salesOrderDetailTable').DataTable({
         "scrollX": true,
@@ -97,8 +102,17 @@ $(document).ready(function () {
                     var itemPrice = parseFloat($(this).parent().parent().find("td[id^='td_ItemPriceAmount']").text());
 
                     var total = quantity * itemPrice;
+                    var DocumentTotal = 0.0;
 
-                    $(this).parent().parent().find("td[id^='td_SalesOrderDetailTotal']").text(total);
+                    $(this).parent().parent().find("td[id^='td_SalesOrderDetailTotal']").text(total.toFixed(2));
+
+                    //Document Total Computation
+                    $.each($('#salesOrderDetailTable').find("td[id^='td_SalesOrderDetailTotal']"), function (index, value) {
+                        DocumentTotal = parseFloat(DocumentTotal) + parseFloat(!$(this).text() ? 0 : $(this).text());
+                    });
+
+                    $("#SalesOrder_SalesOrderTax").val(parseFloat(DocumentTotal / 9.33).toFixed(2));
+                    $("#SalesOrder_SalesOrderTotal").val(DocumentTotal.toFixed(2));
                 });
             });
 
@@ -346,13 +360,33 @@ $(document).ready(function () {
         $('#BusinessPartnerSearchModal').modal("show");
     });
 
+    $('#SalesOrder_BusinessPartner_BusinessPartnerName').on('change', function () {
+        if ($('#SalesOrder_BusinessPartner_BusinessPartnerName').val() === "") {
+            $('#SalesOrder_BusinessPartner_BusinessPartnerId').val("");
+        }
+    });
+
     //Date pickers
     $("#SalesOrder_DeliveryDate").datepicker();
+    $("#SalesOrder_DeliveryDate").on("change", function () {
+        $("#MainForm").validate().element("#SalesOrder_DeliveryDate");
+    });
+
     $("#SalesOrder_PostingDate").datepicker();
+    $("#SalesOrder_PostingDate").on("change", function () {
+        $("#MainForm").validate().element("#SalesOrder_PostingDate");
+    });
+
     $("#SalesOrder_DocumentDate").datepicker();
+    $("#SalesOrder_DocumentDate").on("change", function () {
+        $("#MainForm").validate().element("#SalesOrder_DocumentDate");
+    });
 
-    $("submitButton").on("click", function () {
-
+    $("#deleteItembutton").on("click", function () {
+        var rows = table
+            .rows('.selected')
+            .remove()
+            .draw();
     });
 
 });

@@ -94,6 +94,8 @@ namespace TanCruzDentalInventorySystem.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> SaveSalesOrderRecord(SalesOrderFormViewModel salesOrderForm)
 		{
+            ModelState.Clear();
+
             //-------------------------Validation Section-----------------------------------------------//
             if (salesOrderForm.SalesOrder.SalesOrderDetails == null)
             {
@@ -106,6 +108,8 @@ namespace TanCruzDentalInventorySystem.Controllers
                 ModelState.AddModelError(string.Empty, "No Business Partner selected.");
             }
             //------------------------------------------------------------------------------------------//
+
+            
 
             if (ModelState.IsValid)
 			{
