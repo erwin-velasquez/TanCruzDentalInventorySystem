@@ -4,7 +4,7 @@
 @using (Html.BeginForm("SaveSalesOrderRecord", "SalesOrder", FormMethod.Post, new { @class = "form-horizontal needs-validation bg-light", role = "form" }))
 {
     @Html.AntiForgeryToken()
-
+    
     <div class="form-horizontal ">
         <h4 class="form-title">Sales Order</h4>
         <hr />
@@ -36,6 +36,8 @@
                 </div>
             </div>
         </div>
+
+        @*@Html.EditorFor(model => model.SalesOrder.SalesOrderDetails[0].SalesOrderDetailId, new { htmlAttributes = new { @class = "form-control" } })*@
 
         <div class="row">
             <div class="form-group col-md-4">

@@ -1,15 +1,20 @@
-﻿$(document).ready(function () {
+﻿
+
+$(document).ready(function () {
+
+    
 
     var table = $('#salesOrderDetailTable').DataTable({
         "scrollX": true,
         data: {},
+        "searching": false,
         "columns": [
             {
                 "data": null,
                 "title": "#",
                 "width": "30px",
                 "defaultContent": '',
-                "className": "dt-center"
+                "className": "dt-center select-checkbox"
             },
             {
                 "data": "ItemName",
@@ -40,7 +45,7 @@
                 "data": "Quantity",
                 "title": "Quantity",
                 "width": "120px",
-                "defaultContent": '',
+                "defaultContent": "<input type='text' />",
                 "className": "dt-center"
             },
             {
@@ -55,11 +60,20 @@
             "processing": "loading....",
             "emptyTable": "No data found"
         },
-        createdRow: function (row) {
+        createdRow: function (row, data, dataIndex, cells) {
             var td = $(row).find("[class^=truncate]");
             if (td) {
                 td.attr("title", td.html());
             }
+
+            $(cells[2]).attr("id", "SalesOrder_SalesOrderDetails_" + String(dataIndex) + "__SalesOrderDetailId");
+            $(cells[2]).attr("name", "SalesOrder.SalesOrderDetails[" + String(dataIndex) + "].SalesOrderDetailId");
+            $(cells[2]).attr("value", $(cells[2]).html());
+
+            $(row).find("td input[type*='text']").each(function () {
+                $(this).attr("id", "SalesOrder_SalesOrderDetails_" + String(dataIndex) + "__Quantity");
+                $(this).attr("name", "SalesOrder.SalesOrderDetails[" + String(dataIndex) + "].Quantity");
+            });
         },
         "paging": true,
         "autoWidth": true,
@@ -241,23 +255,6 @@
     $('#searchItemButton').on('click', function () {
         $('#ItemSearchModal').modal("show");
 
-        $('#doneButton').on('click', function () {
-
-            $("#ItemSearchTable tbody tr.selected td#ItemId").each(function (index, value) {
-
-                $.get('/Item/GetSingleItem/', { itemId: $(this).text() }, function (data) { //Replace with global URL not hardcoded
-                    obj = [
-                        data
-                    ];
-
-                    table.rows.add(obj);
-                    table.draw();
-                });
-            });
-
-            $('#ItemSearchModal').modal("hide");
-        });
-
         var itemList;
         var obj;
 
@@ -269,5 +266,22 @@
             table1.draw();
             
         });
+    });
+
+    $('#doneButton').on('click', function () {
+
+        $("#ItemSearchTable tbody tr.selected td#ItemId").each(function (index, value) {
+
+            $.get('/Item/GetSingleItem/', { itemId: $(this).text() }, function (data) { //Replace with global URL not hardcoded
+                obj = [
+                    data
+                ];
+
+                table.rows.add(obj);
+                table.draw();
+            });
+        });
+
+        $('#ItemSearchModal').modal("hide");
     });
 });

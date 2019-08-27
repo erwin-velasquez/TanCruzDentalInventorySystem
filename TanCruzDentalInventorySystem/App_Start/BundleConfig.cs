@@ -29,6 +29,7 @@ namespace TanCruzDentalInventorySystem
                       "~/Scripts/DataTables/Buttons-1.5.6/js/buttons.flash.js",
                       "~/Scripts/DataTables/Buttons-1.5.6/js/buttons.html5.js",
                       "~/Scripts/DataTables/Select-1.3.0/js/dataTables.select.js",
+                      "~/Scripts/datatables.extensions/Editor/dataTables.editor.min.js",
                       "~/Scripts/DataTables/Select-1.3.0/js/select.bootstrap.js",
                       "~/Scripts/datetime.js"));
 

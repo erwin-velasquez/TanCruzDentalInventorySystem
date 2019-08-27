@@ -48,6 +48,7 @@ namespace TanCruzDentalInventorySystem.Controllers
 		{
 			var salesOrderForm = await _salesOrderService.CreateSalesOrderForm(User.Identity.GetUserId());
 
+            salesOrderForm.SalesOrder.SalesOrderDetails.Add(new SalesOrderDetailViewModel());
 
 			// ======================================================================
 			// ----------------------------------------------------------------------
