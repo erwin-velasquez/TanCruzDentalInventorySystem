@@ -13,8 +13,8 @@
             <div class="form-group col-md-4">
                 @Html.LabelFor(model => model.PurchaseOrder.BusinessPartner.BusinessPartnerId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.HiddenFor(model => model.PurchaseOrder.PurchaseOrderDetailsJson, new { id = "PurchaseOrderDetailsJson" })
-                    @Html.DropDownListFor(m => m.PurchaseOrder.BusinessPartner.BusinessPartnerId, new SelectList(Model.BusinessPartners, "BusinessPartnerId", "BusinessPartnerName"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
+                    @Html.HiddenFor(model => model.PurchaseOrder.BusinessPartner.BusinessPartnerId)
+                    @Html.EditorFor(model => model.PurchaseOrder.BusinessPartner.BusinessPartnerName, new { htmlAttributes = new { @class = "form-control" }, required = "" })
                     @Html.ValidationMessageFor(model => model.PurchaseOrder.BusinessPartner.BusinessPartnerId, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -88,15 +88,13 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="form-group col-md-4">
-                <div class="col-md-10">
-                    <a href="/" id="addItemButton" type="button" class="btn btn-primary">
-                        Add Item
-                    </a>
-                </div>
-            </div>
-        </div>
+        <button type="button" class="btn btn-primary" id="searchItemButton">
+            Add
+        </button>
+
+        <button type="button" class="btn btn-primary" id="deleteItembutton">
+            Delete
+        </button>
 
         <div class="row">
             <div class="form-group col-md-12">
@@ -209,6 +207,10 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal -->
+        @Html.Partial("~/Views/Item/ItemSearchModal.cshtml")
+        @Html.Partial("~/Views/Shared/BusinessPartnerSearchModal.cshtml", Model.BusinessPartners)
     </div>
 }
 
@@ -217,191 +219,5 @@
 </div>
 
 @section Scripts {
-    <script type="text/javascript">
-
-        var selectedRow;
-
-        $(document).ready(function () {
-            var json = JSON.parse('@Html.Raw(@Model.PurchaseOrder.PurchaseOrderDetailsJson)');
-
-            var table = $('#purchaseOrderDetailTable').DataTable({
-                "scrollX": true,
-                data: json,
-                "columns": [
-                         {
-                            "data": null,
-                            "className": "center",
-                            "defaultContent" : '<a href="" class="editor_edit">Edit</a> <a href="" class="editor_remove">Delete</a>',
-                            "width": "70px",
-                        },
-                    {
-                        "data": null,
-                        "title": "#",
-                        "width": "30px",
-                        "defaultContent": '',
-                        "className": "dt-center"
-                    },
-                    {
-                        "data": "Item.ItemId",
-                        "title": "Item Id",
-                        "width": "80px",
-                        "className": "dt-left"
-                    },
-                    {
-                        "data": "Item.ItemName",
-                        "title": "Item Name",
-                        "width": "200px",
-                        "className": "dt-left"
-                    },
-                    {
-                        "data": "ItemPriceAmount",
-                        "title": "Item Price",
-                        "width": "90px",
-                        "className": "dt-center"
-                    },
-                    {
-                        "data": "QuantityOnHand",
-                        "title": "Quantity On-hand",
-                        "width": "150px",
-                        "defaultContent": '',
-                        "className": "dt-center"
-                    },
-                    {
-                        "data": "Quantity",
-                        "title": "Quantity",
-                        "width": "100px",
-                        "defaultContent": '',
-                        "className": "dt-center"
-                    },
-                    {
-                        "data": "Total",
-                        "title": "Total",
-                        "width": "100px",
-                        "defaultContent": '',
-                        "className": "dt-center"
-                    },
-                ],
-                "language": {
-                    "processing": "loading....",
-                    "emptyTable": "No data found"
-                },
-                createdRow: function (row) {
-                    var td = $(row).find("[class^=truncate]");
-                    if (td) {
-                        td.attr("title", td.html());
-                    }
-                },
-                "paging": true,
-                "autoWidth": true,
-                "bLengthChange": false,
-                "bPaginate": false,
-                buttons: [
-                    {
-                        text: 'Reload',
-                        action: function (e, dt, node, config) {
-                            dt.ajax.reload();
-                        }
-                    }
-                ]
-            });
-
-            $("#addItemButton").on('click', function (e) {
-                selectedRow = null;
-                $("#txt-item-name").val(null);
-                $("#txt-item-id").val(null);
-                $("#txt-item-price").val(0);
-                $("#txt-item-quantity").val(0);
-                $("#txt-quantity-hand").val(null);
-                 $("#txt-item-total").val(0);
-                e.preventDefault();
-                $("#addItemDetailModal").modal('show');
-            });
-
-            $('#saveChangesButton').on('click', function () {
-                var url = "/api/ItemApi/ItemRecord?itemId=" + $("#txt-item-id").val();
-                $.get(url, function (data,res) {
-                    if (data) {
-                        $("#txt-item-name").val(data.item.ItemName);
-                        $("#txt-item-id").val(data.item.ItemId);
-                        var Item = {
-                            "Item": {
-                                "ItemName": $("#txt-item-name").val(),
-                                "ItemId": $("#txt-item-id").val(),
-                            },
-                            "ItemPriceAmount": $("#txt-item-price").val(),
-                            "Quantity": $("#txt-item-quantity").val(),
-                            "QuantityOnHand": 1000,
-                            "Total": $("#txt-item-total").val(),
-                        }
-
-                        if (selectedRow != null) {
-                            $('#purchaseOrderDetailTable').dataTable().fnUpdate(Item, selectedRow, undefined, false)
-                        }
-                        else {
-                            console.log("Added");
-                            table.row.add(Item).draw();
-                        }
-
-                        var itemList = [];
-                        $.each(table.rows().data().toArray(), function (index, value) {
-                            var k = {
-                                "Item": {
-                                    "ItemId": value.Item.ItemId,
-                                    "ItemName": value.Item.ItemName
-                                },
-                                "ItemPriceAmount": parseFloat(value.ItemPriceAmount),
-                                "Quantity": value.Quantity,
-                                "QuantityOnHand": value.QuantityOnHand,
-                            };
-                            itemList.push(k);
-                        });
-                        $("#PurchaseOrderDetailsJson").val(JSON.stringify(itemList));
-                        $("#addItemDetailModal").modal('hide');
-                    }
-                });
-            });
-
-            $("#txt-item-price").bind('keyup mouseup', function () {
-                $("#txt-item-total").val($("#txt-item-price").val() * $("#txt-item-quantity").val());
-            });
-
-            $("#txt-item-quantity").bind('keyup mouseup', function () {
-                $("#txt-item-total").val($("#txt-item-price").val() * $("#txt-item-quantity").val());
-            });
-
-            $('#purchaseOrderDetailTable').on('click', 'a.editor_edit', function (e) {
-                e.preventDefault();
-                selectedRow = table.row($(this).parents('tr')).index();
-                var row = table.row($(this).parents('tr')).data();
-                $("#txt-item-name").val(row.Item.ItemName);
-                $("#txt-item-id").val(row.Item.ItemId);
-                $("#txt-item-price").val(row.ItemPriceAmount);
-                $("#txt-item-quantity").val(row.Quantity);
-                $("#txt-quantity-hand").val(row.QuantityOnHand);
-                $("#txt-item-total").val(row.Total);
-                $("#addItemDetailModal").modal('show');
-            });
-
-            $('#purchaseOrderDetailTable').on('click', 'a.editor_remove', function (e) {
-                e.preventDefault();
-                var ItemList = $('#purchaseOrderDetailTable').DataTable();
-                ItemList.row(jQuery(this).parents('tr')).remove().draw(false);
-                var itemList = [];
-                $.each(table.rows().data().toArray(), function (index, value) {
-                    var k = {
-                        "Item": {
-                            "ItemId": value.Item.ItemId,
-                            "ItemName": value.Item.ItemName
-                        },
-                        "ItemPriceAmount": parseFloat(value.ItemPriceAmount),
-                        "Quantity": value.Quantity,
-                        "QuantityOnHand": value.QuantityOnHand,
-                    };
-                    itemList.push(k);
-                });
-                $("#PurchaseOrderDetailsJson").val(JSON.stringify(itemList));
-            });
-
-        });
-    </script>
+    @Scripts.Render("~/Scripts/Items/CreatePurchaseOrder.js");
 }
