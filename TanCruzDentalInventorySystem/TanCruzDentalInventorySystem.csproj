@@ -638,6 +638,7 @@
     <Content Include="Views\SalesOrder\SalesOrderRecord.cshtml" />
     <Content Include="Views\Item\ItemSearchModal.cshtml" />
     <Content Include="Views\Shared\BusinessPartnerSearchModal.cshtml" />
+    <Content Include="Views\Shared\ItemSearchModal.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

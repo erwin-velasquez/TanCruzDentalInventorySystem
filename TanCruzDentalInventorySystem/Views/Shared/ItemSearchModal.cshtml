@@ -1,0 +1,52 @@
+﻿@model IEnumerable<TanCruzDentalInventorySystem.ViewModels.ItemViewModel>
+
+@{ 
+    int count = 0;
+}
+<!-- Modal -->
+<div class="modal fade" id="ItemSearchModal2" tabindex="-1" role="dialog" aria-labelledby="ItemSearchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ItemSearchModalLabel">Select Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <table id="ItemSearchTable2" class="display hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Item Name</th>
+                                    <th>Group</th>
+                                    <th>ID</th>
+                                    <th>Price</th>
+                                    <th>Quantity-on-Hand</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>@count</td>
+                                    <td><input type="hidden" value="@item.ItemId" />@item.ItemName</td>
+                                    <td>@item.ItemGroup</td>
+                                    <td>@item.ItemId</td>
+                                    <td>@item.ItemPriceAmount</td>
+                                    <td>0</td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Select</button>
+            </div>
+        </div>
+    </div>
+</div>

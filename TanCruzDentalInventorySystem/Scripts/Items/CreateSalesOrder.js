@@ -1,7 +1,4 @@
-﻿
-
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
 
     $("#MainForm").submit(function (e) {
         $("#MainForm").validate();
@@ -207,10 +204,6 @@ $(document).ready(function () {
             "emptyTable": "No data found"
         },
         createdRow: function (row, data, dataIndex) {
-            var td = $(row).find("[class^=truncate]");
-            if (td) {
-                td.attr("title", td.html());
-            };
             $(row).attr('id', 'someID');
         },
         "paging": true,
@@ -387,6 +380,44 @@ $(document).ready(function () {
             .rows('.selected')
             .remove()
             .draw();
+    });
+
+    $("#sampleButton").on("click", function (e) {
+
+        e.preventDefault();
+
+        $.ajax({
+            url: '/Item/ItemSearchModal',
+            type: 'GET',
+            cache: false,
+            dataType: 'html',
+            success: function (result) {
+
+                $(result).appendTo("body");
+
+                var table2 = $('#ItemSearchTable2').DataTable({
+                    "searching": false,
+                    "language": {
+                        "processing": "loading....",
+                        "emptyTable": "No data found"
+                    },
+                    "bLengthChange": false,
+                    "select": {
+                        style: 'single',
+                        selector: 'td'
+                    }
+                });
+
+                $("#ItemSearchModal2").modal("show");
+
+                $('#ItemSearchModal2').on('hidden', function () {
+                    $(this).data("modal", null);
+                });
+
+            }, error: function (xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
     });
 
 });

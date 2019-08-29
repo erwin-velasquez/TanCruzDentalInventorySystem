@@ -96,7 +96,7 @@ namespace TanCruzDentalInventorySystem.Controllers
 		{
             ModelState.Clear();
 
-            //-------------------------Validation Section-----------------------------------------------//
+            //-------------------------Validation Section-------------------------------//
             if (salesOrderForm.SalesOrder.SalesOrderDetails == null)
             {
                 ModelState.AddModelError(string.Empty, "No items were selected.");
@@ -107,13 +107,10 @@ namespace TanCruzDentalInventorySystem.Controllers
             {
                 ModelState.AddModelError(string.Empty, "No Business Partner selected.");
             }
-            //------------------------------------------------------------------------------------------//
-
-            
+            //--------------------------------------------------------------------------//
 
             if (ModelState.IsValid)
 			{
-
 				salesOrderForm.SalesOrder.UserId = User.Identity.GetUserId();
 				salesOrderForm.SalesOrder.SalesOrderDetails?.Select
 					(detail =>
