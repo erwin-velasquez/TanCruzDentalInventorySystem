@@ -5,7 +5,6 @@
     });
 
     var table = $('#salesOrderDetailTable').DataTable({
-        "scrollX": true,
         data: {},
         "searching": false,
         "columns": [
@@ -134,7 +133,6 @@
     });
 
     var table1 = $('#ItemSearchTable').DataTable({
-        "scrollX": true,
         data: {},
         "columns": [
             {
@@ -207,7 +205,7 @@
             $(row).attr('id', 'someID');
         },
         "paging": true,
-        "autoWidth": true,
+        "autoWidth": false,
         "bLengthChange": false,
         "bPaginate": false,
         buttons: [
