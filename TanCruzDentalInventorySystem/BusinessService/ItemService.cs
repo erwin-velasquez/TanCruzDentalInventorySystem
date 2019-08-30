@@ -69,7 +69,7 @@ namespace TanCruzDentalInventorySystem.BusinessService
 			return itemForm;
 		}
 
-		public async Task<ItemFormViewModel> CreateItemForm(string userId)
+		public async Task<ItemFormViewModel> CreateItem(string userId)
 		{
 			var baseUnitOfMeasures = Mapper.Map<IEnumerable<UnitOfMeasureViewModel>>(await _itemRepository.GetUnitOfMeasureList());
 
