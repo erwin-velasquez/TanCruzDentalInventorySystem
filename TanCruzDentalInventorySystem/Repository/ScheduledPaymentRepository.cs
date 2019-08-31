@@ -20,22 +20,25 @@ namespace TanCruzDentalInventorySystem.Repository
 					new[]
 					{
 						typeof(ScheduledPayment),
-						typeof(BusinessPartner),
-						typeof(Currency)
+						typeof(SalesOrder),
+						typeof(PurchaseOrder),
+						typeof(BusinessPartner)
 					},
 				map:
 					typeMap =>
 					{
 						if (!(typeMap[0] is ScheduledPayment scheduledPaymentUnit)) return null;
 
-						scheduledPaymentUnit.BusinessPartner = typeMap[1] as BusinessPartner;
+						scheduledPaymentUnit.SalesOrder = typeMap[1] as SalesOrder;
+						scheduledPaymentUnit.PurchaseOrder = typeMap[2] as PurchaseOrder;
+						scheduledPaymentUnit.BusinessPartner = typeMap[3] as BusinessPartner;
 
 						return scheduledPaymentUnit;
 					},
 				param: null,
 				transaction: UnitOfWork.Transaction,
 				commandType: System.Data.CommandType.StoredProcedure,
-				splitOn: "BusinessPartnerId, CurrencyId");
+				splitOn: "SalesOrderId, PurchaseOrderId, BusinessPartnerId");
 
 			return scheduledPaymentList;
 		}

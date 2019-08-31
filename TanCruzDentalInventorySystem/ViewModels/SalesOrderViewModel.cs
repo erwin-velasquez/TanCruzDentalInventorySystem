@@ -1,11 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace TanCruzDentalInventorySystem.ViewModels
 {
-    public class SalesOrderViewModel
+	public class SalesOrderViewModel
     {
 		[Display(Name = "Sales Order Id")]
 		public string SalesOrderId { get; set; }
@@ -41,7 +40,6 @@ namespace TanCruzDentalInventorySystem.ViewModels
 		public DateTime? ChangedDate { get; set; }
 		public long VersionTimeStamp { get; set; }
 		public List<SalesOrderDetailViewModel> SalesOrderDetails { get; set; }
-        public string SalesOrderDetailsJson { get; set; }
 	}
 
 	public class SalesOrderFormViewModel

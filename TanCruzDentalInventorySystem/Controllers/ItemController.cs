@@ -94,28 +94,28 @@ namespace TanCruzDentalInventorySystem.Controllers
 
 
 
-		// ================================================================================
-		// --------------------------------------------------------------------------------
-		// Remove these lines of codes from here
-		// Use the GetItems and ItemRecord actions exposed from ItemApiController instead
-		// --------------------------------------------------------------------------------
-		[HttpGet]
-        [Authorize]
-        public async Task<JsonResult> GetItemList()
-        {
-            var itemList = await _itemService.GetItemList();
+		//// ================================================================================
+		//// --------------------------------------------------------------------------------
+		//// Remove these lines of codes from here
+		//// Use the GetItems and ItemRecord actions exposed from ItemApiController instead
+		//// --------------------------------------------------------------------------------
+		//[HttpGet]
+  //      [Authorize]
+  //      public async Task<JsonResult> GetItemList()
+  //      {
+  //          var itemList = await _itemService.GetItemList();
 
-            return Json(itemList, JsonRequestBehavior.AllowGet);
-        }
+  //          return Json(itemList, JsonRequestBehavior.AllowGet);
+  //      }
 
-        [HttpGet]
-        [Authorize]
-        public async Task<JsonResult> GetSingleItem(string itemId)
-        {
-            var itemList = await _itemService.GetItem(itemId);
+  //      [HttpGet]
+  //      [Authorize]
+  //      public async Task<JsonResult> GetSingleItem(string itemId)
+  //      {
+  //          var itemList = await _itemService.GetItem(itemId);
 
-            return Json(itemList, JsonRequestBehavior.AllowGet);
-        }
-		// ================================================================================
+  //          return Json(itemList, JsonRequestBehavior.AllowGet);
+  //      }
+		//// ================================================================================
 	}
 }
