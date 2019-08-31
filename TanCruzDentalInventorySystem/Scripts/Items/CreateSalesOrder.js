@@ -55,14 +55,6 @@
                 "className": "dt-center"
             }
         ],
-        "language": {
-            "processing": "loading....",
-            "emptyTable": "No data found"
-        },
-        select: {
-            style: 'os',
-            selector: 'td'
-        },
         createdRow: function (row, data, dataIndex, cells) {
             var td = $(row).find("[class^=truncate]");
             if (td) {
@@ -118,6 +110,15 @@
 
 
         },
+        "language": {
+            "processing": "loading....",
+            "emptyTable": "No data found"
+        },
+        select: {
+            style: 'os',
+            selector: 'td'
+        },
+        
         "paging": true,
         "autoWidth": true,
         "bLengthChange": false,
@@ -132,91 +133,91 @@
         ]
     });
 
-    var table1 = $('#ItemSearchTable').DataTable({
-        data: {},
-        "columns": [
-            {
-                "data": null,
-                "title": "#",
-                "width": "30px",
-                "defaultContent": '',
-                "className": "dt-center"
-            },
-            {
-                "data": "ItemName",
-                "title": "Item Name",
-                "width": "200px",
-                "className": "dt-left"
-            },
-            {
-                "data": "ItemId",
-                "title": "Item Id",
-                "width": "150px",
-                "className": "dt-left"
-            },
-            {
-                "data": "ItemPriceAmount",
-                "title": "Item Price",
-                "width": "90px",
-                "className": "dt-center"
-            },
-            {
-                "data": null,
-                "title": "Quantity On-hand",
-                "width": "150px",
-                "defaultContent": '',
-                "className": "dt-center"
-            },
-            {
-                "data": null,
-                "title": "Quantity",
-                "width": "120px",
-                "defaultContent": '',
-                "className": "dt-center"
-            }
-        ],
-        columnDefs: [{
-            orderable: false,
-            className: 'select-checkbox',
-            targets: 0
-        },
-        {
-            targets: 1,
-            'createdCell': function (td, cellData, rowData, row, col) {
-                $(td).attr('id', 'ItemName');
-            }
-        },
-        {
-            targets: 2,
-            'createdCell': function (td, cellData, rowData, row, col) {
-                $(td).attr('id', 'ItemId');
-            }
-        }],
-        select: {
-            style: 'os',
-            selector: 'td'
-        },
-        order: [[1, 'asc']],
-        "language": {
-            "processing": "loading....",
-            "emptyTable": "No data found"
-        },
-        createdRow: function (row, data, dataIndex) {
-            $(row).attr('id', 'someID');
-        },
-        "paging": true,
-        "autoWidth": false,
-        "bLengthChange": false,
-        "bPaginate": false,
-        buttons: [
-            {
-                text: 'Reload',
-                action: function (e, dt, node, config) {
-                    dt.ajax.reload();
-                }
-            }
-        ]
-    });
+    //var table1 = $('#ItemSearchTable').DataTable({
+    //    data: {},
+    //    "columns": [
+    //        {
+    //            "data": null,
+    //            "title": "#",
+    //            "width": "30px",
+    //            "defaultContent": '',
+    //            "className": "dt-center"
+    //        },
+    //        {
+    //            "data": "ItemName",
+    //            "title": "Item Name",
+    //            "width": "200px",
+    //            "className": "dt-left"
+    //        },
+    //        {
+    //            "data": "ItemId",
+    //            "title": "Item Id",
+    //            "width": "150px",
+    //            "className": "dt-left"
+    //        },
+    //        {
+    //            "data": "ItemPriceAmount",
+    //            "title": "Item Price",
+    //            "width": "90px",
+    //            "className": "dt-center"
+    //        },
+    //        {
+    //            "data": null,
+    //            "title": "Quantity On-hand",
+    //            "width": "150px",
+    //            "defaultContent": '',
+    //            "className": "dt-center"
+    //        },
+    //        {
+    //            "data": null,
+    //            "title": "Quantity",
+    //            "width": "120px",
+    //            "defaultContent": '',
+    //            "className": "dt-center"
+    //        }
+    //    ],
+    //    columnDefs: [{
+    //        orderable: false,
+    //        className: 'select-checkbox',
+    //        targets: 0
+    //    },
+    //    {
+    //        targets: 1,
+    //        'createdCell': function (td, cellData, rowData, row, col) {
+    //            $(td).attr('id', 'ItemName');
+    //        }
+    //    },
+    //    {
+    //        targets: 2,
+    //        'createdCell': function (td, cellData, rowData, row, col) {
+    //            $(td).attr('id', 'ItemId');
+    //        }
+    //    }],
+    //    select: {
+    //        style: 'os',
+    //        selector: 'td'
+    //    },
+    //    order: [[1, 'asc']],
+    //    "language": {
+    //        "processing": "loading....",
+    //        "emptyTable": "No data found"
+    //    },
+    //    createdRow: function (row, data, dataIndex) {
+    //        $(row).attr('id', 'someID');
+    //    },
+    //    "paging": true,
+    //    "autoWidth": false,
+    //    "bLengthChange": false,
+    //    "bPaginate": false,
+    //    buttons: [
+    //        {
+    //            text: 'Reload',
+    //            action: function (e, dt, node, config) {
+    //                dt.ajax.reload();
+    //            }
+    //        }
+    //    ]
+    //});
 
     var table2 = $('#BusinessPartnerSearchTable').DataTable({
         "searching": false,
@@ -315,6 +316,75 @@
     });
 
     $('#searchItemButton').on('click', function () {
+
+        $.ajax({
+            url: '/Item/ItemSearchModal/',
+            type: 'GET',
+            cache: false,
+            dataType: 'html',
+            success: function (result) {
+
+                $(result).appendTo("body");
+
+                var table2 = $('#ItemSearchTable').DataTable({
+                    "searching": false,
+                    "language": {
+                        "processing": "loading....",
+                        "emptyTable": "No data found"
+                    },
+                    "select": {
+                        style: 'os',
+                        selector: 'td'
+                    },
+                    columnDefs: [{
+                        orderable: false,
+                        className: 'select-checkbox',
+                        targets: 0
+                    }],
+                    "paging": true,
+                    "autoWidth": false,
+                    "bLengthChange": false,
+                    "bPaginate": false
+                });
+
+                $('#ItemSearchDone').on('click', function () {
+                    console.log("ItemSearchDone");
+                    $("#ItemSearchTable tbody tr.selected input[name*='ItemId']").each(function (index, value) {
+
+                        $.get('/api/ItemApi/ItemRecord/', { itemId: this.value }, function (data) { //Replace with global URL not hardcoded
+                            obj = [
+                                {
+                                    ItemName: data.item.ItemName,
+                                    ItemId: data.item.ItemId,
+                                    ItemPriceAmount: data.item.ItemPriceAmount,
+                                    Quantity: data.item.Quantity,
+                                    Total: data.item.ItemTotal
+                                }
+                            ];
+
+                            table.rows.add(obj);
+                            table.draw();
+                        });
+                    });
+
+                    $('#ItemSearchModal').modal("hide");
+                });
+
+                $("#ItemSearchModal").modal("show");
+
+                $('#ItemSearchModal').on('hidden.bs.modal', function () {
+                    $(this).remove("#ItemSearchModal");
+                });
+
+            }, error: function (xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+
+
+
+        /*************OBSOLETE
+        
         $('#ItemSearchModal').modal("show");
 
         var itemList;
@@ -327,25 +397,10 @@
             table1.rows.add(obj);
             table1.draw();
             
-        });
+        });*/
     });
 
-    $('#doneButton').on('click', function () {
-
-        $("#ItemSearchTable tbody tr.selected td#ItemId").each(function (index, value) {
-
-            $.get('/Item/GetSingleItem/', { itemId: $(this).text() }, function (data) { //Replace with global URL not hardcoded
-                obj = [
-                    data
-                ];
-
-                table.rows.add(obj);
-                table.draw();
-            });
-        });
-
-        $('#ItemSearchModal').modal("hide");
-    });
+    
 
     $('#SalesOrder_BusinessPartner_BusinessPartnerName').on('click', function () {
         $('#BusinessPartnerSearchModal').modal("show");
@@ -380,42 +435,6 @@
             .draw();
     });
 
-    $("#sampleButton").on("click", function (e) {
-
-        e.preventDefault();
-
-        $.ajax({
-            url: '/Item/ItemSearchModal',
-            type: 'GET',
-            cache: false,
-            dataType: 'html',
-            success: function (result) {
-
-                $(result).appendTo("body");
-
-                var table2 = $('#ItemSearchTable2').DataTable({
-                    "searching": false,
-                    "language": {
-                        "processing": "loading....",
-                        "emptyTable": "No data found"
-                    },
-                    "bLengthChange": false,
-                    "select": {
-                        style: 'single',
-                        selector: 'td'
-                    }
-                });
-
-                $("#ItemSearchModal2").modal("show");
-
-                $('#ItemSearchModal2').on('hidden', function () {
-                    $(this).data("modal", null);
-                });
-
-            }, error: function (xhr, status, error) {
-                alert(xhr.responseText);
-            }
-        });
-    });
+    
 
 });

@@ -1,10 +1,7 @@
 ﻿@model IEnumerable<TanCruzDentalInventorySystem.ViewModels.ItemViewModel>
 
-@{ 
-    int count = 0;
-}
 <!-- Modal -->
-<div class="modal fade" id="ItemSearchModal2" tabindex="-1" role="dialog" aria-labelledby="ItemSearchModalLabel" aria-hidden="true">
+<div class="modal fade" id="ItemSearchModal" tabindex="-1" role="dialog" aria-labelledby="ItemSearchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -16,26 +13,26 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <table id="ItemSearchTable2" class="display hover">
+                        <table id="ItemSearchTable" class="display hover">
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>ID</th>
                                     <th>Item Name</th>
                                     <th>Group</th>
-                                    <th>ID</th>
                                     <th>Price</th>
                                     <th>Quantity-on-Hand</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model)
+                                @for (int i = 0; i < Model.Count(); i++)
                                 {
                                 <tr>
-                                    <td>@count</td>
-                                    <td><input type="hidden" value="@item.ItemId" />@item.ItemName</td>
-                                    <td>@item.ItemGroup</td>
-                                    <td>@item.ItemId</td>
-                                    <td>@item.ItemPriceAmount</td>
+                                    <td></td>
+                                    <td>@Html.HiddenFor(x => x.ToArray()[i].ItemId)@Model.ToArray()[i].ItemId</td>
+                                    <td>@Html.HiddenFor(x => x.ToArray()[i].ItemName)@Model.ToArray()[i].ItemName</td>
+                                    <td>@Html.HiddenFor(x => x.ToArray()[i].ItemGroup)@Model.ToArray()[i].ItemGroup.ItemGroupName</td>
+                                    <td>@Html.HiddenFor(x => x.ToArray()[i].ItemPriceAmount)@Model.ToArray()[i].ItemPriceAmount</td>
                                     <td>0</td>
                                 </tr>
                                 }
@@ -45,7 +42,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Select</button>
+                <button type="button" class="btn btn-primary" id="ItemSearchDone">Select</button>
             </div>
         </div>
     </div>
