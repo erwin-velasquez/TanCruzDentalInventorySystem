@@ -77,6 +77,7 @@ namespace TanCruzDentalInventorySystem.Controllers
 				if (recordsSaved >= 1)
 				{
 					var salesOrder = await _salesOrderService.GetSalesOrder(salesOrderForm.SalesOrder.SalesOrderId);
+
 					return View("SalesOrderRecord", salesOrder);
 				}
 				ModelState.AddModelError(string.Empty, "There was a problem and the SalesOrder was not saved.");

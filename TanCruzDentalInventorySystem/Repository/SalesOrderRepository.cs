@@ -101,6 +101,7 @@ namespace TanCruzDentalInventorySystem.Repository
 
 			var versionedSalesOrder = salesOrder.AsList().SingleOrDefault();
 			versionedSalesOrder.SalesOrderDetails = await GetSalesOrderDetailList(versionedSalesOrder.SalesOrderId);
+			versionedSalesOrder.ScheduledPayments = await GetScheduledPaymentList(versionedSalesOrder.SalesOrderId);
 			versionedSalesOrder.VersionTimeStamp = versionedSalesOrder.ChangedDate.Value.Ticks;
 			return versionedSalesOrder;
 		}
@@ -176,6 +177,37 @@ namespace TanCruzDentalInventorySystem.Repository
 			return salesOrderDetailList;
 		}
 
+		private async Task<IEnumerable<ScheduledPayment>> GetScheduledPaymentList(string salesOrderId)
+		{
+			var parameters = new DynamicParameters();
+			parameters.Add("@OrderId", salesOrderId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+
+			var scheduledPaymentList = await UnitOfWork.Connection.QueryAsync<ScheduledPayment>(
+				sql: SP_GET_SCHEDULEDPAYMENT_LIST,
+				types:
+					new[]
+					{
+						typeof(ScheduledPayment),
+						typeof(BusinessPartner)
+					},
+				map:
+					typeMap =>
+					{
+						if (!(typeMap[0] is ScheduledPayment scheduledPaymentUnit)) return null;
+
+						scheduledPaymentUnit.BusinessPartner = typeMap[1] as BusinessPartner;
+
+						return scheduledPaymentUnit;
+					},
+				param: parameters,
+				transaction: UnitOfWork.Transaction,
+				commandType: System.Data.CommandType.StoredProcedure,
+				splitOn: "BusinessPartnerId");
+
+			scheduledPaymentList.Select(detail => detail.VersionTimeStamp = detail.ChangedDate.Value.Ticks).ToList();
+			return scheduledPaymentList;
+		}
+
 		public async Task<string> CreateSalesOrder(string userId)
 		{
 			DynamicParameters parameters = new DynamicParameters();
@@ -240,5 +272,6 @@ namespace TanCruzDentalInventorySystem.Repository
 		private const string SP_CREATE_SALESORDER = "dbo.CreateSalesOrder";
 		private const string SP_CREATE_SALESORDERDETAIL = "dbo.CreateSalesOrderDetail";
 		private const string SP_SAVE_SALESORDERDETAIL = "dbo.SaveSalesOrderDetail";
+		private const string SP_GET_SCHEDULEDPAYMENT_LIST = "dbo.GetScheduledPayments";
 	}
 }

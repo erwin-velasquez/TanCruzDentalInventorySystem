@@ -6,8 +6,6 @@ namespace TanCruzDentalInventorySystem.ViewModels
     public class ScheduledPaymentViewModel
 	{
 		public string ScheduledPaymentId { get; set; }
-		public PurchaseOrderViewModel PurchaseOrder { get; set; }
-		public SalesOrderViewModel SalesOrder { get; set; }
 		public BusinessPartnerViewModel BusinessPartner { get; set; }
 		public string ScheduledPaymentStatus { get; set; }
 		public string ModeOfPayment { get; set; }
@@ -25,8 +23,6 @@ namespace TanCruzDentalInventorySystem.ViewModels
 	public class ScheduledPaymentFormViewModel
 	{
 		public ScheduledPaymentViewModel ScheduledPayment { get; set; }
-		public IEnumerable<PurchaseOrderViewModel> PurchaseOrders { get; set; }
-		public IEnumerable<SalesOrderViewModel> SalesOrders { get; set; }
 		public IEnumerable<BusinessPartnerViewModel> BusinessPartners { get; set; }
 	}
 }

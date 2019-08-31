@@ -10,7 +10,6 @@ namespace TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface
 		Task<SalesOrderViewModel> GetSalesOrder(string salesOrderId);
 		Task<SalesOrderFormViewModel> GetSalesOrderForm(string salesOrderId);
 		Task<SalesOrderFormViewModel> CreateSalesOrderForm(string userId);
-        Task<SalesOrderFormViewModel> UpdateSalesOrderForm(SalesOrderFormViewModel salesOrderFormViewModel);
         Task<int> SaveSalesOrder(SalesOrderViewModel salesOrderViewModel);
 	}
 }

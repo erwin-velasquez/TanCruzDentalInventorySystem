@@ -23,5 +23,6 @@ namespace TanCruzDentalInventorySystem.Models
 		public DateTime? ChangedDate { get; set; }
 		public long VersionTimeStamp { get; set; }
 		public IEnumerable<SalesOrderDetail> SalesOrderDetails { get; set; }
+		public IEnumerable<ScheduledPayment> ScheduledPayments { get; set; }
 	}
 }

@@ -40,6 +40,7 @@ namespace TanCruzDentalInventorySystem.ViewModels
 		public DateTime? ChangedDate { get; set; }
 		public long VersionTimeStamp { get; set; }
 		public List<SalesOrderDetailViewModel> SalesOrderDetails { get; set; }
+		public IEnumerable<ScheduledPaymentViewModel> ScheduledPayments { get; set; }
 	}
 
 	public class SalesOrderFormViewModel

@@ -234,7 +234,6 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="BusinessService\BusinessServiceInterface\IScheduledPaymentService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\ISalesOrderService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IPurchaseOrderService.cs" />
     <Compile Include="BusinessService\ItemService.cs" />
@@ -269,13 +268,11 @@
     <Compile Include="Repository\CurrencyRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\IBusinessPartnerRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\ICurrencyRepository.cs" />
-    <Compile Include="Repository\DataServiceInterface\IScheduledPaymentRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\ISalesOrderRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\IPurchaseOrderRepository.cs" />
     <Compile Include="Repository\ItemRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\IItemRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\IUnitOfWork.cs" />
-    <Compile Include="Repository\ScheduledPaymentRepository.cs" />
     <Compile Include="Repository\SalesOrderRepository.cs" />
     <Compile Include="Repository\PurchaseOrderRepository.cs" />
     <Compile Include="Repository\UnitOfWork.cs" />
