@@ -1,6 +1,10 @@
-﻿@{
+﻿@model IEnumerable<TanCruzDentalInventorySystem.ViewModels.SalesOrderViewModel>
+
+@{
     ViewBag.Title = "Sales";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var modelTemp = new TanCruzDentalInventorySystem.ViewModels.SalesOrderViewModel();
 }
 
 
@@ -19,170 +23,50 @@
 </div>
 
 <div class="container">
-    <table id="salesOrderListTable" class="display hover"></table>
-
-    @*CSS*@
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-
-    @section scripts{
-
-
-        @*<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>*@
-        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-        <script type="text/javascript" src="http://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>
-
-
-
-        <script type="text/javascript">
-    $(document).ready(function () {
-
-        $('#btn-add-new-sales-order').click(function (e)
-        {
-            location.href = '@Url.Content("~/SalesOrder/CreateSalesOrder/")';
-        });
-
-        var table =  $('#salesOrderListTable').DataTable({
-                    "scrollX": true,
-                    "ajax": {
-                        "type": "GET",
-                        "url" : "@Url.Action("GetSalesOrderList","SalesOrder")",
-                        "dataType": "JSON",
-                    },
-                    "columns": [
-                        {
-                            "data": null,
-                            "className": "center",
-                            "defaultContent" : '<a href="" class="editor_edit">Edit</a> / <a href="" class="editor_view">View</a> / <a href="" class="editor_remove">Delete</a>',
-                            "width": "125px",
-                        },
-                        {
-                            "data": "SalesOrderId",
-                            "title": "Sales Order Id",
-                            "width": "140px",
-                            "className" : "dt-center"
-                        },
-                        {
-                            "data": "SalesOrderControlNumber",
-                            "title": "PO Control Number",
-                            "width": "150px",
-                            "className" : "dt-center"
-                        },
-                        {
-                            "data": "BusinessPartner.BusinessPartnerName",
-                            "title": "Business Partner",
-                            "width": "240px",
-                            "className": "dt-center"
-                        },
-                        {
-                            "data": "Currency.CurrencyName",
-                            "title": "Currency",
-                            "width": "120p",
-                            "className": "dt-center"
-                        },
-                        {
-                            "data": "SalesOrderStatus",
-                            "title": "Status",
-                            "className": "dt-center",
-                        },
-                        {
-                            "data": "DeliveryDate",
-                            "title": "Delivery Date",
-                            "width": "120px",
-                            "className": "dt-center",
-                            "render": function (data) {
-                                return moment(data).format('MM/DD/YYYY');
-                            }
-                        },
-                        {
-                            "data": "PostingDate",
-                            "title": "Posting Date",
-                            "width": "120px",
-                            "className": "dt-center",
-                            "render": function (data) {
-                                return moment(data).format('MM/DD/YYYY');
-                            }
-                        },
-                        {
-                            "data": "DocumentDate",
-                            "title": "Document Date",
-                            "width": "120px",
-                            "className": "dt-center",
-                            "render": function (data) {
-                                return moment(data).format('MM/DD/YYYY');
-                            }
-                        },
-                        {
-                            "data": "Remarks",
-                            "title": "Remarks",
-                            "width": "120px",
-                            "className" : "truncate-remarks"
-                        },
-                        {
-                            "data": "RefDocNumber",
-                            "title": "Ref Doc Num",
-                            "width": "140px",
-                            "className": "dt-left",
-                        },
-                        {
-                            "data": "SalesOrderDiscount",
-                            "title": "PO Discount Amount",
-                            "width": "190px",
-                            "className": "dt-right"
-                        },
-                        {
-                            "data": "SalesOrderDiscountAmount",
-                            "title": "SO Order Amount",
-                            "width": "140px",
-                            "className": "dt-right"
-                        },
-                        {
-                            "data": "SalesOrderTax",
-                            "title": "SO Tax",
-                            "width" : "70px",
-                            "className": "dt-right"
-                        },
-                        {
-                            "data": "SalesOrderTotal",
-                            "title": "SO Total",
-                            "width" : "70px",
-                            "className": "dt-right"
-                        },
-                        {
-                            "data": "UserId",
-                            "title": "User Id",
-                            "width": "130px",
-                            "className": "dt-left"
-                        }
-                    ],
-                    "language": {
-                        "processing" : "loading....",
-                        "emptyTable" : "No data found"
-                    },
-                    createdRow: function (row) {
-                        var td = $(row).find("[class^=truncate]");
-                        if (td) {
-                            td.attr("title", td.html());
-                        }
-                    },
-                    "paging": true,
-                    "autoWidth": true,
-        });
-
-
-        $('#salesOrderListTable').on('click', 'a.editor_edit', function (e) {
-            e.preventDefault();
-            var row = table.row($(this).parents('tr')).data();
-            location.href = '@Url.Content("~/SalesOrder/EditSalesOrderRecord?salesOrderId=")' + row.SalesOrderId;
-        });
-
-          $('#salesOrderListTable').on('click', 'a.editor_view', function (e) {
-            e.preventDefault();
-            var row = table.row($(this).parents('tr')).data();
-            location.href = '@Url.Content("~/SalesOrder/SalesOrderRecord?salesOrderId=")' + row.SalesOrderId;
-        });
-    });
-
-        </script>
-    }
+    <table id="salesOrderListTable" class="display hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Action</th>
+                <th>@Html.DisplayNameFor(model => model.SalesOrderId)</th>
+                <th>@Html.DisplayNameFor(model => model.RefDocNumber)</th>
+                <th>@Html.DisplayNameFor(model => model.SalesOrderStatus)</th>
+                <th>@Html.DisplayNameFor(model => model.SalesOrderTotal)</th>
+                <th>@Html.DisplayNameFor(model => model.Remarks)</th>
+                <th>@Html.DisplayNameFor(model => model.DocumentDate)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>Action</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].SalesOrderId)@Model.ToArray()[i].SalesOrderId</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].RefDocNumber)@Model.ToArray()[i].RefDocNumber</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].SalesOrderStatus)@Model.ToArray()[i].SalesOrderStatus</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].SalesOrderTotal)@Model.ToArray()[i].SalesOrderTotal</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].Remarks)@Model.ToArray()[i].Remarks</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].DocumentDate)@Model.ToArray()[i].DocumentDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
+
+@section scripts{
+
+    <script type="text/javascript">
+        var GetSalesOrderListURL = "@Url.Content("~/SalesOrder/CreateSalesOrder/")";
+        var CreateSalesOrderURL = "@Url.Content("~/SalesOrder/CreateSalesOrder/")";
+        var EditSalesOrderRecordUrl = "@Url.Content("~/SalesOrder/EditSalesOrderRecord?salesOrderId=")";
+        var ViewSalesOrderRecordUrl = "@Url.Content("~/SalesOrder/SalesOrderRecord?salesOrderId=")";
+    </script>
+
+    @Scripts.Render("~/Scripts/SalesOrder/SalesOrderIndex.js");
+
+<script type="text/javascript">
+   
+
+</script>
+}

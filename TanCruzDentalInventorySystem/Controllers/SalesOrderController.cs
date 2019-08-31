@@ -18,9 +18,11 @@ namespace TanCruzDentalInventorySystem.Controllers
 		}
 
 		[HttpGet]
-		public ActionResult Index()
+		public async Task<ActionResult> Index()
 		{
-			return View();
+            var salesOrders = await _salesOrderService.GetSalesOrderList();
+
+            return View(salesOrders);
 		}
 
 		[HttpGet]
