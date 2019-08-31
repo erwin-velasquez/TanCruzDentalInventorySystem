@@ -19,13 +19,17 @@
 
         <div class="collapse navbar-collapse" id="navBarMain">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    @Html.ActionLink("Lists", "Index", "Item", new { area = "" }, new { @class = "nav-link" })
+                <li class="nav-item dropdown">
+                    @Html.ActionLink("Items", string.Empty, string.Empty, new { area = "" }, new { @id = "navBarMainItemDD", @class = "nav-link", data_toggle = "dropdown", aria_haspopup = "true", aria_expanded = "false" })
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="@Url.Action("CreateItem", "Item")">Create New Item</a>
+                        <a class="dropdown-item" href="@Url.Action("Index", "Item")">Item List</a>
+                    </div>
                 </li>
                 <li class="nav-item dropdown">
                     @Html.ActionLink("Sales", string.Empty, string.Empty, new { area = "" }, new { @id = "navBarMainSalesDD", @class = "nav-link", data_toggle = "dropdown", aria_haspopup = "true", aria_expanded = "false" })
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="~/SalesOrder/Index">Sales Order</a>
+                        <a class="dropdown-item" href="@Url.Action("Index", "SalesOrder")">Sales Order</a>
                         <a class="dropdown-item" href="~/SalesOrder/CustomerPayment">Customer Payment</a>
                     </div>
                 </li>
