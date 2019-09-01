@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Collections;
 using TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface;
 using TanCruzDentalInventorySystem.ViewModels;
 
@@ -63,7 +64,9 @@ namespace TanCruzDentalInventorySystem.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> SaveSalesOrderRecord(SalesOrderFormViewModel salesOrderForm)
 		{
-			if (ModelState.IsValid)
+            ArrayList errorList = new ArrayList();
+
+            if (TryValidateModel(salesOrderForm))
 			{
 				salesOrderForm.SalesOrder.UserId = User.Identity.GetUserId();
 				salesOrderForm.SalesOrder.SalesOrderDetails?.Select
@@ -85,9 +88,23 @@ namespace TanCruzDentalInventorySystem.Controllers
 				ModelState.AddModelError(string.Empty, "There was a problem and the SalesOrder was not saved.");
 			}
 
-			salesOrderForm = await _salesOrderService.GetSalesOrderForm(salesOrderForm.SalesOrder.SalesOrderId);
+            foreach (ModelState modelState in ViewData.ModelState.Values)
+            {
+                foreach (ModelError error in modelState.Errors)
+                {
+                    errorList.Add(error.ErrorMessage);
+                }
+            }
 
-			return View("EditSalesOrderRecord", salesOrderForm);
+            foreach (string error in errorList)
+            {
+                ModelState.AddModelError(string.Empty, error);
+            }
+
+            //win may way ba na ma preserve yung data pls nawawala yung details
+            salesOrderForm = await _salesOrderService.GetSalesOrderForm(salesOrderForm.SalesOrder.SalesOrderId);
+
+			return View("CreateSalesOrder", salesOrderForm);
 		}
 
 	}

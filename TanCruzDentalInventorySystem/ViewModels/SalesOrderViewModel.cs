@@ -11,7 +11,7 @@ namespace TanCruzDentalInventorySystem.ViewModels
 		[Display(Name = "Sales Order Control Number")]
 		[Required]
 		public long SalesOrderControlNumber { get; set; }
-		[Display(Name = "Business Partner")]
+        [Display(Name = "Business Partner")]
 		public BusinessPartnerViewModel BusinessPartner { get; set; }
 		[Display(Name = "Currency")]
 		public CurrencyViewModel Currency { get; set; }
@@ -39,6 +39,8 @@ namespace TanCruzDentalInventorySystem.ViewModels
 		public string UserId { get; set; }
 		public DateTime? ChangedDate { get; set; }
 		public long VersionTimeStamp { get; set; }
+
+        [Required(ErrorMessage = "You have not selected any Item.")]
 		public List<SalesOrderDetailViewModel> SalesOrderDetails { get; set; }
 		public IEnumerable<ScheduledPaymentViewModel> ScheduledPayments { get; set; }
 	}

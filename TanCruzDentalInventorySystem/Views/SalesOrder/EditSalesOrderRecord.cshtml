@@ -89,11 +89,35 @@
         </div>
         <div class="row">
             <div class="form-group col-md-12">
-                <table id="salesOrderDetailTable" class="display hover"></table>
+                <table id="salesOrderDetailTable" class="display hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Item Name</th>
+                            <th>Item ID</th>
+                            <th>Item Price</th>
+                            <th>Quantity-on-Hand</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.SalesOrder.SalesOrderDetails.Count; i++)
+                        {
+                            <tr>
+                                <td></td>
+                                <td>@Html.HiddenFor(x => x.SalesOrder.SalesOrderDetails.ToArray()[i].Item.ItemName, new { @Name = "SalesOrder.SalesOrderDetails[" + i.ToString() + "].Item.ItemName" })@Model.SalesOrder.SalesOrderDetails.ToArray()[i].Item.ItemName</td>
+                                <td>@Html.HiddenFor(x => x.SalesOrder.SalesOrderDetails.ToArray()[i].Item.ItemId, new { @Name = "SalesOrder.SalesOrderDetails[" + i.ToString() + "].Item.ItemId" })@Model.SalesOrder.SalesOrderDetails.ToArray()[i].Item.ItemId</td>
+                                <td>@Html.HiddenFor(x => x.SalesOrder.SalesOrderDetails.ToArray()[i].ItemPriceAmount, new { @Name = "SalesOrder.SalesOrderDetails[" + i.ToString() + "].ItemPriceAmount" })@Model.SalesOrder.SalesOrderDetails.ToArray()[i].ItemPriceAmount</td>
+                                <td>@Html.HiddenFor(x => x.SalesOrder.SalesOrderDetails.ToArray()[i].QuantityOnHand, new { @Name = "SalesOrder.SalesOrderDetails[" + i.ToString() + "].QuantityOnHand" })@Model.SalesOrder.SalesOrderDetails.ToArray()[i].QuantityOnHand</td>
+                                <td>@Html.HiddenFor(x => x.SalesOrder.SalesOrderDetails.ToArray()[i].Quantity, new { @Name = "SalesOrder.SalesOrderDetails[" + i.ToString() + "].Quantity" })@Model.SalesOrder.SalesOrderDetails.ToArray()[i].Quantity</td>
+                                <td>@Html.HiddenFor(x => x.SalesOrder.SalesOrderDetails.ToArray()[i].SalesOrderDetailTotal, new { @Name = "SalesOrder.SalesOrderDetails[" + i.ToString() + "].SalesOrderDetailTotal" })@Model.SalesOrder.SalesOrderDetails.ToArray()[i].SalesOrderDetailTotal</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
-
-
 
         <div class="form-group">
             @Html.LabelFor(model => model.SalesOrder.SalesOrderDiscount, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -147,7 +171,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Submit" class="btn btn-default" />
+                <input id="submitButton" type="submit" value="Submit" class="btn btn-success" />
             </div>
         </div>
     </div>
@@ -157,82 +181,7 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@*CSS*@
-@*<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />*@
-
 @section scripts{
 
-    @*<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script type="text/javascript" src="http://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>*@
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var json = JSON.parse('@Html.Raw(@Model.SalesOrder.SalesOrderDetailsJson)');
-            var table = $('#salesOrderDetailTable').DataTable({
-                "scrollX": true,
-                data : json,
-                "columns": [
-                    {
-                        "data": null,
-                        "title": "#",
-                        "width": "30px",
-                        "defaultContent" : '',
-                        "className": "dt-center"
-                    },
-                    {
-                        "data": "Item.ItemName",
-                        "title": "Item Name",
-                        "width" : "200px",
-                        "className": "dt-left"
-                    },
-                    {
-                        "data": "Item.ItemId",
-                        "title": "Item Id",
-                        "width" : "150px",
-                        "className": "dt-left"
-                    },
-                    {
-                        "data": "Item.ItemPrice",
-                        "title": "Item Price",
-                        "width" : "90px",
-                        "className": "dt-center"
-                    },
-                    {
-                        "data": null,
-                        "title": "Quantity On-hand",
-                        "width": "150px",
-                        "defaultContent" : '',
-                        "className": "dt-center"
-                    },
-                    {
-                        "data": "Item\\.Quantity",
-                        "title": "Quantity",
-                        "width": "120px",
-                        "defaultContent" : '',
-                        "className": "dt-center"
-                    },
-                    {
-                        "data": null,
-                        "title": "Total",
-                        "width": "110px",
-                        "defaultContent" : '',
-                        "className": "dt-center"
-                    },
-                ],
-                "language": {
-                    "processing": "loading....",
-                    "emptyTable": "No data found"
-                },
-                createdRow: function (row) {
-                    var td = $(row).find("[class^=truncate]");
-                    if (td) {
-                        td.attr("title", td.html());
-                    }
-                },
-                "paging": true,
-                "autoWidth": true,
-            });
-        });
-    </script>
+    @Scripts.Render("~/Scripts/SalesOrder/SalesOrderEdit.js");
 }

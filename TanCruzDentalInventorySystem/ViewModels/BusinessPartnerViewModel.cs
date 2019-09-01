@@ -4,6 +4,7 @@ namespace TanCruzDentalInventorySystem.ViewModels
 {
 	public class BusinessPartnerViewModel
 	{
+        [Required(ErrorMessage ="Business Partner is Required")]
         [Display(Name ="Business Partner")]
 		public string BusinessPartnerId { get; set; }
 

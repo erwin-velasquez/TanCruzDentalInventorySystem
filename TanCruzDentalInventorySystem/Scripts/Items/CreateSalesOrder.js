@@ -11,46 +11,46 @@
             {
                 "data": null,
                 "title": "#",
-                "width": "30px",
+                //"width": "30px",
                 "defaultContent": '',
                 "className": "dt-center select-checkbox"
             },
             {
                 "data": "ItemName",
                 "title": "Item Name",
-                "width": "200px",
+                //"width": "200px",
                 "className": "dt-left"
             },
             {
                 "data": "ItemId",
                 "title": "Item Id",
-                "width": "150px",
+                //"width": "150px",
                 "className": "dt-left"
             },
             {
                 "data": "ItemPriceAmount",
                 "title": "Item Price",
-                "width": "90px",
+                //"width": "90px",
                 "className": "dt-center"
             },
             {
                 "data": null,
                 "title": "Quantity On-hand",
-                "width": "150px",
+                //"width": "150px",
                 "defaultContent": '',
                 "className": "dt-center"
             },
             {
                 "data": "Quantity",
                 "title": "Quantity",
-                "width": "120px",
+                //"width": "120px",
                 "defaultContent": "<input type='text' />",
                 "className": "dt-center"
             },
             {
                 "data": "Total",
                 "title": "Total",
-                "width": "110px",
+                //"width": "110px",
                 "defaultContent": '',
                 "className": "dt-center"
             }
@@ -77,7 +77,7 @@
 
             $(cells[4]).attr("id", "td_QuantityOnHand_" + String(dataIndex));
             $(cells[4]).append($("<input type='hidden' id='SalesOrder_SalesOrderDetails_" + String(dataIndex) +
-                "__QuantityOnHand' name='SalesOrder.SalesOrderDetails[" + String(dataIndex) + "].QuantityOnHand' value='" + $(cells[4]).html() + "'/>"));
+                "__QuantityOnHand' name='SalesOrder.SalesOrderDetails[" + String(dataIndex) + "].QuantityOnHand' value='" + /*$(cells[4]).html()*/ "50" + "'/>"));
 
             $(cells[5]).attr("id", "td_Quantity_" + String(dataIndex));
             $(row).find("td input[type*='text']").each(function () {
@@ -93,6 +93,7 @@
                     var DocumentTotal = 0.0;
 
                     $(this).parent().parent().find("td[id^='td_SalesOrderDetailTotal']").text(total.toFixed(2));
+                    $(this).parent().parent().find("td[id^='td_QuantityOnHand']").text(total.toFixed(2));
 
                     //Document Total Computation
                     $.each($('#salesOrderDetailTable').find("td[id^='td_SalesOrderDetailTotal']"), function (index, value) {
