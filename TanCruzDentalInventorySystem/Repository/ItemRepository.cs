@@ -83,7 +83,7 @@ namespace TanCruzDentalInventorySystem.Repository
 						itemUnit.PurchasingUnitOfMeasure = typeMap[6] as PurchasingUnitOfMeasure;
 						itemUnit.InventoryUnitOfMeasure = typeMap[7] as InventoryUnitOfMeasure;
 
-						return itemUnit;
+                        return itemUnit;
 					},
 				param: parameters,
 				transaction: UnitOfWork.Transaction,

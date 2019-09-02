@@ -63,7 +63,10 @@ namespace TanCruzDentalInventorySystem.BusinessService
 				Currencies = Mapper.Map<IEnumerable<CurrencyViewModel>>(await _currencyRepository.GetCurrencyList()),
 				BusinessPartners = Mapper.Map<IEnumerable<BusinessPartnerViewModel>>(await _businessPartnerRepository.GetBusinessPartnerList())
 			};
-			return purchaseOrderForm;
+
+            purchaseOrderForm.PurchaseOrder.PurchaseOrderStatus = "Open";
+
+            return purchaseOrderForm;
 		}
 
 		public async Task<int> SavePurchaseOrder(PurchaseOrderViewModel purchaseOrderViewModel)

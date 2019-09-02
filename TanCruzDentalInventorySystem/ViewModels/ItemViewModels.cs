@@ -37,6 +37,7 @@ namespace TanCruzDentalInventorySystem.ViewModels
 		public string UserId { get; set; }
 		public DateTime? ChangedDate { get; set; }
 		public long VersionTimeStamp { get; set; }
+        public decimal QuantityOnHand { get; set; }
 	}
 
 	public class ItemGroupViewModel
