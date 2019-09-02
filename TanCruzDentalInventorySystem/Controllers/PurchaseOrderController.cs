@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Collections;
 using TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface;
 using TanCruzDentalInventorySystem.ViewModels;
 
@@ -31,7 +32,8 @@ namespace TanCruzDentalInventorySystem.Controllers
 			return View(purchaseOrder);
 		}
 
-		[Authorize(Roles = "Editor")]
+        [HttpGet]
+        [Authorize(Roles = "Editor")]
 		public async Task<ActionResult> CreatePurchaseOrder()
 		{
 			var purchaseOrderForm = await _purchaseOrderService.CreatePurchaseOrderForm(User.Identity.GetUserId());
@@ -61,32 +63,48 @@ namespace TanCruzDentalInventorySystem.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> SavePurchaseOrderRecord(PurchaseOrderFormViewModel purchaseOrderForm)
 		{
-			if (ModelState.IsValid)
-			{
-				purchaseOrderForm.PurchaseOrder.UserId = User.Identity.GetUserId();
-				purchaseOrderForm.PurchaseOrder.PurchaseOrderDetails?.Select
-					(detail =>
-					{
-						detail.UserId = User.Identity.GetUserId();
-						detail.PurchaseOrderId = purchaseOrderForm.PurchaseOrder.PurchaseOrderId;
-						return detail;
-					}).ToList();
+            ArrayList errorList = new ArrayList();
 
-				var recordsSaved = await _purchaseOrderService.SavePurchaseOrder(purchaseOrderForm.PurchaseOrder);
+            if (TryValidateModel(purchaseOrderForm))
+            {
+                purchaseOrderForm.PurchaseOrder.UserId = User.Identity.GetUserId();
+                purchaseOrderForm.PurchaseOrder.PurchaseOrderDetails?.Select
+                    (detail =>
+                    {
+                        detail.UserId = User.Identity.GetUserId();
+                        detail.PurchaseOrderId = purchaseOrderForm.PurchaseOrder.PurchaseOrderId;
+                        return detail;
+                    }).ToList();
 
-				if (recordsSaved >= 1)
-				{
-					var purchaseOrder = await _purchaseOrderService.GetPurchaseOrder(purchaseOrderForm.PurchaseOrder.PurchaseOrderId);
+                var recordsSaved = await _purchaseOrderService.SavePurchaseOrder(purchaseOrderForm.PurchaseOrder);
 
-					return View("PurchaseOrderRecord", purchaseOrder);
-				}
-				ModelState.AddModelError(string.Empty, "There was a problem and the PurchaseOrder was not saved.");
-			}
+                if (recordsSaved >= 1)
+                {
+                    var purchaseOrder = await _purchaseOrderService.GetPurchaseOrder(purchaseOrderForm.PurchaseOrder.PurchaseOrderId);
 
-			purchaseOrderForm = await _purchaseOrderService.GetPurchaseOrderForm(purchaseOrderForm.PurchaseOrder.PurchaseOrderId);
+                    return View("PurchaseOrderRecord", purchaseOrder);
+                }
+                ModelState.AddModelError(string.Empty, "There was a problem and the PurchaseOrder was not saved.");
+            }
 
-			return View("EditPurchaseOrderRecord", purchaseOrderForm);
-		}
+            foreach (ModelState modelState in ViewData.ModelState.Values)
+            {
+                foreach (ModelError error in modelState.Errors)
+                {
+                    errorList.Add(error.ErrorMessage);
+                }
+            }
+
+            foreach (string error in errorList)
+            {
+                ModelState.AddModelError(string.Empty, error);
+            }
+
+            //win may way ba na ma preserve yung data pls nawawala yung details
+            purchaseOrderForm = await _purchaseOrderService.GetPurchaseOrderForm(purchaseOrderForm.PurchaseOrder.PurchaseOrderId);
+
+            return View((ViewBag.FormMode = "Create") ? "CreatePurchaseOrder" : "PurchaseOrderEdit", purchaseOrderForm);
+        }
 
 	}
 }

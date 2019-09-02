@@ -4,65 +4,57 @@
         $("#MainForm").validate();
     });
 
-    var itemsTable = $('#purchaseOrderDetailTable').DataTable({
+    var table = $('#purchaseOrderDetailTable').DataTable({
         data: {},
         "searching": false,
         "columns": [
             {
                 "data": null,
                 "title": "#",
-                "width": "30px",
+                //"width": "30px",
                 "defaultContent": '',
                 "className": "dt-center select-checkbox"
             },
             {
                 "data": "ItemName",
                 "title": "Item Name",
-                "width": "200px",
+                //"width": "200px",
                 "className": "dt-left"
             },
             {
                 "data": "ItemId",
                 "title": "Item Id",
-                "width": "150px",
+                //"width": "150px",
                 "className": "dt-left"
             },
             {
                 "data": "ItemPriceAmount",
                 "title": "Item Price",
-                "width": "90px",
+                //"width": "90px",
                 "className": "dt-center"
             },
             {
                 "data": null,
                 "title": "Quantity On-hand",
-                "width": "150px",
+                //"width": "150px",
                 "defaultContent": '',
                 "className": "dt-center"
             },
             {
                 "data": "Quantity",
                 "title": "Quantity",
-                "width": "120px",
+                //"width": "120px",
                 "defaultContent": "<input type='text' />",
                 "className": "dt-center"
             },
             {
                 "data": "Total",
                 "title": "Total",
-                "width": "110px",
+                //"width": "110px",
                 "defaultContent": '',
                 "className": "dt-center"
             }
         ],
-        "language": {
-            "processing": "loading....",
-            "emptyTable": "No data found"
-        },
-        select: {
-            style: 'os',
-            selector: 'td'
-        },
         createdRow: function (row, data, dataIndex, cells) {
             var td = $(row).find("[class^=truncate]");
             if (td) {
@@ -85,7 +77,7 @@
 
             $(cells[4]).attr("id", "td_QuantityOnHand_" + String(dataIndex));
             $(cells[4]).append($("<input type='hidden' id='PurchaseOrder_PurchaseOrderDetails_" + String(dataIndex) +
-                "__QuantityOnHand' name='PurchaseOrder.PurchaseOrderDetails[" + String(dataIndex) + "].QuantityOnHand' value='" + $(cells[4]).html() + "'/>"));
+                "__QuantityOnHand' name='PurchaseOrder.PurchaseOrderDetails[" + String(dataIndex) + "].QuantityOnHand' value='" + /*$(cells[4]).html()*/ "50" + "'/>"));
 
             $(cells[5]).attr("id", "td_Quantity_" + String(dataIndex));
             $(row).find("td input[type*='text']").each(function () {
@@ -101,9 +93,10 @@
                     var DocumentTotal = 0.0;
 
                     $(this).parent().parent().find("td[id^='td_PurchaseOrderDetailTotal']").text(total.toFixed(2));
+                    $(this).parent().parent().find("td[id^='td_QuantityOnHand']").text(total.toFixed(2));
 
                     //Document Total Computation
-                    $.each($('#PurchaseOrderDetailTable').find("td[id^='td_PurchaseOrderDetailTotal']"), function (index, value) {
+                    $.each($('#purchaseOrderDetailTable').find("td[id^='td_PurchaseOrderDetailTotal']"), function (index, value) {
                         DocumentTotal = parseFloat(DocumentTotal) + parseFloat(!$(this).text() ? 0 : $(this).text());
                     });
 
@@ -117,6 +110,14 @@
                 "__PurchaseOrderDetailTotal' name='PurchaseOrder.PurchaseOrderDetails[" + String(dataIndex) + "].PurchaseOrderDetailTotal' value='" + !$(cells[6]).html() ? "0" : $(cells[5]).html() + "'/>"));
 
 
+        },
+        "language": {
+            "processing": "loading....",
+            "emptyTable": "No data found"
+        },
+        select: {
+            style: 'os',
+            selector: 'td'
         },
         "paging": true,
         "autoWidth": true,
@@ -132,97 +133,7 @@
         ]
     });
 
-    var itemSearchTable = $('#ItemSearchTable').DataTable({
-        data: {},
-        "columns": [
-            {
-                "data": null,
-                "title": "#",
-                "width": "30px",
-                "defaultContent": '',
-                "className": "dt-center"
-            },
-            {
-                "data": "ItemName",
-                "title": "Item Name",
-                "width": "200px",
-                "className": "dt-left"
-            },
-            {
-                "data": "ItemId",
-                "title": "Item Id",
-                "width": "150px",
-                "className": "dt-left"
-            },
-            {
-                "data": "ItemPriceAmount",
-                "title": "Item Price",
-                "width": "90px",
-                "className": "dt-center"
-            },
-            {
-                "data": null,
-                "title": "Quantity On-hand",
-                "width": "150px",
-                "defaultContent": '',
-                "className": "dt-center"
-            },
-            {
-                "data": null,
-                "title": "Quantity",
-                "width": "120px",
-                "defaultContent": '',
-                "className": "dt-center"
-            }
-        ],
-        columnDefs: [{
-            orderable: false,
-            className: 'select-checkbox',
-            targets: 0
-        },
-        {
-            targets: 1,
-            'createdCell': function (td, cellData, rowData, row, col) {
-                $(td).attr('id', 'ItemName');
-            }
-        },
-        {
-            targets: 2,
-            'createdCell': function (td, cellData, rowData, row, col) {
-                $(td).attr('id', 'ItemId');
-            }
-        }],
-        select: {
-            style: 'os',
-            selector: 'td'
-        },
-        order: [[1, 'asc']],
-        "language": {
-            "processing": "loading....",
-            "emptyTable": "No data found"
-        },
-        createdRow: function (row, data, dataIndex) {
-            var td = $(row).find("[class^=truncate]");
-            if (td) {
-                td.attr("title", td.html());
-            };
-            $(row).attr('id', 'someID');
-        },
-        "paging": true,
-        "autoWidth": false,
-        "bLengthChange": false,
-        "bPaginate": false,
-        buttons: [
-            {
-                text: 'Reload',
-                action: function (e, dt, node, config) {
-                    dt.ajax.reload();
-                }
-            }
-        ]
-    });
-
-    var businessPartnerSearchTable = $('#BusinessPartnerSearchTable').DataTable({
+    var table2 = $('#BusinessPartnerSearchTable').DataTable({
         "searching": false,
         "language": {
             "processing": "loading....",
@@ -235,9 +146,9 @@
         }
     });
 
-    businessPartnerSearchTable.on('select', function (e, dt, type, indexes) {
+    table2.on('select', function (e, dt, type, indexes) {
         console.log('asdf');
-        var rowData = businessPartnerSearchTable.rows(indexes).data().toArray();
+        var rowData = table2.rows(indexes).data().toArray();
         var BusinessPartnerId = $(rowData[0][0])[0].defaultValue;
 
         var BusinessPartnerName = $('<div>' + rowData[0][0] + '</div>').text();
@@ -246,8 +157,148 @@
         $('#PurchaseOrder_BusinessPartner_BusinessPartnerId').val(BusinessPartnerId);
     });
 
-    
+    $('#saveChangesButton').on('click', function () {
+        console.log(JSON.stringify(table.rows().data().toArray()));
+        table.row.add({
+            "Item.ItemName": $("#txt-item-name").val(),
+            "Item.ItemId": $("#txt-item-id").val(),
+            "Item.ItemPrice": $("#txt-item-price").val(),
+            "Item.Quantity": $("#txt-item-quantity").val(),
+            "Item.Total": $("#txt-item-total").val(),
+        }).draw();
+
+        var itemList = [];
+
+        $.each(table.rows().data().toArray(), function (index, value) {
+            var mm = value;
+            var k = {
+                "PurchaseOrderDetailId": null,
+                "PurchaseOrderId": null,
+                "Item": {
+                    "ItemId": value["Item.ItemId"],
+                    "ItemName": value["Item.ItemName"],
+                    "ItemDescription": null,
+                    "ItemGroup": null,
+                    //"ItemPrice": "300.5m",//parseFloat(value["Item.ItemPrice"]),
+                    //"ItemPrice": parseFloat(value["Item.ItemPrice"]),
+                    //"ItemPriceAmount": parseFloat(value["Item.ItemPrice"]),
+                    "Currency": null,
+                    "UnitOfMeasure": null,
+                    "BusinessPartner": null,
+                    "PurchasingUnitOfMeasure": null,
+                    "ItemsPerUnitOfMeasure": 5,
+                    "PurchasingRemarks": "testing edit",
+                    "InventoryUnitOfMeasure": null,
+                    "MinimumInventoryRequired": 100,
+                    "IsActive": false,
+                    "UserId": null,
+                    "ChangedDate": null,
+                    "VersionTimeStamp": 0
+                },
+                //"ItemPrice": {
+                //"ItemPriceId": "IP00000007",
+                //"ItemPriceName": "ItemPriceTHREEName",
+                //"ItemPriceDescription": "ItemPriceTHREE Description",
+                //"Type": "AC",
+                //"PriceAmount": 250.0,
+                //"BaseCurrency": "3"
+                //},
+                "ItemPriceAmount": parseFloat(value["Item.ItemPrice"]),
+                "Quantity": value["Item.Quantity"],
+                "QuantityOnHand": 8.0,
+                "PurchaseOrderDetailDiscount": 10.5,
+                "PurchaseOrderDetailDiscountAmount": 100.9,
+                //"Tax": {
+                //"TaxId": "TI00000001",
+                //"TaxName": "TaxName_1",
+                //"TaxDescription": "TaxDesc_1",
+                //"TaxValue": 2400.0,
+                //"IsDefault": false,
+                //"TaxStatus": null,
+                //"UserId": null
+                //},
+                "PurchaseOrderDetailTax": 200.0,
+                "PurchaseOrderDetailTotal": 500.0,
+                "Remarks": "First Sale",
+                //"UserId": null,
+                //"ChangedDate": "2019-08-18T08:10:37.6084235",
+                //"VersionTimeStamp": 637017126376084235
+            };
+            itemList.push(k);
+        });
+        $("#PurchaseOrderDetailsJson").val(JSON.stringify(itemList));
+    });
+
     $('#searchItemButton').on('click', function () {
+
+        $.ajax({
+            url: '/Item/ItemSearchModal/',
+            type: 'GET',
+            cache: false,
+            dataType: 'html',
+            success: function (result) {
+
+                $(result).appendTo("body");
+
+                var table2 = $('#ItemSearchTable').DataTable({
+                    "searching": false,
+                    "language": {
+                        "processing": "loading....",
+                        "emptyTable": "No data found"
+                    },
+                    "select": {
+                        style: 'os',
+                        selector: 'td'
+                    },
+                    columnDefs: [{
+                        orderable: false,
+                        className: 'select-checkbox',
+                        targets: 0
+                    }],
+                    "paging": true,
+                    "autoWidth": false,
+                    "bLengthChange": false,
+                    "bPaginate": false
+                });
+
+                $('#ItemSearchDone').on('click', function () {
+                    console.log("ItemSearchDone");
+                    $("#ItemSearchTable tbody tr.selected input[name*='ItemId']").each(function (index, value) {
+
+                        $.get('/api/ItemApi/ItemRecord/', { itemId: this.value }, function (data) { //Replace with global URL not hardcoded
+                            obj = [
+                                {
+                                    ItemName: data.item.ItemName,
+                                    ItemId: data.item.ItemId,
+                                    ItemPriceAmount: data.item.ItemPriceAmount,
+                                    Quantity: data.item.Quantity,
+                                    Total: data.item.ItemTotal
+                                }
+                            ];
+
+                            table.rows.add(obj);
+                            table.draw();
+                        });
+                    });
+
+                    $('#ItemSearchModal').modal("hide");
+                });
+
+                $("#ItemSearchModal").modal("show");
+
+                $('#ItemSearchModal').on('hidden.bs.modal', function () {
+                    $(this).remove("#ItemSearchModal");
+                });
+
+            }, error: function (xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+
+
+
+        /*************OBSOLETE
+        
         $('#ItemSearchModal').modal("show");
 
         var itemList;
@@ -256,29 +307,14 @@
         $.get('/Item/GetItemList', function (data) { //Replace with global URL not hardcoded
             obj = data;
 
-            itemSearchTable.clear();
-            itemSearchTable.rows.add(obj);
-            itemSearchTable.draw();
-
-        });
+            table1.clear();
+            table1.rows.add(obj);
+            table1.draw();
+            
+        });*/
     });
 
-    $('#doneButton').on('click', function () {
 
-        $("#ItemSearchTable tbody tr.selected td#ItemId").each(function (index, value) {
-
-            $.get('/Item/GetSingleItem/', { itemId: $(this).text() }, function (data) { //Replace with global URL not hardcoded
-                obj = [
-                    data
-                ];
-
-                itemsTable.rows.add(obj);
-                itemsTable.draw();
-            });
-        });
-
-        $('#ItemSearchModal').modal("hide");
-    });
 
     $('#PurchaseOrder_BusinessPartner_BusinessPartnerName').on('click', function () {
         $('#BusinessPartnerSearchModal').modal("show");
@@ -312,5 +348,7 @@
             .remove()
             .draw();
     });
+
+
 
 });
