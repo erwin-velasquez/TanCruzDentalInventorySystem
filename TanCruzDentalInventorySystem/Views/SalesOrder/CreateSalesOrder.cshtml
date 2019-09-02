@@ -1,8 +1,5 @@
 ﻿@model TanCruzDentalInventorySystem.ViewModels.SalesOrderFormViewModel
 
-@{
-    ViewBag.FormMode = "Create";
-}
 
 @using (Html.BeginForm("SaveSalesOrderRecord", "SalesOrder", FormMethod.Post, new { @id = "MainForm", @class = "form-horizontal needs-validation bg-light", role = "form" }))
 {
@@ -165,6 +162,8 @@
                 <input id="submitButton" type="submit" value="Submit" class="btn btn-success" />
             </div>
         </div>
+
+        @Html.HiddenFor(model => model.ViewMode)
 
         <!-- Modal -->
         @Html.Partial("~/Views/Shared/BusinessPartnerSearchModal.cshtml", Model.BusinessPartners)

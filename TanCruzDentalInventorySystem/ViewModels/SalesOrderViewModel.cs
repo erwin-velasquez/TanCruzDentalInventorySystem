@@ -47,7 +47,8 @@ namespace TanCruzDentalInventorySystem.ViewModels
 
 	public class SalesOrderFormViewModel
 	{
-		public SalesOrderViewModel SalesOrder { get; set; }
+        public string ViewMode { get; set; }
+        public SalesOrderViewModel SalesOrder { get; set; }
 		public IEnumerable<CurrencyViewModel> Currencies { get; set; }
 		public IEnumerable<BusinessPartnerViewModel> BusinessPartners { get; set; }
 	}

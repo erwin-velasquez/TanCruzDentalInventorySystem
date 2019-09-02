@@ -6,7 +6,8 @@ namespace TanCruzDentalInventorySystem.ViewModels
 {
 	public class PurchaseOrderViewModel
 	{
-		[Display(Name = "Purchase Order Id")]
+        
+        [Display(Name = "Purchase Order Id")]
 		public string PurchaseOrderId { get; set; }
 		[Display(Name = "Purchase Order Control Number")]
 		[Required]
@@ -44,7 +45,8 @@ namespace TanCruzDentalInventorySystem.ViewModels
 
 	public class PurchaseOrderFormViewModel
 	{
-		public PurchaseOrderViewModel PurchaseOrder { get; set; }
+        public string ViewMode { get; set; }
+        public PurchaseOrderViewModel PurchaseOrder { get; set; }
 		public IEnumerable<CurrencyViewModel> Currencies { get; set; }
 		public IEnumerable<BusinessPartnerViewModel> BusinessPartners { get; set; }
 	}

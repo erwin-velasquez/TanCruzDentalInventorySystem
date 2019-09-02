@@ -39,6 +39,8 @@ namespace TanCruzDentalInventorySystem.Controllers
 		{
 			var salesOrderForm = await _salesOrderService.CreateSalesOrderForm(User.Identity.GetUserId());
 
+            salesOrderForm.ViewMode = "Create";
+
 			return View(salesOrderForm);
 		}
 
@@ -48,7 +50,9 @@ namespace TanCruzDentalInventorySystem.Controllers
 		{
 			var salesOrderForm = await _salesOrderService.GetSalesOrderForm(salesOrderId);
 
-			return View(salesOrderForm);
+            salesOrderForm.ViewMode = "Edit";
+
+            return View(salesOrderForm);
 		}
 
 		[HttpGet]
@@ -65,6 +69,16 @@ namespace TanCruzDentalInventorySystem.Controllers
 		public async Task<ActionResult> SaveSalesOrderRecord(SalesOrderFormViewModel salesOrderForm)
 		{
             ArrayList errorList = new ArrayList();
+            string _viewMode = salesOrderForm.ViewMode;
+
+            if ( salesOrderForm.SalesOrder.SalesOrderDetails != null)
+            foreach (SalesOrderDetailViewModel salesOrderDetail in salesOrderForm.SalesOrder.SalesOrderDetails)
+            {
+                if (salesOrderDetail.QuantityOnHand < salesOrderDetail.Quantity)
+                {
+                    ModelState.AddModelError(string.Empty, "Item " + salesOrderDetail.Item.ItemName + " will be depleted!");
+                }
+            }
 
             if (TryValidateModel(salesOrderForm))
 			{
@@ -96,13 +110,11 @@ namespace TanCruzDentalInventorySystem.Controllers
                 }
             }
 
-            foreach (string error in errorList)
-            {
-                ModelState.AddModelError(string.Empty, error);
-            }
             salesOrderForm = await _salesOrderService.GetSalesOrderForm(salesOrderForm.SalesOrder.SalesOrderId);
+            salesOrderForm.ViewMode = _viewMode;
 
-			return View((ViewBag.FormMode = "Create" )? "CreateSalesOrder" : "SalesOrderEdit", salesOrderForm);
+
+            return View((salesOrderForm.ViewMode == "Create" )? "~/Views/SalesOrder/CreateSalesOrder.cshtml" : "~/Views/SalesOrder/EditSalesOrderRecord.cshtml", salesOrderForm);
 		}
 
 	}

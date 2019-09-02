@@ -77,7 +77,7 @@
 
             $(cells[4]).attr("id", "td_QuantityOnHand_" + String(dataIndex));
             $(cells[4]).append($("<input type='hidden' id='SalesOrder_SalesOrderDetails_" + String(dataIndex) +
-                "__QuantityOnHand' name='SalesOrder.SalesOrderDetails[" + String(dataIndex) + "].QuantityOnHand' value='" + /*$(cells[4]).html()*/ "50" + "'/>"));
+                "__QuantityOnHand' name='SalesOrder.SalesOrderDetails[" + String(dataIndex) + "].QuantityOnHand' value='" + $(cells[4]).html() + "'/>"));
 
             $(cells[5]).attr("id", "td_Quantity_" + String(dataIndex));
             $(row).find("td input[type*='text']").each(function () {

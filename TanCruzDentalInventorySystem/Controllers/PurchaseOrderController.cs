@@ -65,6 +65,7 @@ namespace TanCruzDentalInventorySystem.Controllers
 		public async Task<ActionResult> SavePurchaseOrderRecord(PurchaseOrderFormViewModel purchaseOrderForm)
 		{
             ArrayList errorList = new ArrayList();
+            string _viewMode = purchaseOrderForm.ViewMode;
 
             if (TryValidateModel(purchaseOrderForm))
             {
@@ -102,8 +103,9 @@ namespace TanCruzDentalInventorySystem.Controllers
             }
 
             purchaseOrderForm = await _purchaseOrderService.GetPurchaseOrderForm(purchaseOrderForm.PurchaseOrder.PurchaseOrderId);
+            purchaseOrderForm.ViewMode = _viewMode;
 
-            return View((ViewBag.FormMode = "Create") ? "CreatePurchaseOrder" : "PurchaseOrderEdit", purchaseOrderForm);
+            return View((purchaseOrderForm.ViewMode == "Create") ? "~/Views/PurchaseOrder/CreatePurchaseOrder.cshtml" : "~/Views/PurchaseOrder/EditPurchaseOrderRecord.cshtml", purchaseOrderForm);
         }
 
 	}
