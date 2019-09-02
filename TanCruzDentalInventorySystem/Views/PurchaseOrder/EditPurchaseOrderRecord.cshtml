@@ -1,11 +1,14 @@
 ﻿@model TanCruzDentalInventorySystem.ViewModels.PurchaseOrderFormViewModel
 
+@{
+    ViewBag.FormMode = "Edit";
+}
 
 @using (Html.BeginForm("SavePurchaseOrderRecord", "PurchaseOrder", FormMethod.Post, new { @class = "form-horizontal needs-validation bg-light", role = "form" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="form-horizontal ">
         <h4 class="form-title">Purchase Order</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -13,8 +16,7 @@
             <div class="form-group col-md-4">
                 @Html.LabelFor(model => model.PurchaseOrder.BusinessPartner.BusinessPartnerId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.HiddenFor(model => model.PurchaseOrder.PurchaseOrderDetailsJson, new { id = "PurchaseOrderDetailsJson" })
-                    @Html.DropDownListFor(m => m.PurchaseOrder.BusinessPartner.BusinessPartnerId, new SelectList(Model.BusinessPartners, "BusinessPartnerId", "BusinessPartnerName"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
+                    @Html.EditorFor(model => model.PurchaseOrder.BusinessPartner.BusinessPartnerId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                     @Html.ValidationMessageFor(model => model.PurchaseOrder.BusinessPartner.BusinessPartnerId, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -88,20 +90,35 @@
                 </div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="form-group col-md-4">
-                <div class="col-md-10">
-                    <a href="/" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItemDetailModal">
-                        Add Item
-                    </a>
-                </div>
-            </div>
-        </div>
-
         <div class="row">
             <div class="form-group col-md-12">
-                <table id="purchaseOrderDetailTable" class="display hover"></table>
+                <table id="purchaseOrderDetailTable" class="display hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Item Name</th>
+                            <th>Item ID</th>
+                            <th>Item Price</th>
+                            <th>Quantity-on-Hand</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.PurchaseOrder.PurchaseOrderDetails.Count; i++)
+                        {
+                            <tr>
+                                <td></td>
+                                <td>@Html.HiddenFor(x => x.PurchaseOrder.PurchaseOrderDetails.ToArray()[i].Item.ItemName, new { @Name = "PurchaseOrder.PurchaseOrderDetails[" + i.ToString() + "].Item.ItemName" })@Model.PurchaseOrder.PurchaseOrderDetails.ToArray()[i].Item.ItemName</td>
+                                <td>@Html.HiddenFor(x => x.PurchaseOrder.PurchaseOrderDetails.ToArray()[i].Item.ItemId, new { @Name = "PurchaseOrder.PurchaseOrderDetails[" + i.ToString() + "].Item.ItemId" })@Model.PurchaseOrder.PurchaseOrderDetails.ToArray()[i].Item.ItemId</td>
+                                <td>@Html.HiddenFor(x => x.PurchaseOrder.PurchaseOrderDetails.ToArray()[i].ItemPriceAmount, new { @Name = "PurchaseOrder.PurchaseOrderDetails[" + i.ToString() + "].ItemPriceAmount" })@Model.PurchaseOrder.PurchaseOrderDetails.ToArray()[i].ItemPriceAmount</td>
+                                <td>@Html.HiddenFor(x => x.PurchaseOrder.PurchaseOrderDetails.ToArray()[i].QuantityOnHand, new { @Name = "PurchaseOrder.PurchaseOrderDetails[" + i.ToString() + "].QuantityOnHand" })@Model.PurchaseOrder.PurchaseOrderDetails.ToArray()[i].QuantityOnHand</td>
+                                <td>@Html.HiddenFor(x => x.PurchaseOrder.PurchaseOrderDetails.ToArray()[i].Quantity, new { @Name = "PurchaseOrder.PurchaseOrderDetails[" + i.ToString() + "].Quantity" })@Model.PurchaseOrder.PurchaseOrderDetails.ToArray()[i].Quantity</td>
+                                <td>@Html.HiddenFor(x => x.PurchaseOrder.PurchaseOrderDetails.ToArray()[i].PurchaseOrderDetailTotal, new { @Name = "PurchaseOrder.PurchaseOrderDetails[" + i.ToString() + "].PurchaseOrderDetailTotal" })@Model.PurchaseOrder.PurchaseOrderDetails.ToArray()[i].PurchaseOrderDetailTotal</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -145,69 +162,19 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Submit" class="btn btn-default" />
+        <div class="row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.PurchaseOrder.Remarks, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.PurchaseOrder.Remarks, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PurchaseOrder.Remarks, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
-        <!-- Add Item Modal -->
-        <div class="modal fade" id="addItemDetailModal" tabindex="-1" role="dialog" aria-labelledby="addItemDetailModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addItemDetailModalLabel">Add Item Detail</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="form-group col-md-4">
-                                <span class="control-label col-md-2">Item Id</span>
-                                <div class="col-md-10">
-                                    <input type="text" id="txt-item-id" class="form-control" maxlength="10" />
-                                </div>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <span class="control-label col-md-2">Item Name</span>
-                                <div class="col-md-10">
-                                    <input type="text" id="txt-item-name" class="form-control" readonly="readonly" />
-                                </div>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <span class="control-label col-md-2">Quantity on Hand</span>
-                                <div class="col-md-10">
-                                    <input type="text" id="txt-quantity-hand" class="form-control" readonly="readonly" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-4">
-                                <span class="control-label col-md-2">Item Price</span>
-                                <div class="col-md-10">
-                                    <input type="number" id="txt-item-price" class="form-control" min="0" value="0" step=".01" />
-                                </div>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <span class="control-label col-md-2">Quantity</span>
-                                <div class="col-md-10">
-                                    <input type="number" id="txt-item-quantity" class="form-control" min="0" value="0" />
-                                </div>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <span class="control-label col-md-2">Total</span>
-                                <div class="col-md-10">
-                                    <input type="text" id="txt-item-total" class="form-control" readonly="readonly" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button id="saveChangesButton" type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="submitButton" type="submit" value="Submit" class="btn btn-success" />
             </div>
         </div>
     </div>
@@ -217,130 +184,7 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
-    <script type="text/javascript">
+@section scripts{
 
-        $(document).ready(function () {
-            var json = JSON.parse('@Html.Raw(@Model.PurchaseOrder.PurchaseOrderDetailsJson)');
-
-            var table = $('#purchaseOrderDetailTable').DataTable({
-                "scrollX": true,
-                data: json,
-                "columns": [
-                    {
-                        "data": null,
-                        "title": "#",
-                        "width": "30px",
-                        "defaultContent": '',
-                        "className": "dt-center"
-                    },
-                    {
-                        "data": "Item.ItemName",
-                        "title": "Item Name",
-                        "width": "200px",
-                        "className": "dt-left"
-                    },
-                    {
-                        "data": "Item.ItemId",
-                        "title": "Item Id",
-                        "width": "150px",
-                        "className": "dt-left"
-                    },
-                    {
-                        "data": "ItemPriceAmount",
-                        "title": "Item Price",
-                        "width": "90px",
-                        "className": "dt-center"
-                    },
-                    {
-                        "data": "QuantityOnHand",
-                        "title": "Quantity On-hand",
-                        "width": "150px",
-                        "defaultContent": '',
-                        "className": "dt-center"
-                    },
-                    {
-                        "data": "Quantity",
-                        "title": "Quantity",
-                        "width": "120px",
-                        "defaultContent": '',
-                        "className": "dt-center"
-                    },
-                    {
-                        "data": "Total",
-                        "title": "Total",
-                        "width": "110px",
-                        "defaultContent": '',
-                        "className": "dt-center"
-                    },
-                ],
-                "language": {
-                    "processing": "loading....",
-                    "emptyTable": "No data found"
-                },
-                createdRow: function (row) {
-                    var td = $(row).find("[class^=truncate]");
-                    if (td) {
-                        td.attr("title", td.html());
-                    }
-                },
-                "paging": true,
-                "autoWidth": true,
-                "bLengthChange": false,
-                "bPaginate": false,
-                buttons: [
-                    {
-                        text: 'Reload',
-                        action: function (e, dt, node, config) {
-                            dt.ajax.reload();
-                        }
-                    }
-                ]
-            });
-
-            $('#saveChangesButton').on('click', function () {
-                var url = "/api/ItemApi/ItemRecord?itemId=" + $("#txt-item-id").val();
-                $.get(url, function (data) {
-                    if (data) {
-                        $("#txt-item-name").val(data.item.ItemName);
-                        $("#txt-item-id").val(data.item.ItemId);
-                        var Item = {
-                            "Item": {
-                                "ItemName": $("#txt-item-name").val(),
-                                "ItemId": $("#txt-item-id").val(),
-                            },
-                            "ItemPriceAmount": $("#txt-item-price").val(),
-                            "Quantity": $("#txt-item-quantity").val(),
-                            "QuantityOnHand": 1000,
-                            "Total": $("#txt-item-total").val(),
-                        }
-                        table.row.add(Item).draw();
-                        var itemList = [];
-                        $.each(table.rows().data().toArray(), function (index, value) {
-                            var k = {
-                                "Item": {
-                                    "ItemId": value.Item.ItemId,
-                                    "ItemName": value.Item.ItemName
-                                },
-                                "ItemPriceAmount": parseFloat(value.ItemPriceAmount),
-                                "Quantity": value.Quantity,
-                                "QuantityOnHand": value.QuantityOnHand,
-                            };
-                            itemList.push(k);
-                        });
-                        $("#PurchaseOrderDetailsJson").val(JSON.stringify(itemList));
-                        $("#addItemDetailModal").modal('hide');
-                    }
-                });
-            });
-
-            $("#txt-item-price").bind('keyup mouseup', function () {
-                $("#txt-item-total").val($("#txt-item-price").val() * $("#txt-item-quantity").val());
-            });
-
-            $("#txt-item-quantity").bind('keyup mouseup', function () {
-                $("#txt-item-total").val($("#txt-item-price").val() * $("#txt-item-quantity").val());
-            });
-        });
-    </script>
+    @Scripts.Render("~/Scripts/PurchaseOrder/PurchaseOrderEdit.js");
 }

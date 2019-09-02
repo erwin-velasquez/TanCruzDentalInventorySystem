@@ -11,54 +11,55 @@ namespace TanCruzDentalInventorySystem.Controllers
 	[Authorize]
 	public class PurchaseOrderController : Controller
 	{
-		private IPurchaseOrderService _purchaseOrderService;
+        private IPurchaseOrderService _purchaseOrderService;
 
-		public PurchaseOrderController(IPurchaseOrderService purchaseService)
-		{
-			_purchaseOrderService = purchaseService;
-		}
+        public PurchaseOrderController(IPurchaseOrderService purchaseOrderService)
+        {
+            _purchaseOrderService = purchaseOrderService;
+        }
 
-		[HttpGet]
-		public ActionResult Index()
-		{
-			return View();
-		}
+        [HttpGet]
+        public async Task<ActionResult> Index()
+        {
+            var purchaseOrders = await _purchaseOrderService.GetPurchaseOrderList();
 
-		[HttpGet]
-		public async Task<ActionResult> PurchaseOrderRecord(string purchaseOrderId)
-		{
-			var purchaseOrder = await _purchaseOrderService.GetPurchaseOrder(purchaseOrderId);
+            return View(purchaseOrders);
+        }
 
-			return View(purchaseOrder);
-		}
+        [HttpGet]
+        public async Task<ActionResult> PurchaseOrderRecord(string purchaseOrderId)
+        {
+            var purchaseOrder = await _purchaseOrderService.GetPurchaseOrder(purchaseOrderId);
+
+            return View(purchaseOrder);
+        }
+
+        [Authorize(Roles = "Editor")]
+        public async Task<ActionResult> CreatePurchaseOrder()
+        {
+            var purchaseOrderForm = await _purchaseOrderService.CreatePurchaseOrderForm(User.Identity.GetUserId());
+
+            return View(purchaseOrderForm);
+        }
 
         [HttpGet]
         [Authorize(Roles = "Editor")]
-		public async Task<ActionResult> CreatePurchaseOrder()
-		{
-			var purchaseOrderForm = await _purchaseOrderService.CreatePurchaseOrderForm(User.Identity.GetUserId());
+        public async Task<ActionResult> EditPurchaseOrderRecord(string purchaseOrderId)
+        {
+            var purchaseOrderForm = await _purchaseOrderService.GetPurchaseOrderForm(purchaseOrderId);
 
-			return View(purchaseOrderForm);
-		}
+            return View(purchaseOrderForm);
+        }
 
-		[HttpGet]
-		[Authorize(Roles = "Editor")]
-		public async Task<ActionResult> EditPurchaseOrderRecord(string purchaseOrderId)
-		{
-			var purchaseOrderForm = await _purchaseOrderService.GetPurchaseOrderForm(purchaseOrderId);
+        [HttpGet]
+        public async Task<ActionResult> GetPurchaseOrderList()
+        {
+            var purchaseOrders = await _purchaseOrderService.GetPurchaseOrderList();
 
-			return View(purchaseOrderForm);
-		}
+            return View(purchaseOrders);
+        }
 
-		[HttpGet]
-		public async Task<ActionResult> GetPurchaseOrderList()
-		{
-			var purchaseOrders = await _purchaseOrderService.GetPurchaseOrderList();
-
-			return View(purchaseOrders);
-		}
-
-		[HttpPost]
+        [HttpPost]
 		[Authorize(Roles = "Editor")]
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> SavePurchaseOrderRecord(PurchaseOrderFormViewModel purchaseOrderForm)
@@ -100,7 +101,6 @@ namespace TanCruzDentalInventorySystem.Controllers
                 ModelState.AddModelError(string.Empty, error);
             }
 
-            //win may way ba na ma preserve yung data pls nawawala yung details
             purchaseOrderForm = await _purchaseOrderService.GetPurchaseOrderForm(purchaseOrderForm.PurchaseOrder.PurchaseOrderId);
 
             return View((ViewBag.FormMode = "Create") ? "CreatePurchaseOrder" : "PurchaseOrderEdit", purchaseOrderForm);

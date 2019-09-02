@@ -539,6 +539,9 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\PurchaseOrder\PurchaseOrderEdit.js" />
+    <Content Include="Scripts\PurchaseOrder\PurchaseOrderIndex.js" />
+    <Content Include="Scripts\PurchaseOrder\PurchaseOrderView.js" />
     <Content Include="Scripts\SalesOrder\SalesOrderView.js" />
     <Content Include="Scripts\SalesOrder\SalesOrderEdit.js" />
     <Content Include="Scripts\SalesOrder\SalesOrderIndex.js" />

@@ -1,15 +1,20 @@
 ﻿@model IEnumerable<TanCruzDentalInventorySystem.ViewModels.PurchaseOrderViewModel>
+
 @{
-    ViewBag.Title = "PurchaseOrder";
+    ViewBag.Title = "Sales";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var modelTemp = new TanCruzDentalInventorySystem.ViewModels.PurchaseOrderViewModel();
 }
+
+
 <h3>Purchase Order List</h3>
 <hr />
 <div class="row">
     <div class="col-md-6 mb-3">
         <form class="p-2">
             <div class="input-group">
-                <button type="button" class="btn btn-warning margin" id="btn-add-new-purchase-order">
+                <button type="button" class="btn btn-warning margin" id="btn-add-new-sales-order">
                     Add New
                 </button>
             </div>
@@ -18,210 +23,50 @@
 </div>
 
 <div class="container">
-    <table id="purchaseOrderListTable" class="display hover"></table>
-
-    @*CSS*@
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-
-    <style>
-        .truncate-remarks {
-            max-width: 220px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .truncate-full-name {
-            max-width: 170px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        }
-    </style>
-
-    <script>
-    function submitPurchaseOrder(e) {
-
-
-        var data = $("#purchase-order-form-submit").serialize();
-
-            console.log(data)
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("SavePurchaseOrderRecord","PurchaseOrder")',
-                data: data,
-                dataType: 'application/json',
-                success: function (response) {
-                    alert('success');
-                }
-            });
-        }
-    </script>
-    @section scripts{
-
-
-        @*<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>*@
-        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-        <script type="text/javascript" src="http://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>
-
-
-
-        <script type="text/javascript">
-        $(document).ready(function () {
-
-            $('#btn-add-new-purchase-order').click(function (e)
-        {
-            location.href = '@Url.Content("~/PurchaseOrder/CreatePurchaseOrder/")';
-        });
-
-            var table = $('#purchaseOrderListTable').DataTable({
-                    "scrollX": true,
-                    "ajax": {
-                        "type": "GET",
-                        "url" : "@Url.Action("GetPurchaseOrderList","PurchaseOrder")",
-                        "dataType": "JSON",
-                    },
-                    "columns": [
-                        {
-                            "data": null,
-                            "className": "center",
-                            "defaultContent" : '<a href="" class="editor_edit">Edit</a> / <a href="" class="editor_view">View</a> / <a href="" class="editor_remove">Delete</a>',
-                            "width": "125px",
-                        },
-                        {
-                            "data": "PurchaseOrderId",
-                            "title": "Purchase Order Id",
-                            "width": "140px",
-                            "className" : "dt-center"
-                        },
-                        {
-                            "data": "PurchaseOrderControlNumber",
-                            "title": "PO Control Number",
-                            "width": "150px",
-                            "className" : "dt-center"
-                        },
-                        {
-                            "data": "BusinessPartner.BusinessPartnerName",
-                            "title": "Business Partner",
-                            "width": "240px",
-                            "className": "dt-center"
-                        },
-                        {
-                            "data": "Currency.CurrencyName",
-                            "title": "Currency",
-                            "width": "120p",
-                            "className": "dt-center"
-                        },
-                        {
-                            "data": "PurchaseOrderStatus",
-                            "title": "Status",
-                            "className": "dt-center",
-                        },
-                        {
-                            "data": "DeliveryDate",
-                            "title": "Delivery Date",
-                            "width": "120px",
-                            "className": "dt-center",
-                            "render": function (data) {
-                                return moment(data).format('MM/DD/YYYY');
-                            }
-                        },
-                        {
-                            "data": "PostingDate",
-                            "title": "Posting Date",
-                            "width": "120px",
-                            "className": "dt-center",
-                            "render": function (data) {
-                                return moment(data).format('MM/DD/YYYY');
-                            }
-                        },
-                        {
-                            "data": "DocumentDate",
-                            "title": "Document Date",
-                            "width": "120px",
-                            "className": "dt-center",
-                            "render": function (data) {
-                                return moment(data).format('MM/DD/YYYY');
-                            }
-                        },
-                        {
-                            "data": "Remarks",
-                            "title": "Remarks",
-                            "width": "120px",
-                            "className" : "truncate-remarks"
-                        },
-                        {
-                            "data": "RefDocNumber",
-                            "title": "Ref Doc Num",
-                            "width": "140px",
-                            "className": "dt-left",
-                        },
-                        {
-                            "data": "PurchaseOrderDiscount",
-                            "title": "PO Discount Amount",
-                            "width": "190px",
-                            "className": "dt-right"
-                        },
-                        {
-                            "data": "PurchaseOrderDiscountAmount",
-                            "title": "PO Order Amount",
-                            "width": "140px",
-                            "className": "dt-right"
-                        },
-                        {
-                            "data": "PurchaseOrderTax",
-                            "title": "SO Tax",
-                            "width" : "70px",
-                            "className": "dt-right"
-                        },
-                        {
-                            "data": "PurchaseOrderTotal",
-                            "title": "SO Total",
-                            "width" : "70px",
-                            "className": "dt-right"
-                        },
-                        {
-                            "data": "UserId",
-                            "title": "User Id",
-                            "width": "130px",
-                            "className": "dt-left"
-                        }
-                    ],
-                    "language": {
-                        "processing" : "loading....",
-                        "emptyTable" : "No data found"
-                    },
-                    createdRow: function (row) {
-                        var td = $(row).find("[class^=truncate]");
-                        if (td) {
-                            td.attr("title", td.html());
-                        }
-                    },
-                    "paging": true,
-                    "autoWidth": true,
-            });
-
-            $('#purchaseOrderListTable').on('click', 'a.editor_edit', function (e) {
-                e.preventDefault();
-                var row = table.row($(this).parents('tr')).data();
-                location.href = '@Url.Content("~/PurchaseOrder/EditPurchaseOrderRecord?purchaseOrderId=")' + row.PurchaseOrderId;
-            });
-
-            $('#purchaseOrderListTable').on('click', 'a.editor_view', function (e) {
-                e.preventDefault();
-                var row = table.row($(this).parents('tr')).data();
-                location.href = '@Url.Content("~/PurchaseOrder/PurchaseOrderRecord?purchaseOrderId=")' + row.PurchaseOrderId;
-            });
-
-            });
-
-
-        </script>
-
-
-
-    }
+    <table id="purchaseOrderListTable" class="display hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Action</th>
+                <th>@Html.DisplayNameFor(model => model.PurchaseOrderId)</th>
+                <th>@Html.DisplayNameFor(model => model.RefDocNumber)</th>
+                <th>@Html.DisplayNameFor(model => model.PurchaseOrderStatus)</th>
+                <th>@Html.DisplayNameFor(model => model.PurchaseOrderTotal)</th>
+                <th>@Html.DisplayNameFor(model => model.Remarks)</th>
+                <th>@Html.DisplayNameFor(model => model.DocumentDate)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>Action</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].PurchaseOrderId)@Model.ToArray()[i].PurchaseOrderId</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].RefDocNumber)@Model.ToArray()[i].RefDocNumber</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].PurchaseOrderStatus)@Model.ToArray()[i].PurchaseOrderStatus</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].PurchaseOrderTotal)@Model.ToArray()[i].PurchaseOrderTotal</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].Remarks)@Model.ToArray()[i].Remarks</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].DocumentDate)@Model.ToArray()[i].DocumentDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
+@section scripts{
+
+    <script type="text/javascript">
+        var GetPurchaseOrderListURL = "@Url.Content("~/PurchaseOrder/CreatePurchaseOrder/")";
+        var CreatePurchaseOrderURL = "@Url.Content("~/PurchaseOrder/CreatePurchaseOrder/")";
+        var EditPurchaseOrderRecordUrl = "@Url.Content("~/PurchaseOrder/EditPurchaseOrderRecord?purchaseOrderId=")";
+        var ViewPurchaseOrderRecordUrl = "@Url.Content("~/PurchaseOrder/PurchaseOrderRecord?purchaseOrderId=")";
+    </script>
+
+    @Scripts.Render("~/Scripts/PurchaseOrder/PurchaseOrderIndex.js");
+
+    <script type="text/javascript">
+
+
+    </script>
+}

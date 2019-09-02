@@ -100,8 +100,6 @@ namespace TanCruzDentalInventorySystem.Controllers
             {
                 ModelState.AddModelError(string.Empty, error);
             }
-
-            //win may way ba na ma preserve yung data pls nawawala yung details
             salesOrderForm = await _salesOrderService.GetSalesOrderForm(salesOrderForm.SalesOrder.SalesOrderId);
 
 			return View((ViewBag.FormMode = "Create" )? "CreateSalesOrder" : "SalesOrderEdit", salesOrderForm);
