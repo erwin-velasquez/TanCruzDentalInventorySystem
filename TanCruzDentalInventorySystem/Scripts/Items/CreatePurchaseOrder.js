@@ -34,7 +34,7 @@
                 "className": "dt-center"
             },
             {
-                "data": null,
+                "data": "QuantityOnHand",
                 "title": "Quantity On-hand",
                 //"width": "150px",
                 "defaultContent": '',
@@ -93,7 +93,6 @@
                     var DocumentTotal = 0.0;
 
                     $(this).parent().parent().find("td[id^='td_PurchaseOrderDetailTotal']").text(total.toFixed(2));
-                    $(this).parent().parent().find("td[id^='td_QuantityOnHand']").text(total.toFixed(2));
 
                     //Document Total Computation
                     $.each($('#purchaseOrderDetailTable').find("td[id^='td_PurchaseOrderDetailTotal']"), function (index, value) {
@@ -157,78 +156,6 @@
         $('#PurchaseOrder_BusinessPartner_BusinessPartnerId').val(BusinessPartnerId);
     });
 
-    $('#saveChangesButton').on('click', function () {
-        console.log(JSON.stringify(table.rows().data().toArray()));
-        table.row.add({
-            "Item.ItemName": $("#txt-item-name").val(),
-            "Item.ItemId": $("#txt-item-id").val(),
-            "Item.ItemPrice": $("#txt-item-price").val(),
-            "Item.Quantity": $("#txt-item-quantity").val(),
-            "Item.Total": $("#txt-item-total").val(),
-        }).draw();
-
-        var itemList = [];
-
-        $.each(table.rows().data().toArray(), function (index, value) {
-            var mm = value;
-            var k = {
-                "PurchaseOrderDetailId": null,
-                "PurchaseOrderId": null,
-                "Item": {
-                    "ItemId": value["Item.ItemId"],
-                    "ItemName": value["Item.ItemName"],
-                    "ItemDescription": null,
-                    "ItemGroup": null,
-                    //"ItemPrice": "300.5m",//parseFloat(value["Item.ItemPrice"]),
-                    //"ItemPrice": parseFloat(value["Item.ItemPrice"]),
-                    //"ItemPriceAmount": parseFloat(value["Item.ItemPrice"]),
-                    "Currency": null,
-                    "UnitOfMeasure": null,
-                    "BusinessPartner": null,
-                    "PurchasingUnitOfMeasure": null,
-                    "ItemsPerUnitOfMeasure": 5,
-                    "PurchasingRemarks": "testing edit",
-                    "InventoryUnitOfMeasure": null,
-                    "MinimumInventoryRequired": 100,
-                    "IsActive": false,
-                    "UserId": null,
-                    "ChangedDate": null,
-                    "VersionTimeStamp": 0
-                },
-                //"ItemPrice": {
-                //"ItemPriceId": "IP00000007",
-                //"ItemPriceName": "ItemPriceTHREEName",
-                //"ItemPriceDescription": "ItemPriceTHREE Description",
-                //"Type": "AC",
-                //"PriceAmount": 250.0,
-                //"BaseCurrency": "3"
-                //},
-                "ItemPriceAmount": parseFloat(value["Item.ItemPrice"]),
-                "Quantity": value["Item.Quantity"],
-                "QuantityOnHand": 8.0,
-                "PurchaseOrderDetailDiscount": 10.5,
-                "PurchaseOrderDetailDiscountAmount": 100.9,
-                //"Tax": {
-                //"TaxId": "TI00000001",
-                //"TaxName": "TaxName_1",
-                //"TaxDescription": "TaxDesc_1",
-                //"TaxValue": 2400.0,
-                //"IsDefault": false,
-                //"TaxStatus": null,
-                //"UserId": null
-                //},
-                "PurchaseOrderDetailTax": 200.0,
-                "PurchaseOrderDetailTotal": 500.0,
-                "Remarks": "First Sale",
-                //"UserId": null,
-                //"ChangedDate": "2019-08-18T08:10:37.6084235",
-                //"VersionTimeStamp": 637017126376084235
-            };
-            itemList.push(k);
-        });
-        $("#PurchaseOrderDetailsJson").val(JSON.stringify(itemList));
-    });
-
     $('#searchItemButton').on('click', function () {
 
         $.ajax({
@@ -271,6 +198,7 @@
                                     ItemName: data.item.ItemName,
                                     ItemId: data.item.ItemId,
                                     ItemPriceAmount: data.item.ItemPriceAmount,
+                                    QuantityOnHand: data.item.QuantityOnHand,
                                     Quantity: data.item.Quantity,
                                     Total: data.item.ItemTotal
                                 }
@@ -294,24 +222,6 @@
                 alert(xhr.responseText);
             }
         });
-
-
-
-        /*************OBSOLETE
-        
-        $('#ItemSearchModal').modal("show");
-
-        var itemList;
-        var obj;
-
-        $.get('/Item/GetItemList', function (data) { //Replace with global URL not hardcoded
-            obj = data;
-
-            table1.clear();
-            table1.rows.add(obj);
-            table1.draw();
-            
-        });*/
     });
 
 
