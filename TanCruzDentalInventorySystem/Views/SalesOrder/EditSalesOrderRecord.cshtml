@@ -1,5 +1,8 @@
 ﻿@model TanCruzDentalInventorySystem.ViewModels.SalesOrderFormViewModel
 
+@{ 
+    ViewBag.FormMode = "Edit";
+}
 
 @using (Html.BeginForm("SaveSalesOrderRecord", "SalesOrder", FormMethod.Post, new { @class = "form-horizontal needs-validation bg-light", role = "form" }))
 {
@@ -13,7 +16,7 @@
             <div class="form-group col-md-4">
                 @Html.LabelFor(model => model.SalesOrder.BusinessPartner.BusinessPartnerId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownListFor(m => m.SalesOrder.BusinessPartner.BusinessPartnerId, new SelectList(Model.BusinessPartners, "BusinessPartnerId", "BusinessPartnerName"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
+                    @Html.DropDownListFor(m => m.SalesOrder.BusinessPartner.BusinessPartnerId, new SelectList(Model.BusinessPartners, "BusinessPartnerId", "BusinessPartnerName"), "Choose...", new { @class = "form-control custom-select d-block w-100", @required = "", @readonly = "readonly" })
                     @Html.ValidationMessageFor(model => model.SalesOrder.BusinessPartner.BusinessPartnerId, "", new { @class = "text-danger" })
                 </div>
             </div>
