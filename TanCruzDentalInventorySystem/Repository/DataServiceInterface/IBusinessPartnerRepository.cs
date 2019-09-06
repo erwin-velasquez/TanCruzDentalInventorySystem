@@ -8,5 +8,11 @@ namespace TanCruzDentalInventorySystem.Repository.DataServiceInterface
 	{
 		IUnitOfWork UnitOfWork { get; set; }
 		Task<IEnumerable<BusinessPartner>> GetBusinessPartnerList();
+		Task<BusinessPartner> GetBusinessPartner(string businessPartnerId);
+		Task<string> CreateBusinessPartner(string userId);
+		Task<int> SaveBusinessPartner(BusinessPartner businessPartner);
+		Task<string> CreateBusinessPartnerDetail(string userId);
+		Task<BusinessPartnerDetail> GetBusinessPartnerDetail(string businessPartnerDetailId);
+		Task<int> SaveBusinessPartnerDetail(BusinessPartnerDetail businessPartnerDetail);
 	}
 }

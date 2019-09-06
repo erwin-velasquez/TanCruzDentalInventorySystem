@@ -46,6 +46,7 @@ namespace TanCruzDentalInventorySystem
 			// TODO: Register your type's mappings here.
 			// container.RegisterType<IProductRepository, ProductRepository>();
 
+			container.RegisterType<IBusinessPartnerService, BusinessPartnerService>();
 			container.RegisterType<IItemService, ItemService>();
 			container.RegisterType<IPurchaseOrderService, PurchaseOrderService>();
 			container.RegisterType<ISalesOrderService, SalesOrderService>();

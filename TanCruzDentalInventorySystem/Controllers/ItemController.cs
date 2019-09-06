@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Dynamic;
 using TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface;
 using TanCruzDentalInventorySystem.ViewModels;
 
 namespace TanCruzDentalInventorySystem.Controllers
 {
-    [Authorize]
+	[Authorize]
     public class ItemController : Controller
     {
         private IItemService _itemService;
@@ -36,9 +35,10 @@ namespace TanCruzDentalInventorySystem.Controllers
         [Authorize(Roles = "Editor")]
         public async Task<ActionResult> CreateItem()
         {
-            var itemForm = await _itemService.CreateItem(User.Identity.GetUserId());
+            var itemId = await _itemService.CreateItem(User.Identity.GetUserId());
+			var itemForm = await _itemService.GetItemForm(itemId);
 
-            return View(itemForm);
+			return View(itemForm);
         }
 
         [HttpGet]

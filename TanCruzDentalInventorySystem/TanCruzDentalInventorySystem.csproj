@@ -19,9 +19,12 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -231,12 +234,15 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="BusinessService\BusinessPartnerService.cs" />
+    <Compile Include="BusinessService\BusinessServiceInterface\IBusinessPartnerService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\ISalesOrderService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IPurchaseOrderService.cs" />
     <Compile Include="BusinessService\ItemService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IItemService.cs" />
     <Compile Include="BusinessService\SalesOrderService.cs" />
     <Compile Include="BusinessService\PurchaseOrderService.cs" />
+    <Compile Include="Controllers\BusinessPartnerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ItemApiController.cs" />
@@ -250,6 +256,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BusinessPartner.cs" />
+    <Compile Include="Models\BusinessPartnerDetail.cs" />
     <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\ScheduledPaymentDetail.cs" />
@@ -274,6 +281,7 @@
     <Compile Include="Repository\PurchaseOrderRepository.cs" />
     <Compile Include="Repository\UnitOfWork.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\BusinessPartnerDetailViewModel.cs" />
     <Compile Include="ViewModels\BusinessPartnerViewModel.cs" />
     <Compile Include="ViewModels\CurrencyViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModels.cs" />
@@ -650,7 +658,9 @@
     <Content Include="Views\Shared\BusinessPartnerSearchModal.cshtml" />
     <Content Include="Views\Shared\ItemSearchModal.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\BusinessPartner\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
