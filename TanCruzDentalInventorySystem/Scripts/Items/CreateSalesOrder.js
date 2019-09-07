@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
     $("#MainForm").submit(function (e) {
-        $("#MainForm").validate();
+        e.preventDefault();
     });
 
     var table = $('#salesOrderDetailTable').DataTable({
@@ -88,9 +88,15 @@
 
                     var quantity = parseFloat(!$(this).parent().parent().find("td input[type*='text']").val() ? 0 : $(this).parent().parent().find("td input[type*='text']").val());
                     var itemPrice = parseFloat($(this).parent().parent().find("td[id^='td_ItemPriceAmount']").text());
+                    var itemQOH = parseFloat($(this).parent().parent().find("td[id^='td_QuantityOnHand']").text());
 
                     var total = quantity * itemPrice;
                     var DocumentTotal = 0.0;
+
+                    if (itemQOH < quantity) {
+                        $(this).parent().parent().addClass("error");
+                        $(this).focus();
+                    }
 
                     $(this).parent().parent().find("td[id^='td_SalesOrderDetailTotal']").text(total.toFixed(2));
 
@@ -258,7 +264,6 @@
             .remove()
             .draw();
     });
-
 
 
 });

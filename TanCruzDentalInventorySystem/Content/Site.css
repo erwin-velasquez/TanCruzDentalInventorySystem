@@ -66,3 +66,7 @@ textarea {
 label.control-label {
     max-width: none;
 }
+
+.dataTable tr.error td {
+    background-color: indianred;
+}
