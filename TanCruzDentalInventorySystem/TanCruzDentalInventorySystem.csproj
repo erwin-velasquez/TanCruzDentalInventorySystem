@@ -547,6 +547,7 @@
     <Content Include="Scripts\PurchaseOrder\PurchaseOrderEdit.js" />
     <Content Include="Scripts\PurchaseOrder\PurchaseOrderIndex.js" />
     <Content Include="Scripts\PurchaseOrder\PurchaseOrderView.js" />
+    <Content Include="Scripts\SalesOrder\SalesOrderPaymentCreate.js" />
     <Content Include="Scripts\SalesOrder\SalesOrderPaymentList.js" />
     <Content Include="Scripts\SalesOrder\SalesOrderView.js" />
     <Content Include="Scripts\SalesOrder\SalesOrderEdit.js" />

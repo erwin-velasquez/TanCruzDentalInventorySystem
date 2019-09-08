@@ -112,7 +112,8 @@ namespace TanCruzDentalInventorySystem.BusinessService
 
             var salesOrderPaymentForm = new ScheduledPaymentFormViewModel()
             {
-                ScheduledPayment = Mapper.Map<ScheduledPaymentViewModel>(await _salesOrderRepository.GetSalesOrderPayment(salesOrderPaymentId))
+                ScheduledPayment = Mapper.Map<ScheduledPaymentViewModel>(await _salesOrderRepository.GetSalesOrderPayment(salesOrderPaymentId)),
+                SalesOrder = Mapper.Map<SalesOrderViewModel>(await _salesOrderRepository.GetSalesOrder(salesOrderId))
             };
 
             salesOrderPaymentForm.ScheduledPayment.ScheduledPaymentStatus = "Open";
