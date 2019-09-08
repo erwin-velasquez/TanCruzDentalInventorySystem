@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TanCruzDentalInventorySystem.ViewModels
 {
@@ -9,7 +10,8 @@ namespace TanCruzDentalInventorySystem.ViewModels
 		public BusinessPartnerViewModel BusinessPartner { get; set; }
         public string ScheduledPaymentStatus { get; set; }
 		public string ModeOfPayment { get; set; }
-		public DateTime PostingDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime PostingDate { get; set; }
 		public string Remarks { get; set; }
 		public string RefDocNumber { get; set; }
 		public decimal ScheduledPaymentDiscount { get; set; }

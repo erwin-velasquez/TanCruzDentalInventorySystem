@@ -57,6 +57,8 @@ namespace TanCruzDentalInventorySystem.Controllers
         {
             var salesOrderPaymentForm = await _salesOrderService.CreateSalesOrderPaymentForm(User.Identity.GetUserId(), salesOrderId);
 
+            salesOrderPaymentForm.ScheduledPayment.PostingDate = System.DateTime.Now;
+
             return View(salesOrderPaymentForm);
         }
 
