@@ -16,7 +16,7 @@
             "data": null,
             "className": "center",
             "defaultContent": '<a href="" class="editor_edit">Edit</a> / <a href="" class="editor_view">View</a> / <a href="" class="editor_remove">Delete</a>',
-            "width": "125px",
+            "width": "125px"
         },
         {
             "data": "SalesOrderId",

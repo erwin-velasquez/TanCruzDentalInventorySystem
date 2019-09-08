@@ -6,7 +6,8 @@ namespace TanCruzDentalInventorySystem.Models
 	public class ScheduledPayment
 	{
 		public string ScheduledPaymentId { get; set; }
-		public BusinessPartner BusinessPartner { get; set; }
+        public string ScheduledPaymentDocumentId { get; set; }
+        public BusinessPartner BusinessPartner { get; set; }
 		public string ScheduledPaymentStatus { get; set; }
 		public string ModeOfPayment { get; set; }
 		public DateTime PostingDate { get; set; }

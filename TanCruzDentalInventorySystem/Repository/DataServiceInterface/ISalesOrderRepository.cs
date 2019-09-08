@@ -11,8 +11,11 @@ namespace TanCruzDentalInventorySystem.Repository.DataServiceInterface
 		Task<SalesOrder> GetSalesOrder(string salesOrderId);
 		Task<int> SaveSalesOrder(SalesOrder salesOrder);
 		Task<string> CreateSalesOrder(string userId);
-		Task<int> SaveSalesOrderDetail(SalesOrderDetail salesOrderDetail);
+        Task<string> CreateSalesOrderPayment(string userId, string salesOrderId);
+        Task<int> SaveSalesOrderDetail(SalesOrderDetail salesOrderDetail);
 		Task<string> CreateSalesOrderDetail(string userId);
 		Task<SalesOrderDetail> GetSalesOrderDetail(string salesOrderDetailId);
-	}
+        Task<ScheduledPayment> GetSalesOrderPayment(string ScheduledPaymentId);
+
+    }
 }

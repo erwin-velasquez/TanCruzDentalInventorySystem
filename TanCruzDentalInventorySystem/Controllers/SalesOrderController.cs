@@ -26,7 +26,15 @@ namespace TanCruzDentalInventorySystem.Controllers
             return View(salesOrders);
 		}
 
-		[HttpGet]
+        [HttpGet]
+        public async Task<ActionResult> SalesOrderPaymentList()
+        {
+            var salesOrders = await _salesOrderService.GetSalesOrderList();
+
+            return View(salesOrders);
+        }
+
+        [HttpGet]
 		public async Task<ActionResult> SalesOrderRecord(string salesOrderId)
 		{
 			var salesOrder = await _salesOrderService.GetSalesOrder(salesOrderId);
@@ -44,7 +52,15 @@ namespace TanCruzDentalInventorySystem.Controllers
 			return View(salesOrderForm);
 		}
 
-		[HttpGet]
+        [Authorize(Roles = "Editor")]
+        public async Task<ActionResult> CreateSalesOrderPayment(string salesOrderId)
+        {
+            var salesOrderPaymentForm = await _salesOrderService.CreateSalesOrderPaymentForm(User.Identity.GetUserId(), salesOrderId);
+
+            return View(salesOrderPaymentForm);
+        }
+
+        [HttpGet]
 		[Authorize(Roles = "Editor")]
 		public async Task<ActionResult> EditSalesOrderRecord(string salesOrderId)
 		{

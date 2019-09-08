@@ -105,5 +105,19 @@ namespace TanCruzDentalInventorySystem.BusinessService
 				throw ex;
 			}
 		}
-	}
+
+        public async Task<ScheduledPaymentFormViewModel> CreateSalesOrderPaymentForm(string userId, string salesOrderId)
+        {
+            string salesOrderPaymentId = await _salesOrderRepository.CreateSalesOrderPayment(userId, salesOrderId);
+
+            var salesOrderPaymentForm = new ScheduledPaymentFormViewModel()
+            {
+                ScheduledPayment = Mapper.Map<ScheduledPaymentViewModel>(await _salesOrderRepository.GetSalesOrderPayment(salesOrderPaymentId))
+            };
+
+            salesOrderPaymentForm.ScheduledPayment.ScheduledPaymentStatus = "Open";
+
+            return salesOrderPaymentForm;
+        }
+    }
 }

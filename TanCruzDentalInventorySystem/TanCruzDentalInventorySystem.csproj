@@ -547,6 +547,7 @@
     <Content Include="Scripts\PurchaseOrder\PurchaseOrderEdit.js" />
     <Content Include="Scripts\PurchaseOrder\PurchaseOrderIndex.js" />
     <Content Include="Scripts\PurchaseOrder\PurchaseOrderView.js" />
+    <Content Include="Scripts\SalesOrder\SalesOrderPaymentList.js" />
     <Content Include="Scripts\SalesOrder\SalesOrderView.js" />
     <Content Include="Scripts\SalesOrder\SalesOrderEdit.js" />
     <Content Include="Scripts\SalesOrder\SalesOrderIndex.js" />
@@ -655,6 +656,8 @@
     <Content Include="Views\Item\ItemSearchModal.cshtml" />
     <Content Include="Views\Shared\BusinessPartnerSearchModal.cshtml" />
     <Content Include="Views\Shared\ItemSearchModal.cshtml" />
+    <Content Include="Views\SalesOrder\SalesOrderPaymentList.cshtml" />
+    <Content Include="Views\SalesOrder\CreateSalesOrderPayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\BusinessPartner\" />

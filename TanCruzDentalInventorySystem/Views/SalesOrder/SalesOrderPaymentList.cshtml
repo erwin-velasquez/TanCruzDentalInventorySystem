@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TanCruzDentalInventorySystem.ViewModels.SalesOrderViewModel>
+
+@{
+    ViewBag.Title = "SalesOrderPaymentList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var modelTemp = new TanCruzDentalInventorySystem.ViewModels.SalesOrderViewModel();
+}
+
+
+<h3>Sales Order Payment List</h3>
+<hr />
+
+<div class="container">
+    <table id="salesOrderListTable" class="display hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Action</th>
+                <th>@Html.DisplayNameFor(model => model.SalesOrderId)</th>
+                <th>@Html.DisplayNameFor(model => model.RefDocNumber)</th>
+                <th>@Html.DisplayNameFor(model => model.SalesOrderStatus)</th>
+                <th>@Html.DisplayNameFor(model => model.SalesOrderTotal)</th>
+                <th>@Html.DisplayNameFor(model => model.Remarks)</th>
+                <th>@Html.DisplayNameFor(model => model.DocumentDate)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>Action</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].SalesOrderId)@Model.ToArray()[i].SalesOrderId</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].RefDocNumber)@Model.ToArray()[i].RefDocNumber</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].SalesOrderStatus)@Model.ToArray()[i].SalesOrderStatus</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].SalesOrderTotal)@Model.ToArray()[i].SalesOrderTotal</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].Remarks)@Model.ToArray()[i].Remarks</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].DocumentDate)@Model.ToArray()[i].DocumentDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+        var SalesOrderPaymentURL = "@Url.Content("~/SalesOrder/CreateSalesOrderPayment/")";
+    </script>
+
+    @Scripts.Render("~/Scripts/SalesOrder/SalesOrderPaymentList.js");
+
+    <script type="text/javascript">
+
+
+    </script>
+}

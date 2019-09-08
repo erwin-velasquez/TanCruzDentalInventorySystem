@@ -142,7 +142,7 @@ namespace TanCruzDentalInventorySystem.Repository
 			return versionedSalesOrderDetail;
 		}
 
-		private async Task<IEnumerable<SalesOrderDetail>> GetSalesOrderDetailList(string salesOrderId)
+        private async Task<IEnumerable<SalesOrderDetail>> GetSalesOrderDetailList(string salesOrderId)
 		{
 			var parameters = new DynamicParameters();
 			parameters.Add("@SalesOrderId", salesOrderId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
@@ -177,7 +177,71 @@ namespace TanCruzDentalInventorySystem.Repository
 			return salesOrderDetailList;
 		}
 
-		private async Task<IEnumerable<ScheduledPayment>> GetScheduledPaymentList(string salesOrderId)
+        public async Task<ScheduledPayment> GetSalesOrderPayment(string ScheduledPaymentId)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@ScheduledPaymentId", ScheduledPaymentId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+
+            var salesOrderPayment = await UnitOfWork.Connection.QueryAsync<ScheduledPayment>(
+                sql: SP_GET_SALESORDERPAYMENT,
+                types:
+                    new[]
+                    {
+                        typeof(ScheduledPayment),
+                        typeof(BusinessPartner)
+                    },
+                map:
+                    typeMap =>
+                    {
+                        if (!(typeMap[0] is ScheduledPayment salesOrderPaymentUnit)) return null;
+
+                        salesOrderPaymentUnit.BusinessPartner = typeMap[1] as BusinessPartner;
+
+                        return salesOrderPaymentUnit;
+                    },
+                param: parameters,
+                transaction: UnitOfWork.Transaction,
+                commandType: System.Data.CommandType.StoredProcedure,
+                splitOn: "BusinessPartnerId");
+
+            var versionedSalesOrderPayment = salesOrderPayment.AsList().SingleOrDefault();
+            versionedSalesOrderPayment.ScheduledPaymentDetails = await GetSalesOrderPaymentDetailList(versionedSalesOrderPayment.ScheduledPaymentId);
+            versionedSalesOrderPayment.VersionTimeStamp = versionedSalesOrderPayment.ChangedDate.Value.Ticks;
+            return versionedSalesOrderPayment;
+        }
+
+        private async Task<IEnumerable<ScheduledPaymentDetail>> GetSalesOrderPaymentDetailList(string ScheduledPaymentId)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@ScheduledPaymentId", ScheduledPaymentId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+
+            var salesOrderPaymentDetailList = await UnitOfWork.Connection.QueryAsync<ScheduledPaymentDetail>(
+                sql: SP_GET_SALESORDERPAYMENTDETAIL_LIST,
+                types:
+                    new[]
+                    {
+                        typeof(SalesOrderDetail),
+                        typeof(Currency)
+                    },
+                map:
+                    typeMap =>
+                    {
+                        if (!(typeMap[0] is ScheduledPaymentDetail salesOrderPaymentDetailUnit)) return null;
+
+                        salesOrderPaymentDetailUnit.Currency = typeMap[1] as Currency;
+
+                        return salesOrderPaymentDetailUnit;
+                    },
+                param: parameters,
+                transaction: UnitOfWork.Transaction,
+                commandType: System.Data.CommandType.StoredProcedure,
+                splitOn: "CurrencyId");
+
+            salesOrderPaymentDetailList.Select(detail => detail.VersionTimeStamp = detail.ChangedDate.Value.Ticks).ToList();
+            return salesOrderPaymentDetailList;
+        }
+
+        private async Task<IEnumerable<ScheduledPayment>> GetScheduledPaymentList(string salesOrderId)
 		{
 			var parameters = new DynamicParameters();
 			parameters.Add("@OrderId", salesOrderId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
@@ -222,7 +286,22 @@ namespace TanCruzDentalInventorySystem.Repository
 			return salesOrderId;
 		}
 
-		public async Task<int> SaveSalesOrderDetail(SalesOrderDetail salesOrderDetail)
+        public async Task<string> CreateSalesOrderPayment(string userId, string salesOrderId)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@UserId", userId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+            parameters.Add("@SalesOrderId", salesOrderId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+
+            var salesOrderPaymentId = await UnitOfWork.Connection.ExecuteScalarAsync<string>(
+                sql: SP_CREATE_SALESORDERPAYMENT,
+                param: parameters,
+                transaction: UnitOfWork.Transaction,
+                commandType: System.Data.CommandType.StoredProcedure);
+
+            return salesOrderPaymentId;
+        }
+
+        public async Task<int> SaveSalesOrderDetail(SalesOrderDetail salesOrderDetail)
 		{
 			DynamicParameters parameters = new DynamicParameters();
 			parameters.Add("@SalesOrderDetailId", salesOrderDetail.SalesOrderDetailId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
@@ -273,5 +352,9 @@ namespace TanCruzDentalInventorySystem.Repository
 		private const string SP_CREATE_SALESORDERDETAIL = "dbo.CreateSalesOrderDetail";
 		private const string SP_SAVE_SALESORDERDETAIL = "dbo.SaveSalesOrderDetail";
 		private const string SP_GET_SCHEDULEDPAYMENT_LIST = "dbo.GetScheduledPayments";
-	}
+        
+        private const string SP_GET_SALESORDERPAYMENT = "dbo.GetSalesOrderPayment";
+        private const string SP_GET_SALESORDERPAYMENTDETAIL_LIST = "dbo.GetSalesOrderPaymentDetails";
+        private const string SP_CREATE_SALESORDERPAYMENT = "dbo.CreateSalesOrderPayment";
+    }
 }
