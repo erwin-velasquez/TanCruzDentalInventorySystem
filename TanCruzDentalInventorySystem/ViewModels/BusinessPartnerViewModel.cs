@@ -11,11 +11,19 @@ namespace TanCruzDentalInventorySystem.ViewModels
 
 		[Display(Name = "Preferred Vendor")]
 		public string BusinessPartnerName { get; set; }
-		public string BusinessPartnerType { get; set; }
-		public string BusinessPartnerAlias { get; set; }
-		public string BusinessPartnerFirstName { get; set; }
-		public string BusinessPartnerMiddleName { get; set; }
-		public string BusinessPartnerLastName { get; set; }
+        [Display(Name = "Type")]
+        public string BusinessPartnerType { get; set; }
+
+        [Display(Name = "Display Name")]
+        public string BusinessPartnerAlias { get; set; }
+
+        [Display(Name = "First Name")]
+        public string BusinessPartnerFirstName { get; set; }
+
+        [Display(Name = "Middle Name")]
+        public string BusinessPartnerMiddleName { get; set; }
+        [Display(Name = "Last Name")]
+        public string BusinessPartnerLastName { get; set; }
 		public string UserId { get; set; }
 		public DateTime? ChangedDate { get; set; }
 		public long VersionTimeStamp { get; set; }

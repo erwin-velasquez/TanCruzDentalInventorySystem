@@ -19,9 +19,12 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -386,6 +389,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="libman.json" />
+    <Content Include="Scripts\BusinessPartner\BusinessPartnerIndex.js" />
     <Content Include="Scripts\datatables.extensions\AutoFill\js\dataTables.autoFill.js" />
     <Content Include="Scripts\datatables.extensions\AutoFill\js\dataTables.autoFill.min.js" />
     <Content Include="Scripts\datatables.extensions\AutoFill\Readme.txt" />
@@ -659,10 +663,11 @@
     <Content Include="Views\Shared\ItemSearchModal.cshtml" />
     <Content Include="Views\SalesOrder\SalesOrderPaymentList.cshtml" />
     <Content Include="Views\SalesOrder\CreateSalesOrderPayment.cshtml" />
+    <Content Include="Views\BusinessPartner\Index.cshtml" />
+    <Content Include="Views\BusinessPartner\CreateBusinessPartner.cshtml" />
+    <Content Include="Views\BusinessPartner\BusinessPartnerRecord.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\BusinessPartner\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>

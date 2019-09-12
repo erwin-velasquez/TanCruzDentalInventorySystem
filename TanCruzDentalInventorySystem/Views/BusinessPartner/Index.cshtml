@@ -1,0 +1,72 @@
+﻿@model IEnumerable<TanCruzDentalInventorySystem.ViewModels.BusinessPartnerViewModel>
+
+@{
+    ViewBag.Title = "BusinessPartners";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<h3>Business Partners List</h3>
+<hr />
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <form class="p-2">
+            <div class="input-group">
+                <button type="button" class="btn btn-warning margin" id="btn-add-new-business-partner">
+                    Add New
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <table id="businessPartnerListTable" class="display hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Action</th>
+                <th>@Html.DisplayNameFor(model => model.BusinessPartnerId)</th>
+                <th>@Html.DisplayNameFor(model => model.BusinessPartnerName)</th>
+                <th>@Html.DisplayNameFor(model => model.BusinessPartnerAlias)</th>
+                <th>@Html.DisplayNameFor(model => model.BusinessPartnerFirstName)</th>
+                <th>@Html.DisplayNameFor(model => model.BusinessPartnerMiddleName)</th>
+                <th>@Html.DisplayNameFor(model => model.BusinessPartnerLastName)</th>
+                <th>@Html.DisplayNameFor(model => model.BusinessPartnerType)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+            <tr>
+                <td>@i</td>
+                <td>Action</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerId</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerName</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerAlias</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerFirstName</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerMiddleName</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerLastName</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerType</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+        var CreateBusinessPartnerURL = "@Url.Content("~/BusinessPartner/CreateBusinessPartner/")";
+        var EditBusinessPartnerRecordUrl = "@Url.Content("~/BusinessPartner/EditBusinessPartnerRecord?businessPartnerId=")";
+        var ViewBusinessPartnerRecordUrl = "@Url.Content("~/BusinessPartner/BusinessPartnerRecord?businessPartnerId=")";
+    </script>
+
+    @Scripts.Render("~/Scripts/BusinessPartner/BusinessPartnerIndex.js");
+
+    <script type="text/javascript">
+
+
+    </script>
+}
