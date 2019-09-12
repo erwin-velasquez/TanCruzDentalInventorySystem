@@ -39,6 +39,6 @@
     $('#businessPartnerListTable').on('click', 'a.editor_view', function (e) {
         e.preventDefault();
         var BusinessPartnerId = $(this).parents('tr').find('input[name*="BusinessPartnerId"]')[0].value;
-        location.href = ViewBusinessPartnerRecordUrl + '' + SalesOrderId;
+        location.href = ViewBusinessPartnerRecordUrl + '' + BusinessPartnerId;
     });
 });
