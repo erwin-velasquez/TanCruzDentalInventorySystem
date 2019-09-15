@@ -9,7 +9,8 @@ namespace TanCruzDentalInventorySystem.ViewModels
         [Display(Name ="Business Partner")]
 		public string BusinessPartnerId { get; set; }
 
-		[Display(Name = "Preferred Vendor")]
+        [Required(ErrorMessage = "Business Partner Name is Required")]
+        [Display(Name = "Preferred Vendor")]
 		public string BusinessPartnerName { get; set; }
         [Display(Name = "Type")]
         public string BusinessPartnerType { get; set; }

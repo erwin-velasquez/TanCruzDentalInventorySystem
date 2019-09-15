@@ -1,5 +1,9 @@
 ﻿@model TanCruzDentalInventorySystem.ViewModels.BusinessPartnerFormViewModel
 
+@{
+    ViewBag.Title = "EditBusinessPartnerRecord";
+}
+
 
 @using (Html.BeginForm("SaveBusinessPartnerRecord", "BusinessPartner", FormMethod.Post, new { @id = "MainForm", @class = "form-horizontal needs-validation bg-light", role = "form" }))
 {
@@ -56,7 +60,7 @@
             <div class="form-group col-md-4">
                 @Html.LabelFor(model => model.BusinessPartner.BusinessPartnerLastName, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.BusinessPartner.BusinessPartnerLastName, new { htmlAttributes = new { @class = "form-control"} })
+                    @Html.EditorFor(model => model.BusinessPartner.BusinessPartnerLastName, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.BusinessPartner.BusinessPartnerLastName, "", new { @class = "text-danger" })
                 </div>
             </div>

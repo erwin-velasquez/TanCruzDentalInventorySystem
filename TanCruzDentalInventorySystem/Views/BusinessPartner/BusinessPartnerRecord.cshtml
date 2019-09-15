@@ -1,92 +1,72 @@
 ﻿@model TanCruzDentalInventorySystem.ViewModels.BusinessPartnerViewModel
 
-<div>
-    <h4>BusinessPartnerViewModel</h4>
+<div class="form-horizontal">
+    <h4 class="form-title">
+        Business Partner
+        @if (Request.IsAuthenticated && User.IsInRole("Editor"))
+        {
+            @Html.ActionLink("[Edit]", "EditBusinessPartnerRecord", new { businessPartnerId = Model.BusinessPartnerId }, new { @style = "font-size:8pt" })
+        }
+    </h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.BusinessPartnerId)
-        </dt>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.BusinessPartnerName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.BusinessPartnerName, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.BusinessPartnerId)
-        </dd>
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.BusinessPartnerAlias, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.BusinessPartnerAlias, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BusinessPartnerName)
-        </dt>
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.BusinessPartnerId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.BusinessPartnerId, new { htmlAttributes = new { @class = "form-control"} })
+            </div>
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.BusinessPartnerName)
-        </dd>
+    <div class="row">
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.BusinessPartnerFirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.BusinessPartnerFirstName, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BusinessPartnerType)
-        </dt>
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.BusinessPartnerMiddleName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.BusinessPartnerMiddleName, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.BusinessPartnerType)
-        </dd>
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.BusinessPartnerLastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.BusinessPartnerLastName, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BusinessPartnerAlias)
-        </dt>
+    <div class="row">
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.BusinessPartnerType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.BusinessPartnerType, new { htmlAttributes = new { @class = "form-control" }, required = "" })
+            </div>
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.BusinessPartnerAlias)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BusinessPartnerFirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BusinessPartnerFirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BusinessPartnerMiddleName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BusinessPartnerMiddleName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BusinessPartnerLastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BusinessPartnerLastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ChangedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ChangedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.VersionTimeStamp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.VersionTimeStamp)
-        </dd>
-
-    </dl>
 </div>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

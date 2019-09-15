@@ -666,6 +666,7 @@
     <Content Include="Views\BusinessPartner\Index.cshtml" />
     <Content Include="Views\BusinessPartner\CreateBusinessPartner.cshtml" />
     <Content Include="Views\BusinessPartner\BusinessPartnerRecord.cshtml" />
+    <Content Include="Views\BusinessPartner\EditBusinessPartnerRecord.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
