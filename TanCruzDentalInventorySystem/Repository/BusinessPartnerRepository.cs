@@ -30,22 +30,9 @@ namespace TanCruzDentalInventorySystem.Repository
 
 			var businessPartner = await UnitOfWork.Connection.QueryAsync<BusinessPartner>(
 				sql: SP_GET_BUSINESSPARTNER,
-				types:
-					new[]
-					{
-						typeof(BusinessPartner)
-					},
-				map:
-					typeMap =>
-					{
-						if (!(typeMap[0] is BusinessPartner businessPartnerUnit)) return null;
-
-						return businessPartnerUnit;
-					},
 				param: parameters,
 				transaction: UnitOfWork.Transaction,
-				commandType: System.Data.CommandType.StoredProcedure,
-				splitOn: null);
+				commandType: System.Data.CommandType.StoredProcedure);
 
 			var versionedBusinessPartner = businessPartner.AsList().SingleOrDefault();
 			versionedBusinessPartner.BusinessPartnerDetails = await GetBusinessPartnerDetailList(versionedBusinessPartner.BusinessPartnerId);
@@ -60,22 +47,9 @@ namespace TanCruzDentalInventorySystem.Repository
 
 			var businessPartnerIdDetailList = await UnitOfWork.Connection.QueryAsync<BusinessPartnerDetail>(
 				sql: SP_GET_BUSINESSPARTNERDETAIL_LIST,
-				types:
-					new[]
-					{
-						typeof(BusinessPartnerDetail)
-					},
-				map:
-					typeMap =>
-					{
-						if (!(typeMap[0] is BusinessPartnerDetail businessPartnerDetailUnit)) return null;
-
-						return businessPartnerDetailUnit;
-					},
 				param: parameters,
 				transaction: UnitOfWork.Transaction,
-				commandType: System.Data.CommandType.StoredProcedure,
-				splitOn: null);
+				commandType: System.Data.CommandType.StoredProcedure);
 
 			businessPartnerIdDetailList.Select(detail => detail.VersionTimeStamp = detail.ChangedDate.Value.Ticks).ToList();
 			return businessPartnerIdDetailList;
@@ -138,22 +112,9 @@ namespace TanCruzDentalInventorySystem.Repository
 
 			var businessPartnerDetail = await UnitOfWork.Connection.QueryAsync<BusinessPartnerDetail>(
 				sql: SP_GET_BUSINESSPARTNERDETAIL,
-				types:
-					new[]
-					{
-						typeof(BusinessPartnerDetail)
-					},
-				map:
-					typeMap =>
-					{
-						if (!(typeMap[0] is BusinessPartnerDetail businessPartnerDetailUnit)) return null;
-
-						return businessPartnerDetailUnit;
-					},
 				param: parameters,
 				transaction: UnitOfWork.Transaction,
-				commandType: System.Data.CommandType.StoredProcedure,
-				splitOn: null);
+				commandType: System.Data.CommandType.StoredProcedure);
 
 			var versionedBusinessPartnerDetail = businessPartnerDetail.AsList().SingleOrDefault();
 			versionedBusinessPartnerDetail.VersionTimeStamp = versionedBusinessPartnerDetail.ChangedDate.Value.Ticks;
@@ -193,7 +154,7 @@ namespace TanCruzDentalInventorySystem.Repository
 		private const string SP_GET_BUSINESSPARTNER_LIST = "dbo.GetBusinessPartners";
 		private const string SP_GET_BUSINESSPARTNER = "dbo.GetBusinessPartner";
 		private const string SP_GET_BUSINESSPARTNERDETAIL_LIST = "dbo.GetBusinessPartnerDetails";
-		private const string SP_CREATE_BUSINESSPARTNER = "dbo.dbo.CreateBusinessPartner";
+		private const string SP_CREATE_BUSINESSPARTNER = "dbo.CreateBusinessPartner";
 		private const string SP_SAVE_BUSINESSPARTNER = "dbo.SaveBusinessPartner";
 		private const string SP_CREATE_BUSINESSPARTNERDETAIL = "dbo.CreateBusinessPartnerDetail";
 		private const string SP_GET_BUSINESSPARTNERDETAIL = "dbo.GetBusinessPartnerDetail";
