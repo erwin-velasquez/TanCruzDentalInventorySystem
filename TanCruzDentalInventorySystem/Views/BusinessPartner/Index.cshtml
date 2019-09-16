@@ -37,18 +37,18 @@
             </tr>
         </thead>
         <tbody>
-            @for (int i = 0; i < Model.Count(); i++)
+            @for (int i = 1; i < Model.Count(); i++)
             {
             <tr>
                 <td>@i</td>
                 <td>Action</td>
-                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerId</td>
-                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerName</td>
-                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerAlias</td>
-                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerFirstName</td>
-                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerMiddleName</td>
-                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerLastName</td>
-                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerType</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i-1].BusinessPartnerId)@Model.ToArray()[i-1].BusinessPartnerId</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i-1].BusinessPartnerId)@Model.ToArray()[i-1].BusinessPartnerName</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i-1].BusinessPartnerId)@Model.ToArray()[i-1].BusinessPartnerAlias</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i-1].BusinessPartnerId)@Model.ToArray()[i-1].BusinessPartnerFirstName</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i-1].BusinessPartnerId)@Model.ToArray()[i-1].BusinessPartnerMiddleName</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i-1].BusinessPartnerId)@Model.ToArray()[i-1].BusinessPartnerLastName</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i-1].BusinessPartnerId)@Model.ToArray()[i-1].BusinessPartnerType</td>
             </tr>
             }
         </tbody>
