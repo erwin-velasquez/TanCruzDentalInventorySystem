@@ -9,7 +9,6 @@ namespace TanCruzDentalInventorySystem.Repository.DataServiceInterface
 		IUnitOfWork UnitOfWork { get; set; }
 		Task<IEnumerable<Item>> GetItemList();
 		Task<Item> GetItem(string itemId);
-		Task<IEnumerable<ItemGroup>> GetItemGroupList();
 		Task<IEnumerable<UnitOfMeasure>> GetUnitOfMeasureList();
 		Task<int> SaveItem(Item item);
 		Task<string> CreateItem(string userId);

@@ -40,13 +40,6 @@ namespace TanCruzDentalInventorySystem.ViewModels
         public decimal QuantityOnHand { get; set; }
 	}
 
-	public class ItemGroupViewModel
-	{
-		public string ItemGroupId { get; set; }
-		public string ItemGroupName { get; set; }
-		public string ItemGroupDescription { get; set; }
-	}
-
 	public class ItemPriceViewModel
 	{
 		public string ItemPriceId { get; set; }

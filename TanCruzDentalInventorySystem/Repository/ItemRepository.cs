@@ -95,18 +95,6 @@ namespace TanCruzDentalInventorySystem.Repository
 			return versionedItem;
 		}
 
-		public async Task<IEnumerable<ItemGroup>> GetItemGroupList()
-		{
-
-			var itemGroups = await UnitOfWork.Connection.QueryAsync<ItemGroup>(
-				sql: SP_GET_ITEMGROUP_LIST,
-				param: null,
-				transaction: UnitOfWork.Transaction,
-				commandType: System.Data.CommandType.StoredProcedure);
-
-			return itemGroups;
-		}
-
 		public async Task<IEnumerable<UnitOfMeasure>> GetUnitOfMeasureList()
 		{
 
