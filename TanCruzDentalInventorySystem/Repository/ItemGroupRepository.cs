@@ -42,10 +42,17 @@ namespace TanCruzDentalInventorySystem.Repository
 			return versionedItemGroup;
 		}
 
-		public Task<IEnumerable<ItemGroup>> GetItemGroupList()
+		public async Task<IEnumerable<ItemGroup>> GetItemGroupList()
 		{
-			throw new NotImplementedException();
-		}
+            var itemGroupList = await UnitOfWork.Connection.QueryAsync<ItemGroup>(
+            sql: SP_GET_ITEMGROUP_LIST,
+            param: null,
+            transaction: UnitOfWork.Transaction,
+            commandType: System.Data.CommandType.StoredProcedure);
+
+            return itemGroupList;
+
+        }
 
 		public async Task<int> SaveItemGroup(ItemGroup itemGroup)
 		{
@@ -68,5 +75,7 @@ namespace TanCruzDentalInventorySystem.Repository
 		private const string SP_GET_ITEMGROUP = "dbo.GetItemGroup";
 		private const string SP_SAVE_ITEMGROUP = "dbo.SaveItemGroup";
 		private const string SP_CREATE_ITEMGROUP = "dbo.CreateItemGroup";
-	}
+        private const string SP_GET_ITEMGROUP_LIST = "dbo.GetItemGroups";
+
+    }
 }

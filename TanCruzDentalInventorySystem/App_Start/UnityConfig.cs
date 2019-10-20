@@ -56,8 +56,10 @@ namespace TanCruzDentalInventorySystem
 			container.RegisterType<IItemRepository, ItemRepository>();
 			container.RegisterType<IPurchaseOrderRepository, PurchaseOrderRepository>();
 			container.RegisterType<ISalesOrderRepository, SalesOrderRepository>();
+            container.RegisterType<IItemGroupRepository, ItemGroupRepository>();
 
-			container.RegisterType<IUnitOfWork, UnitOfWork>();
+
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
 		}
     }
 }
