@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TanCruzDentalInventorySystem.ViewModels.ItemGroupViewModel>
+
+@{
+    ViewBag.Title = "ItemGroup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h3>Item Group List</h3>
+<hr />
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <form class="p-2">
+            <div class="input-group">
+                <button type="button" class="btn btn-warning margin" id="btn-add-new-item-group">
+                    Add New
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <table id="itemGroupListTable" class="display hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Action</th>
+                <th>@Html.DisplayNameFor(model => model.ItemGroupId)</th>
+                <th>@Html.DisplayNameFor(model => model.ItemGroupName)</th>
+                <th>@Html.DisplayNameFor(model => model.ItemGroupDescription)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>Action</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].ItemGroupId)@Model.ToArray()[i].ItemGroupId</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].ItemGroupId)@Model.ToArray()[i].ItemGroupName</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].ItemGroupId)@Model.ToArray()[i].ItemGroupDescription</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+        var CreateItemGroupURL = "@Url.Content("~/ItemGroup/CreateItemGroup/")";
+        var EditItemGroupRecordUrl = "@Url.Content("~/ItemGroup/EditItemGroupRecord?itemGroupId=")";
+        var ViewItemGroupRecordUrl = "@Url.Content("~/ItemGroup/ItemGroupRecord?itemGroupId=")";
+    </script>
+
+    @Scripts.Render("~/Scripts/ItemGroup/ItemGroupIndex.js");
+}
