@@ -23,7 +23,8 @@ namespace TanCruzDentalInventorySystem.Models
 		public DateTime? ChangedDate { get; set; }
 		public long VersionTimeStamp { get; set; }
         public decimal QuantityOnHand { get; set; }
-	}
+        public string ItemBarCode { get; set; }
+    }
 
 	public class ItemPrice
 	{

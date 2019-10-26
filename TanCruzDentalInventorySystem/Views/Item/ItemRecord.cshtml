@@ -15,133 +15,145 @@
 </div>
 <hr />
 <div class="row">
-	<div class="col-md order-md">
-			<h4 class="mb-3">Main Details</h4>
-			<div class="row mb-3">
-				<div class="col-md mb-3">
-					<label for="txtItemNumber">Item Number</label>
-					<p></p>@Html.DisplayFor(m => m.ItemId, new { @class = "form-control" })
-					@*<input type="text" class="form-control" id="txtItemNumber" placeholder="" value="" required="">*@
-				</div>
-				<div class="col-md mb-3">
-					<label for="txtItemName">Item Name</label>
-					<p></p>@Html.DisplayFor(m => m.ItemName, new { @class = "form-control" })
-					@*<input type="text" class="form-control mw-unset" id="txtItemName" placeholder="Item Name" value="" required="">*@
-					<div class="invalid-feedback">
-						Valid item name is required.
-					</div>
-				</div>
-				<div class="col-md mb-3">
-					<label for="txtItemType">Item Type</label>
-					<p></p>@Html.DisplayFor(m => m.ItemGroup.ItemGroupName, new { @class = "form-control" })
-					@*<select class="custom-select d-block w-100" id="txtItemType" required="">
-							<option value="">Choose...</option>
-							<option>Item Type 1</option>
-						</select>*@
-				</div>
-				<div class="col-md mb-3">
-					<label>Is Active?</label>
-					<p></p>@(Model.IsActive ? "Yes" : "No")
-					@*<div class="pt-4 custom-control custom-checkbox">
-							<input type="checkbox" class="custom-control-input" id="chkInactive">
-							<label class="custom-control-label" for="chkInactive">Inactive</label>
-						</div>*@
-				</div>
-			</div>
+    <div class="col-md order-md">
+        <h4 class="mb-3">Main Details</h4>
+        <div class="row mb-3">
+            <div class="col-md mb-3">
+                <label for="txtItemNumber">Item Number</label>
+                <p></p>@Html.DisplayFor(m => m.ItemId, new { @class = "form-control" })
+                @*<input type="text" class="form-control" id="txtItemNumber" placeholder="" value="" required="">*@
+            </div>
+            <div class="col-md mb-3">
+                <label for="txtItemName">Item Name</label>
+                <p></p>@Html.DisplayFor(m => m.ItemName, new { @class = "form-control" })
+                @*<input type="text" class="form-control mw-unset" id="txtItemName" placeholder="Item Name" value="" required="">*@
+                <div class="invalid-feedback">
+                    Valid item name is required.
+                </div>
+            </div>
+            <div class="col-md mb-3">
+                <label for="txtItemType">Item Type</label>
+                <p></p>@Html.DisplayFor(m => m.ItemGroup.ItemGroupName, new { @class = "form-control" })
+                @*<select class="custom-select d-block w-100" id="txtItemType" required="">
+                    <option value="">Choose...</option>
+                    <option>Item Type 1</option>
+                </select>*@
+            </div>
+            <div class="col-md mb-3">
+                <label>Is Active?</label>
+                <p></p>@(Model.IsActive ? "Yes" : "No")
+                @*<div class="pt-4 custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="chkInactive">
+                    <label class="custom-control-label" for="chkInactive">Inactive</label>
+                </div>*@
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md mb-3">
+                <label for="txtItemBarCode">Item Barcode</label>
+                <p></p>@Html.DisplayFor(m => m.ItemBarCode, new { @class = "form-control" })
+            </div>
+            <div class="col-md mb-3">
+            </div>
+            <div class="col-md mb-3">
+            </div>
+            <div class="col-md mb-3">
+            </div>
+        </div>
 
-			<h4 class="mb-3">Sales Details</h4>
-			<div class="row mb-3">
-				<div class="col-md-3 mb-3">
-					<label>Currency</label>
-					<p></p>@Html.DisplayFor(m => m.Currency.CurrencyName)
-					@*<label for="ddItemPrice">Currency</label>
-						<select class="custom-select d-block w-100" id="ddCurrency" required="">
-							<option value="">Choose...</option>
-							<option>Add Currency</option>
-							<option>Primary Currency (₱)</option>
-							<option>US Dollar ($)</option>
-						</select>*@
-				</div>
-				<div class="col-md-3 mb-3 ">
-					<label>Item Price</label>
-					<p></p>@Html.DisplayFor(m => m.ItemPriceAmount)
-					@*<label for="txtItemSalesDesc">Item Price</label>
-						<input type="text" class="form-control" id="txtItemSalesDesc" placeholder="" value="32,523.00" required="">*@
-				</div>
-				<div class="col-md-6 mb-3">
-					<label>Unit Of Measure</label>
-					<p></p>@Html.DisplayFor(m => m.UnitOfMeasure.UnitOfMeasureDescription)
-					@*<label for="ddUoM">Unit of Measure</label>
-						<select class="custom-select d-block w-100" id="ddUoM" required="">
-							<option value="">Choose...</option>
-							<option>Add Unit of Measure</option>
-							<option>Piece</option>
-							<option>Box</option>
-						</select>*@
-				</div>
-			</div>
+        <h4 class="mb-3">Sales Details</h4>
+        <div class="row mb-3">
+            <div class="col-md-3 mb-3">
+                <label>Currency</label>
+                <p></p>@Html.DisplayFor(m => m.Currency.CurrencyName)
+                @*<label for="ddItemPrice">Currency</label>
+                <select class="custom-select d-block w-100" id="ddCurrency" required="">
+                    <option value="">Choose...</option>
+                    <option>Add Currency</option>
+                    <option>Primary Currency (₱)</option>
+                    <option>US Dollar ($)</option>
+                </select>*@
+            </div>
+            <div class="col-md-3 mb-3 ">
+                <label>Item Price</label>
+                <p></p>@Html.DisplayFor(m => m.ItemPriceAmount)
+                @*<label for="txtItemSalesDesc">Item Price</label>
+                <input type="text" class="form-control" id="txtItemSalesDesc" placeholder="" value="32,523.00" required="">*@
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Unit Of Measure</label>
+                <p></p>@Html.DisplayFor(m => m.UnitOfMeasure.UnitOfMeasureDescription)
+                @*<label for="ddUoM">Unit of Measure</label>
+                <select class="custom-select d-block w-100" id="ddUoM" required="">
+                    <option value="">Choose...</option>
+                    <option>Add Unit of Measure</option>
+                    <option>Piece</option>
+                    <option>Box</option>
+                </select>*@
+            </div>
+        </div>
 
-			<h4 class="mb-3">Purchase Details</h4>
-			<div class="row mb-3">
-				<div class="col-md-3 mb-3">
-					<label>Preferred Vendor</label>
-					<p></p>@Html.DisplayFor(m => m.BusinessPartner.BusinessPartnerName)
-					@*<label for="ddPrefVendor">Preferred Vendor</label>
-						<select class="custom-select d-block w-100" id="ddPrefVendor" required="">
-							<option value="">Choose...</option>
-							<option>Add Vendor</option>
-							<option>Vendor 1</option>
-							<option>Vendor 2</option>
-						</select>*@
-				</div>
-				<div class="col-md-3 mb-3 ">
-					<label>Purchasing Unit of Measure Name</label>
-					<p></p>@Html.DisplayFor(m => m.PurchasingUnitOfMeasure.PurchasingUnitOfMeasureDescription)
-					@*<label for="ddPrefVendor">Preferred Vendor</label>
-						@*<label for="txtPurUoMName">Purchasing Unit of Measure Name</label>
-						<input type="text" class="form-control" id="txtPurUoMName" placeholder="" value="Per Box" required="">*@
-				</div>
-				<div class="col-md-3 mb-3 ">
-					<label>Items per Unit Of Measure</label>
-					<p></p>@Html.DisplayFor(m => m.ItemsPerUnitOfMeasure)
-					@*<label for="ddPrefVendor">Preferred Vendor</label>
-						@*<label for="txtItemsPerPurUnit">Items per Unit Of Measure</label>
-						<input type="text" class="form-control" id="txtItemsPerPurUnit" placeholder="" value="8" required="">*@
-				</div>
-			</div>
-			<div class="row mb-3">
-				<div class="col-md-6 mb-3">
-					<label>Purchasing Remarks</label>
-					<p></p>@Html.DisplayFor(m => m.PurchasingRemarks)
-					@*<label for="txtPurRemarks">Purchasing Remarks</label>
-						<textarea class="form-control txtPurRemarks" id="txtPurRemarks" placeholder="" value="Remarks" required=""></textarea>*@
-				</div>
-			</div>
+        <h4 class="mb-3">Purchase Details</h4>
+        <div class="row mb-3">
+            <div class="col-md-3 mb-3">
+                <label>Preferred Vendor</label>
+                <p></p>@Html.DisplayFor(m => m.BusinessPartner.BusinessPartnerName)
+                @*<label for="ddPrefVendor">Preferred Vendor</label>
+                <select class="custom-select d-block w-100" id="ddPrefVendor" required="">
+                    <option value="">Choose...</option>
+                    <option>Add Vendor</option>
+                    <option>Vendor 1</option>
+                    <option>Vendor 2</option>
+                </select>*@
+            </div>
+            <div class="col-md-3 mb-3 ">
+                <label>Purchasing Unit of Measure Name</label>
+                <p></p>@Html.DisplayFor(m => m.PurchasingUnitOfMeasure.PurchasingUnitOfMeasureDescription)
+                @*<label for="ddPrefVendor">Preferred Vendor</label>
+                @*<label for="txtPurUoMName">Purchasing Unit of Measure Name</label>
+                <input type="text" class="form-control" id="txtPurUoMName" placeholder="" value="Per Box" required="">*@
+            </div>
+            <div class="col-md-3 mb-3 ">
+                <label>Items per Unit Of Measure</label>
+                <p></p>@Html.DisplayFor(m => m.ItemsPerUnitOfMeasure)
+                @*<label for="ddPrefVendor">Preferred Vendor</label>
+                @*<label for="txtItemsPerPurUnit">Items per Unit Of Measure</label>
+                <input type="text" class="form-control" id="txtItemsPerPurUnit" placeholder="" value="8" required="">*@
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6 mb-3">
+                <label>Purchasing Remarks</label>
+                <p></p>@Html.DisplayFor(m => m.PurchasingRemarks)
+                @*<label for="txtPurRemarks">Purchasing Remarks</label>
+                <textarea class="form-control txtPurRemarks" id="txtPurRemarks" placeholder="" value="Remarks" required=""></textarea>*@
+            </div>
+        </div>
 
-			<h4 class="mb-3">Inventory Details</h4>
-			<div class="row mb-3">
-				<div class="col-md-3 mb-3">
-					<label>Inventory Unit of Measure</label>
-					<p></p>@Html.DisplayFor(m => m.InventoryUnitOfMeasure.InventoryUnitOfMeasureDescription)
-					@*<label for="ddUoM">Inventory Unit of Measure</label>
-						<select class="custom-select d-block w-100" id="ddUoM" required="">
-							<option value="">Choose...</option>
-							<option>Add Unit of Measure</option>
-							<option>Amount</option>
-							<option>Vendor 2</option>
-							<option>Vendor 3</option>
-							<option>Vendor 4</option>
-						</select>*@
-				</div>
-				<div class="col-md-3 mb-3 ">
-					<label>Minimum Inventory Required</label>
-					<p></p>@Html.DisplayFor(m => m.MinimumInventoryRequired)
-					@*<label for="txtMinAmtReq">Minimum Inventory Required</label>
-						<input type="text" class="form-control number" id="txtMinAmtReq" placeholder="" value="1000" required="">*@
-				</div>
-			</div>
+        <h4 class="mb-3">Inventory Details</h4>
+        <div class="row mb-3">
+            <div class="col-md-3 mb-3">
+                <label>Inventory Unit of Measure</label>
+                <p></p>@Html.DisplayFor(m => m.InventoryUnitOfMeasure.InventoryUnitOfMeasureDescription)
+                @*<label for="ddUoM">Inventory Unit of Measure</label>
+                <select class="custom-select d-block w-100" id="ddUoM" required="">
+                    <option value="">Choose...</option>
+                    <option>Add Unit of Measure</option>
+                    <option>Amount</option>
+                    <option>Vendor 2</option>
+                    <option>Vendor 3</option>
+                    <option>Vendor 4</option>
+                </select>*@
+            </div>
+            <div class="col-md-3 mb-3 ">
+                <label>Minimum Inventory Required</label>
+                <p></p>@Html.DisplayFor(m => m.MinimumInventoryRequired)
+                @*<label for="txtMinAmtReq">Minimum Inventory Required</label>
+                <input type="text" class="form-control number" id="txtMinAmtReq" placeholder="" value="1000" required="">*@
+            </div>
+        </div>
 
-			@*<hr class="mb-4">
-				<button class="btn btn-warning btn-lg btn-block mb-4" type="submit">Save Item</button>*@
-	</div>
+        @*<hr class="mb-4">
+        <button class="btn btn-warning btn-lg btn-block mb-4" type="submit">Save Item</button>*@
+    </div>
 </div>

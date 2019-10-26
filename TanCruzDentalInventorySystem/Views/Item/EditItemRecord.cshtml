@@ -8,91 +8,103 @@
 <hr />
 
 <div class="row">
-	<div class="col-md order-md">
-		@using (Html.BeginForm("SaveItemRecord", "Item", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-		{
-			@Html.AntiForgeryToken()
-			@Html.ValidationSummary(false, "", new { @style = "color: red" })
-			<h4 class="mb-3">Main Details</h4>
-			<div class="row mb-3">
-				<div class="form-group col-md mb-3">
-					@Html.HiddenFor(m => m.Item.VersionTimeStamp)
-					@Html.LabelFor(m => m.Item.ItemId, new { @class = "control-label" })
-					<br />
-					@Html.TextBoxFor(m => m.Item.ItemId, new { @class = "form-control", @readonly = "readonly" })
-				</div>
-				<div class="form-group col-md mb-3">
-					@Html.LabelFor(m => m.Item.ItemName, new { @class = "control-label" })
-					<br />
-					@Html.TextBoxFor(m => m.Item.ItemName, new { @class = "form-control mw-unset", required = "" })
-					<div class="invalid-feedback">
-						Valid item name is required.
-					</div>
-				</div>
-				<div class="form-group col-md mb-3">
-					<label for="txtItemType">Item Type</label>
-					@Html.DropDownListFor(m => m.Item.ItemGroup.ItemGroupId, new SelectList(Model.ItemGroups, "ItemGroupId", "ItemGroupName"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
-				</div>
-				<div class="form-group col-md mb-3">
-					<label>Is Active?</label>
-					@Html.CheckBoxFor(m => m.Item.IsActive, new { @class = "form-control pt-4 custom-control" })
-				</div>
-			</div>
+    <div class="col-md order-md">
+        @using (Html.BeginForm("SaveItemRecord", "Item", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(false, "", new { @style = "color: red" })
+            <h4 class="mb-3">Main Details</h4>
+            <div class="row mb-3">
+                <div class="form-group col-md mb-3">
+                    @Html.HiddenFor(m => m.Item.VersionTimeStamp)
+                    @Html.LabelFor(m => m.Item.ItemId, new { @class = "control-label" })
+                    <br />
+                    @Html.TextBoxFor(m => m.Item.ItemId, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+                <div class="form-group col-md mb-3">
+                    @Html.LabelFor(m => m.Item.ItemName, new { @class = "control-label" })
+                    <br />
+                    @Html.TextBoxFor(m => m.Item.ItemName, new { @class = "form-control mw-unset", required = "" })
+                    <div class="invalid-feedback">
+                        Valid item name is required.
+                    </div>
+                </div>
+                <div class="form-group col-md mb-3">
+                    <label for="txtItemType">Item Type</label>
+                    @Html.DropDownListFor(m => m.Item.ItemGroup.ItemGroupId, new SelectList(Model.ItemGroups, "ItemGroupId", "ItemGroupName"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
+                </div>
+                <div class="form-group col-md mb-3">
+                    <label>Is Active?</label>
+                    @Html.CheckBoxFor(m => m.Item.IsActive, new { @class = "form-control pt-4 custom-control" })
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="form-group col-md mb-3">
+                    @Html.LabelFor(m => m.Item.ItemBarCode, new { @class = "control-label" })
+                    <br />
+                    @Html.TextBoxFor(m => m.Item.ItemBarCode, new { @class = "form-control mw-unset", required = "" })
+                </div>
+                <div class="form-group col-md mb-3">
+                </div>
+                <div class="form-group col-md mb-3">
+                </div>
+                <div class="form-group col-md mb-3">
+                </div>
+            </div>
+            <h4 class="mb-3">Sales Details</h4>
+            <div class="row mb-3">
+                <div class="col-md-3 mb-3">
+                    <label for="ddItemPrice">Currency</label>
+                    @Html.DropDownListFor(m => m.Item.Currency.CurrencyId, new SelectList(Model.Currencies, "CurrencyId", "CurrencyName"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
+                </div>
+                <div class="form-group col-md-3 mb-3 ">
+                    @Html.LabelFor(m => m.Item.ItemPriceAmount, new { @class = "control-label" })
+                    <br />
+                    @Html.TextBoxFor(m => m.Item.ItemPriceAmount, new { @class = "form-control", required = "" })
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="ddUoM">Unit of Measure</label>
+                    @Html.DropDownListFor(m => m.Item.UnitOfMeasure.UnitOfMeasureId, new SelectList(Model.UnitOfMeasures, "UnitOfMeasureId", "UnitOfMeasureDescription"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
+                </div>
+            </div>
 
-			<h4 class="mb-3">Sales Details</h4>
-			<div class="row mb-3">
-				<div class="col-md-3 mb-3">
-					<label for="ddItemPrice">Currency</label>
-					@Html.DropDownListFor(m => m.Item.Currency.CurrencyId, new SelectList(Model.Currencies, "CurrencyId", "CurrencyName"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
-				</div>
-				<div class="form-group col-md-3 mb-3 ">
-					@Html.LabelFor(m => m.Item.ItemPriceAmount, new { @class = "control-label" })
-					<br />
-					@Html.TextBoxFor(m => m.Item.ItemPriceAmount, new { @class = "form-control", required = "" })
-				</div>
-				<div class="col-md-6 mb-3">
-					<label for="ddUoM">Unit of Measure</label>
-					@Html.DropDownListFor(m => m.Item.UnitOfMeasure.UnitOfMeasureId, new SelectList(Model.UnitOfMeasures, "UnitOfMeasureId", "UnitOfMeasureDescription"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
-				</div>
-			</div>
+            <h4 class="mb-3">Purchase Details</h4>
+            <div class="row mb-3">
+                <div class="col-md-3 mb-3">
+                    <label for="ddPrefVendor">Preferred Vendor</label>
+                    @Html.DropDownListFor(m => m.Item.BusinessPartner.BusinessPartnerId, new SelectList(Model.BusinessPartners, "BusinessPartnerId", "BusinessPartnerName"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
+                </div>
+                <div class="col-md-3 mb-3 ">
+                    <label for="txtPurUoMName">Purchasing Unit of Measure Name</label>
+                    @Html.DropDownListFor(m => m.Item.PurchasingUnitOfMeasure.PurchasingUnitOfMeasureId, new SelectList(Model.PurchasingUnitOfMeasures, "PurchasingUnitOfMeasureId", "PurchasingUnitOfMeasureDescription"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
+                </div>
+                <div class="form-group col-md-3 mb-3 ">
+                    @Html.LabelFor(m => m.Item.ItemsPerUnitOfMeasure, new { @class = "control-label" })
+                    <br />
+                    @Html.TextBoxFor(m => m.Item.ItemsPerUnitOfMeasure, new { @class = "form-control", required = "" })
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="form-group col-md-6 mb-3">
+                    <label for="txtPurRemarks">Purchasing Remarks</label>
+                    @Html.TextAreaFor(m => m.Item.PurchasingRemarks, new { @class = "form-control" })
+                </div>
+            </div>
 
-			<h4 class="mb-3">Purchase Details</h4>
-			<div class="row mb-3">
-				<div class="col-md-3 mb-3">
-					<label for="ddPrefVendor">Preferred Vendor</label>
-					@Html.DropDownListFor(m => m.Item.BusinessPartner.BusinessPartnerId, new SelectList(Model.BusinessPartners, "BusinessPartnerId", "BusinessPartnerName"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
-				</div>
-				<div class="col-md-3 mb-3 ">
-					<label for="txtPurUoMName">Purchasing Unit of Measure Name</label>
-					@Html.DropDownListFor(m => m.Item.PurchasingUnitOfMeasure.PurchasingUnitOfMeasureId, new SelectList(Model.PurchasingUnitOfMeasures, "PurchasingUnitOfMeasureId", "PurchasingUnitOfMeasureDescription"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
-				</div>
-				<div class="form-group col-md-3 mb-3 ">
-					@Html.LabelFor(m => m.Item.ItemsPerUnitOfMeasure, new { @class = "control-label" })
-					<br />
-					@Html.TextBoxFor(m => m.Item.ItemsPerUnitOfMeasure, new { @class = "form-control", required = "" })
-				</div>
-			</div>
-			<div class="row mb-3">
-				<div class="form-group col-md-6 mb-3">
-					<label for="txtPurRemarks">Purchasing Remarks</label>
-					@Html.TextAreaFor(m => m.Item.PurchasingRemarks, new { @class = "form-control" })
-				</div>
-			</div>
+            <h4 class="mb-3">Inventory Details</h4>
+            <div class="row mb-3">
+                <div class="col-md-3 mb-3">
+                    <label for="ddUoM">Inventory Unit of Measure</label>
+                    @Html.DropDownListFor(m => m.Item.InventoryUnitOfMeasure.InventoryUnitOfMeasureId, new SelectList(Model.InventoryUnitOfMeasures, "InventoryUnitOfMeasureId", "InventoryUnitOfMeasureDescription"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
+                </div>
+                <div class="form-group col-md-3 mb-3">
+                    <label for="txtMinAmtReq">Minimum Inventory Required</label>
+                    @Html.TextBoxFor(m => m.Item.MinimumInventoryRequired, new { @class = "form-control number", required = "" })
+                </div>
+            </div>
 
-			<h4 class="mb-3">Inventory Details</h4>
-			<div class="row mb-3">
-				<div class="col-md-3 mb-3">
-					<label for="ddUoM">Inventory Unit of Measure</label>
-					@Html.DropDownListFor(m => m.Item.InventoryUnitOfMeasure.InventoryUnitOfMeasureId, new SelectList(Model.InventoryUnitOfMeasures, "InventoryUnitOfMeasureId", "InventoryUnitOfMeasureDescription"), "Choose...", new { @class = "form-control custom-select d-block w-100", required = "" })
-				</div>
-				<div class="form-group col-md-3 mb-3">
-					<label for="txtMinAmtReq">Minimum Inventory Required</label>
-					@Html.TextBoxFor(m => m.Item.MinimumInventoryRequired, new { @class = "form-control number", required = "" })
-				</div>
-			</div>
-
-			<hr class="mb-4">
-			<input type="submit" value="Save Item" class="btn btn-warning btn-lg btn-block mb-4" />
-		}
-	</div>
+            <hr class="mb-4">
+            <input type="submit" value="Save Item" class="btn btn-warning btn-lg btn-block mb-4" />
+        }
+    </div>
 </div>
