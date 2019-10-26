@@ -174,7 +174,7 @@
                 $(result).appendTo("body");
 
                 var table2 = $('#ItemSearchTable').DataTable({
-                    "searching": false,
+                    "searching": true,
                     "language": {
                         "processing": "loading....",
                         "emptyTable": "No data found"
