@@ -23,7 +23,7 @@
     {
         @Html.AntiForgeryToken()
         @*<form class="form-signin">*@
-        <img class="mb-4" src="..\..\Content\img\CompanyLogo.png" alt="" width="72" height="72">
+        <img class="mb-4 LoginLogo" src="@Url.Content("~/Content/img/SmartDentLogo.jpg")" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         @Html.ValidationSummary(false, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -52,7 +52,7 @@
         <div class="form-group">
             <input type="submit" value="Sign in" class="signinBtn btn btn-lg btn-outline-warning btn-block" />
         </div>
-        <p class="mt-5 mb-3 text-muted">&copy; 2019 Tan-Cruz Dental Inventory System</p>
+        <p class="mt-5 mb-3 text-muted">&copy; @DateTime.Now.Year Smart Dent Inventory System</p>
     }
 </body>
 </html>

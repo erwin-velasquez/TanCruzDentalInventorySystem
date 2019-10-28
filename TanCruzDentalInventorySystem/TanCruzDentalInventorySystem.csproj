@@ -350,6 +350,7 @@
     <Content Include="Content\images\sort_both.png" />
     <Content Include="Content\images\sort_desc.png" />
     <Content Include="Content\images\sort_desc_disabled.png" />
+    <Content Include="Content\img\SmartDentLogo.jpg" />
     <Content Include="Content\jquery-bootstrap-datepicker.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -581,7 +582,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Home\login.css" />
-    <Content Include="Content\img\CompanyLogo.png" />
+    <Content Include="Content\img\tanCruz.png" />
     <Content Include="Content\img\home.PNG" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

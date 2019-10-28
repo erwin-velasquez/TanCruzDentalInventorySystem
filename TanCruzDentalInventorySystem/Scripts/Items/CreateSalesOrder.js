@@ -1,8 +1,5 @@
 ﻿$(document).ready(function () {
 
-    $("#MainForm").submit(function (e) {
-        e.preventDefault();
-    });
 
     var table = $('#salesOrderDetailTable').DataTable({
         data: {},

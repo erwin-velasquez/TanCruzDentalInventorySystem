@@ -125,7 +125,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PurchaseOrder.PurchaseOrderDiscount, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PurchaseOrder.PurchaseOrderDiscount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.PurchaseOrder.PurchaseOrderDiscount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                 @Html.ValidationMessageFor(model => model.PurchaseOrder.PurchaseOrderDiscount, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -133,7 +133,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PurchaseOrder.PurchaseOrderDiscountAmount, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PurchaseOrder.PurchaseOrderDiscountAmount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.PurchaseOrder.PurchaseOrderDiscountAmount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                 @Html.ValidationMessageFor(model => model.PurchaseOrder.PurchaseOrderDiscountAmount, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -141,7 +141,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PurchaseOrder.PurchaseOrderTax, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PurchaseOrder.PurchaseOrderTax, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.PurchaseOrder.PurchaseOrderTax, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                 @Html.ValidationMessageFor(model => model.PurchaseOrder.PurchaseOrderTax, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -149,7 +149,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PurchaseOrder.PurchaseOrderTotal, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PurchaseOrder.PurchaseOrderTotal, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.PurchaseOrder.PurchaseOrderTotal, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                 @Html.ValidationMessageFor(model => model.PurchaseOrder.PurchaseOrderTotal, "", new { @class = "text-danger" })
             </div>
         </div>
