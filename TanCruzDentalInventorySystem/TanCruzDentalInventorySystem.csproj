@@ -234,11 +234,13 @@
     <Compile Include="BusinessService\BusinessPartnerService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IBusinessPartnerService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IItemGroupService.cs" />
+    <Compile Include="BusinessService\BusinessServiceInterface\IPaymentService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\ISalesOrderService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IPurchaseOrderService.cs" />
     <Compile Include="BusinessService\ItemGroupService.cs" />
     <Compile Include="BusinessService\ItemService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IItemService.cs" />
+    <Compile Include="BusinessService\PaymentService.cs" />
     <Compile Include="BusinessService\SalesOrderService.cs" />
     <Compile Include="BusinessService\PurchaseOrderService.cs" />
     <Compile Include="Controllers\BusinessPartnerController.cs" />
@@ -247,6 +249,7 @@
     <Compile Include="Controllers\ItemApiController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ItemGroupController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\PurchaseOrderApiController.cs" />
     <Compile Include="Controllers\SalesOrderApiController.cs" />
     <Compile Include="Controllers\SalesOrderController.cs" />
@@ -257,6 +260,8 @@
     </Compile>
     <Compile Include="Models\BusinessPartner.cs" />
     <Compile Include="Models\BusinessPartnerDetail.cs" />
+    <Compile Include="Models\SalesOrderPaymentDetails.cs" />
+    <Compile Include="Models\SalesOrderPayment.cs" />
     <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\ItemGroup.cs" />
@@ -276,10 +281,12 @@
     <Compile Include="Repository\DataServiceInterface\IItemGroupRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\ISalesOrderRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\IPurchaseOrderRepository.cs" />
+    <Compile Include="Repository\DataServiceInterface\IPaymentRepository.cs" />
     <Compile Include="Repository\ItemGroupRepository.cs" />
     <Compile Include="Repository\ItemRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\IItemRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\IUnitOfWork.cs" />
+    <Compile Include="Repository\PaymentRepository.cs" />
     <Compile Include="Repository\SalesOrderRepository.cs" />
     <Compile Include="Repository\PurchaseOrderRepository.cs" />
     <Compile Include="Repository\UnitOfWork.cs" />
@@ -291,6 +298,8 @@
     <Compile Include="ViewModels\ItemViewModels.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\PurchaseOrderDetailViewModel.cs" />
+    <Compile Include="ViewModels\SalesOrderPaymentDetailViewModel.cs" />
+    <Compile Include="ViewModels\SalesOrderPaymentViewModel.cs" />
     <Compile Include="ViewModels\ScheduledPaymentDetailViewModel.cs" />
     <Compile Include="ViewModels\ScheduledPaymentViewModel.cs" />
     <Compile Include="ViewModels\TaxViewModel.cs" />
@@ -679,7 +688,9 @@
     <Content Include="Views\ItemGroup\EditItemGroupRecord.cshtml" />
     <Content Include="Views\ItemGroup\CreateItemGroup.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Payment\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
