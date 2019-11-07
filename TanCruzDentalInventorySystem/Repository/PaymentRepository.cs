@@ -15,7 +15,7 @@ namespace TanCruzDentalInventorySystem.Repository
         public async Task<SalesOrderPayment> GetSalesOrderPayment(string salesOrderPaymentId)
         {
             var parameters = new DynamicParameters();
-            parameters.Add("@SalesOrderId", salesOrderPaymentId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+            parameters.Add("@SalesOrderPaymentId", salesOrderPaymentId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 
             var salesOrderPayment = await UnitOfWork.Connection.QueryAsync<SalesOrderPayment>(
                 sql: SP_GET_SO_PAYMENT,
@@ -81,7 +81,7 @@ namespace TanCruzDentalInventorySystem.Repository
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@UserId", userId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
-            parameters.Add("@SalesOrderId", userId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+            parameters.Add("@SalesOrderId", salesOrderId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 
             var salesOrderPaymentId = await UnitOfWork.Connection.ExecuteScalarAsync<string>(
                 sql: SP_CREATE_SO_PAYMENT,

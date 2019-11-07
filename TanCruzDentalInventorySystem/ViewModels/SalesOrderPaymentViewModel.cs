@@ -7,12 +7,14 @@ namespace TanCruzDentalInventorySystem.ViewModels
 	public class SalesOrderPaymentViewModel
     {
 		[Display(Name = "Sales Order Payment Id")]
-		public string SalesOrderPaymentId { get; set; }
+		public string SOPaymentId { get; set; }
         [Display(Name = "Sales Order Id")]
-        public string SalesOrderId { get; set; }
+        public string SalesOrder_SalesOrderId { get; set; }
         [Display(Name = "Sales Order Payment Control Number")]
 		[Required]
-		public long SalesOrderControlNumber { get; set; }
+		public long SOPaymentControlNumber { get; set; }
+        [Display(Name = "Sales Order")]
+        public SalesOrderViewModel SalesOrder { get; set; }
         [Display(Name = "Business Partner")]
 		public BusinessPartnerViewModel BusinessPartner { get; set; }
 		[Display(Name = "Currency")]
@@ -35,7 +37,7 @@ namespace TanCruzDentalInventorySystem.ViewModels
 		public long VersionTimeStamp { get; set; }
 
         [Required(ErrorMessage = "You have not selected any Item.")]
-		public List<SalesOrderPaymentDetailViewModel> SalesOrderDetails { get; set; }
+		public List<SalesOrderPaymentDetailViewModel> SalesOrderPaymentDetails { get; set; }
 	}
 
 	public class SalesOrderPaymentFormViewModel
