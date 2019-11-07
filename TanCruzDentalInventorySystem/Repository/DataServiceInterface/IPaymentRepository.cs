@@ -11,7 +11,7 @@ namespace TanCruzDentalInventorySystem.Repository.DataServiceInterface
 
         Task<SalesOrderPayment> GetSalesOrderPayment(string salesOrderPaymentId);
         Task<IEnumerable<SalesOrderPaymentDetail>> GetSalesOrderPaymentDetailList(string salesOrderPaymentId);
-        Task<string> CreateSalesOrderPayment(string userId);
+        Task<string> CreateSalesOrderPayment(string userId, string salesOrderId);
         Task<string> CreateSalesOrderPaymentDetail(string userId);
         Task<int> SaveSalesOrderPayment(SalesOrderPayment salesOrderPayment);
         Task<int> SaveSalesOrderPaymentDetail(SalesOrderPaymentDetail salesOrderPaymentDetail);

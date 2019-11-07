@@ -687,10 +687,9 @@
     <Content Include="Views\ItemGroup\ItemGroupRecord.cshtml" />
     <Content Include="Views\ItemGroup\EditItemGroupRecord.cshtml" />
     <Content Include="Views\ItemGroup\CreateItemGroup.cshtml" />
+    <Content Include="Views\Payment\CreateSalesOrderPayment.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Payment\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>

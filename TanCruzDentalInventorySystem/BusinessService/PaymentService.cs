@@ -30,9 +30,9 @@ namespace TanCruzDentalInventorySystem.BusinessService
             _businessPartnerRepository.UnitOfWork = unitOfWork;
         }
 
-        public async Task<SalesOrderPaymentFormViewModel> CreateSalesOrderPaymentForm(string userId)
+        public async Task<SalesOrderPaymentFormViewModel> CreateSalesOrderPaymentForm(string userId, string salesOrderId)
         {
-            string salesOrderPaymentId = await _paymentRepository.CreateSalesOrderPayment(userId);
+            string salesOrderPaymentId = await _paymentRepository.CreateSalesOrderPayment(userId, salesOrderId);
 
             var salesOrderPaymentForm = new SalesOrderPaymentFormViewModel()
             {

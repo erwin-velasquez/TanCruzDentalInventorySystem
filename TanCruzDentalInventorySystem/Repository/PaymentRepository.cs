@@ -77,10 +77,11 @@ namespace TanCruzDentalInventorySystem.Repository
             return salesOrderDetailList;
         }
 
-        public async Task<string> CreateSalesOrderPayment(string userId)
+        public async Task<string> CreateSalesOrderPayment(string userId, string salesOrderId)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@UserId", userId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+            parameters.Add("@SalesOrderId", userId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 
             var salesOrderPaymentId = await UnitOfWork.Connection.ExecuteScalarAsync<string>(
                 sql: SP_CREATE_SO_PAYMENT,
