@@ -689,6 +689,7 @@
     <Content Include="Views\ItemGroup\EditItemGroupRecord.cshtml" />
     <Content Include="Views\ItemGroup\CreateItemGroup.cshtml" />
     <Content Include="Views\Payment\CreateSalesOrderPayment.cshtml" />
+    <Content Include="Views\Payment\CreateSalesOrderPaymentDetailModal.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

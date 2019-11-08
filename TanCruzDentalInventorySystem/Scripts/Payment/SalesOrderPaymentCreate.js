@@ -10,4 +10,9 @@
         "bLengthChange": false,
         "bPaginate": false
     });
+
+    $('#btnAddPayment').on('click', function (e) {
+        $("#SalesOrderPaymentDetailModal").modal("show");
+    });
+
 });
