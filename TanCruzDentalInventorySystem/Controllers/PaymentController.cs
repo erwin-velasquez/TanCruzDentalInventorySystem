@@ -27,5 +27,16 @@ namespace TanCruzDentalInventorySystem.Controllers
 
             return View(paymentForm);
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Editor")]
+        public ActionResult CreateSalesOrderPaymentDetailModal()
+        {
+            var formViewModel = new SalesOrderPaymentDetailViewModel();
+            formViewModel.salesOrderPaymenFormDropDownValues = new SalesOrderPaymentFormDropDownValues();
+
+            return View("~/Views/Payment/CreateSalesOrderPaymentDetailModal.cshtml", formViewModel);
+        }
+
     }
 }

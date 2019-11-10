@@ -47,20 +47,4 @@ namespace TanCruzDentalInventorySystem.ViewModels
 		public IEnumerable<CurrencyViewModel> Currencies { get; set; }
 		public IEnumerable<BusinessPartnerViewModel> BusinessPartners { get; set; }
 	}
-
-    public class SalesOrderPaymentFormDropDownValues
-    {
-        public IEnumerable<string> PaymentTypeOptions
-        {
-            get
-            {
-                List<string> opt = new List<string>();
-
-                opt.Add("Cash");
-                opt.Add("Check");
-
-                return opt;
-            }
-        }
-    }
 }

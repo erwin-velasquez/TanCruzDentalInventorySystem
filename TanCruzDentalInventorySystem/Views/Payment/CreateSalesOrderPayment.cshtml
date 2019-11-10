@@ -3,8 +3,6 @@
 @{
     ViewBag.Title = "Create Sales Order Payment";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
-    var PaymentOptionsModel = new TanCruzDentalInventorySystem.ViewModels.SalesOrderPaymentFormDropDownValues();
 }
 
 @using (Html.BeginForm("SaveSalesOrderPayment", "Payment", FormMethod.Post, new { @id = "MainForm", @class = "form-horizontal needs-validation bg-light", role = "form" }))
@@ -44,7 +42,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="button" id="btnAddPayment" value="Add Payment" class="btn btn-success" />
+                <input type="button" id="btnAddPayment" value="Add Payment" class="btn btn-primary" />
             </div>
         </div>
 
@@ -58,18 +56,20 @@
                             <th>@Html.DisplayNameFor(model => model.SalesOrderPayment.SalesOrderPaymentDetails[0].PaymentType)</th>
                             <th>@Html.DisplayNameFor(model => model.SalesOrderPayment.SalesOrderPaymentDetails[0].SalesOrderPaymentDetailTotal)</th>
                             <th>@Html.DisplayNameFor(model => model.SalesOrderPayment.SalesOrderPaymentDetails[0].Remarks)</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @for (int i = 0; i < Model.SalesOrderPayment.SalesOrderPaymentDetails.Count(); i++)
                         {
-                            <tr id="@Html.ValueFor(x => x.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].SalesOrderPaymentDetailId)">
-                                <td>@(i + 1)</td>
-                                <td>Action</td>
-                                <td>@Html.HiddenFor(x => x.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].PaymentType)@Model.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].PaymentType</td>
-                                <td>@Html.HiddenFor(x => x.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].SalesOrderPaymentDetailTotal)@Model.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].SalesOrderPaymentDetailTotal</td>
-                                <td>@Html.HiddenFor(x => x.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].Remarks)@Model.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].Remarks</td>
-                            </tr>
+                        <tr id="@Html.ValueFor(x => x.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].SalesOrderPaymentDetailId)">
+                            <td>@(i + 1)</td>
+                            <td>Action</td>
+                            <td>@Html.HiddenFor(x => x.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].PaymentType)@Model.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].PaymentType</td>
+                            <td>@Html.HiddenFor(x => x.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].SalesOrderPaymentDetailTotal)@Model.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].SalesOrderPaymentDetailTotal</td>
+                            <td>@Html.HiddenFor(x => x.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].Remarks)@Model.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].Remarks</td>
+                            <th></th>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -87,8 +87,6 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@Html.Partial("~/Views/Payment/CreateSalesOrderPaymentDetailModal.cshtml", PaymentOptionsModel)
 
 @section Scripts {
     @Scripts.Render("~/Scripts/Payment/SalesOrderPaymentCreate.js");
