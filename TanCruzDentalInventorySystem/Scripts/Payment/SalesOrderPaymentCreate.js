@@ -30,7 +30,7 @@
             {
                 "data": "PaymentAmount",
                 "title": "Payment Amount",
-                "className": "dt-left"
+                "className": "PaymentAmountDetail dt-left"
             },
             {
                 "data": "PaymentDate",
@@ -70,6 +70,16 @@
 
                     table.rows.add(obj);
                     table.draw();
+
+                    var totalPaymentAmount = 0;
+
+                    $('tbody .PaymentAmountDetail').each(function () {
+                        totalPaymentAmount = totalPaymentAmount + parseFloat($(this).text());
+                    });
+
+                    $('#SalesOrderPayment_PaymentTotal').val(totalPaymentAmount);
+
+                    $('#TotalAmounttoPay').val(parseFloat($('#SalesOrderPayment_SalesOrder_SalesOrderTotal').val()) - totalPaymentAmount);
 
                     $('#SalesOrderPaymentDetailModal').modal("hide");
                 });

@@ -24,7 +24,7 @@
             </div>
 
             <div class="form-group col-md-4">
-                @Html.LabelFor(model => model.SalesOrderPayment.SalesOrder.SalesOrderTotal, "Total Amount to Pay", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.SalesOrderPayment.SalesOrder.SalesOrderTotal, "Sales Order Total", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.SalesOrderPayment.SalesOrder.SalesOrderTotal, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                     @Html.ValidationMessageFor(model => model.SalesOrderPayment.SalesOrder.SalesOrderTotal, "", new { @class = "text-danger" })
@@ -62,19 +62,38 @@
                     <tbody>
                         @for (int i = 0; i < Model.SalesOrderPayment.SalesOrderPaymentDetails.Count(); i++)
                         {
-                        <tr id="@Html.ValueFor(x => x.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].SalesOrderPaymentDetailId)">
-                            <td>@(i + 1)</td>
-                            <td>Action</td>
-                            <td>@Html.HiddenFor(x => x.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].PaymentType)@Model.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].PaymentType</td>
-                            <td>@Html.HiddenFor(x => x.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].SalesOrderPaymentDetailTotal)@Model.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].SalesOrderPaymentDetailTotal</td>
-                            <td>@Html.HiddenFor(x => x.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].Remarks)@Model.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].Remarks</td>
-                            <th></th>
-                        </tr>
+                            <tr id="@Html.ValueFor(x => x.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].SalesOrderPaymentDetailId)">
+                                <td>@(i + 1)</td>
+                                <td>Action</td>
+                                <td>@Html.HiddenFor(x => x.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].PaymentType)@Model.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].PaymentType</td>
+                                <td>@Html.HiddenFor(x => x.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].SalesOrderPaymentDetailTotal)@Model.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].SalesOrderPaymentDetailTotal</td>
+                                <td>@Html.HiddenFor(x => x.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].Remarks)@Model.SalesOrderPayment.SalesOrderPaymentDetails.ToArray()[i].Remarks</td>
+                                <th></th>
+                            </tr>
                         }
                     </tbody>
                 </table>
             </div>
         </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                @Html.Label("Total Amount to Pay", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor("0", new { htmlAttributes = new { @id = "TotalAmounttoPay", @class = "form-control", @readonly = "readonly" } })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.SalesOrderPayment.PaymentTotal, "Total Paid for Sales Order", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SalesOrderPayment.PaymentTotal, new { htmlAttributes = new { @value="0", @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.SalesOrderPayment.PaymentTotal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <br />
 
         <div class="row form-group">
             <div class="col-md-offset-2 col-md-10">
