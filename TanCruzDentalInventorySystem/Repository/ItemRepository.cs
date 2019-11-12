@@ -21,7 +21,6 @@ namespace TanCruzDentalInventorySystem.Repository
 					{
 						typeof(Item),
 						typeof(ItemGroup),
-						typeof(ItemPrice),
 						typeof(Currency),
 						typeof(UnitOfMeasure),
 						typeof(BusinessPartner),
@@ -34,19 +33,18 @@ namespace TanCruzDentalInventorySystem.Repository
 						if (!(typeMap[0] is Item itemUnit)) return null;
 
 						itemUnit.ItemGroup = typeMap[1] as ItemGroup;
-						itemUnit.ItemPrice = typeMap[2] as ItemPrice;
-						itemUnit.Currency = typeMap[3] as Currency;
-						itemUnit.UnitOfMeasure = typeMap[4] as UnitOfMeasure;
-						itemUnit.BusinessPartner = typeMap[5] as BusinessPartner;
-						itemUnit.PurchasingUnitOfMeasure = typeMap[6] as PurchasingUnitOfMeasure;
-						itemUnit.InventoryUnitOfMeasure = typeMap[7] as InventoryUnitOfMeasure;
+						itemUnit.Currency = typeMap[2] as Currency;
+						itemUnit.UnitOfMeasure = typeMap[3] as UnitOfMeasure;
+						itemUnit.BusinessPartner = typeMap[4] as BusinessPartner;
+						itemUnit.PurchasingUnitOfMeasure = typeMap[5] as PurchasingUnitOfMeasure;
+						itemUnit.InventoryUnitOfMeasure = typeMap[6] as InventoryUnitOfMeasure;
 
 						return itemUnit;
 					},
 				param: null,
 				transaction: UnitOfWork.Transaction,
 				commandType: System.Data.CommandType.StoredProcedure,
-				splitOn: "ItemGroupId, ItemPriceId, CurrencyId, UnitOfMeasureId, BusinessPartnerId, PurchasingUnitOfMeasureId, InventoryUnitOfMeasureId");
+				splitOn: "ItemGroupId, CurrencyId, UnitOfMeasureId, BusinessPartnerId, PurchasingUnitOfMeasureId, InventoryUnitOfMeasureId");
 
 			return itemList;
 		}
@@ -63,7 +61,6 @@ namespace TanCruzDentalInventorySystem.Repository
 					{
 						typeof(Item),
 						typeof(ItemGroup),
-						typeof(ItemPrice),
 						typeof(Currency),
 						typeof(UnitOfMeasure),
 						typeof(BusinessPartner),
@@ -76,19 +73,18 @@ namespace TanCruzDentalInventorySystem.Repository
 						if (!(typeMap[0] is Item itemUnit)) return null;
 
 						itemUnit.ItemGroup = typeMap[1] as ItemGroup;
-						itemUnit.ItemPrice = typeMap[2] as ItemPrice;
-						itemUnit.Currency = typeMap[3] as Currency;
-						itemUnit.UnitOfMeasure = typeMap[4] as UnitOfMeasure;
-						itemUnit.BusinessPartner = typeMap[5] as BusinessPartner;
-						itemUnit.PurchasingUnitOfMeasure = typeMap[6] as PurchasingUnitOfMeasure;
-						itemUnit.InventoryUnitOfMeasure = typeMap[7] as InventoryUnitOfMeasure;
+						itemUnit.Currency = typeMap[2] as Currency;
+						itemUnit.UnitOfMeasure = typeMap[3] as UnitOfMeasure;
+						itemUnit.BusinessPartner = typeMap[4] as BusinessPartner;
+						itemUnit.PurchasingUnitOfMeasure = typeMap[5] as PurchasingUnitOfMeasure;
+						itemUnit.InventoryUnitOfMeasure = typeMap[6] as InventoryUnitOfMeasure;
 
                         return itemUnit;
 					},
 				param: parameters,
 				transaction: UnitOfWork.Transaction,
 				commandType: System.Data.CommandType.StoredProcedure,
-				splitOn: "ItemGroupId, ItemPriceId, CurrencyId, UnitOfMeasureId, BusinessPartnerId, PurchasingUnitOfMeasureId, InventoryUnitOfMeasureId");
+				splitOn: "ItemGroupId, CurrencyId, UnitOfMeasureId, BusinessPartnerId, PurchasingUnitOfMeasureId, InventoryUnitOfMeasureId");
 
 			var versionedItem = item.AsList().SingleOrDefault();
 			versionedItem.VersionTimeStamp = versionedItem.ChangedDate.Value.Ticks;
@@ -115,10 +111,6 @@ namespace TanCruzDentalInventorySystem.Repository
 			parameters.Add("@ItemGroupId", item.ItemGroup.ItemGroupId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 			parameters.Add("@IsActive", item.IsActive, System.Data.DbType.Boolean, System.Data.ParameterDirection.Input);
 			parameters.Add("@CurrencyId", item.Currency.CurrencyId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
-			
-			// temporary
-			parameters.Add("@ItemPriceAmount", item.ItemPriceAmount, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
-
 			parameters.Add("@UnitOfMeasureId", item.UnitOfMeasure.UnitOfMeasureId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 			parameters.Add("@BusinessPartnerId", item.BusinessPartner.BusinessPartnerId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 			parameters.Add("@PurchasingUnitOfMeasureId", item.PurchasingUnitOfMeasure.PurchasingUnitOfMeasureId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
