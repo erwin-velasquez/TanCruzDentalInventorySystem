@@ -14,6 +14,8 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div id="validationMessage">
+                </div>
                 <div class="row">
                     <div class="form-group col-md-4">
                         @Html.Label("Payment Type", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -54,7 +56,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="addPayment" type="button" class="btn btn-primary" data-dismiss="modal">Add Payment</button>
+                <button id="addPayment" type="button" class="btn btn-primary">Add Payment</button>
             </div>
         </div>
     </div>

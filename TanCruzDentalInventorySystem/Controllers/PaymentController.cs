@@ -38,5 +38,14 @@ namespace TanCruzDentalInventorySystem.Controllers
             return View("~/Views/Payment/CreateSalesOrderPaymentDetailModal.cshtml", formViewModel);
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Editor")]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveSalesOrderPayment(SalesOrderPaymentFormViewModel salesOrderPaymentFormViewModel)
+        {
+            return RedirectToAction("SalesOrderPaymentList", "SalesOrder");
+        }
+
+
     }
 }
