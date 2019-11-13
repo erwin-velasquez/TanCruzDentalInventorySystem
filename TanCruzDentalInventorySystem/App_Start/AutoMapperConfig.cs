@@ -16,6 +16,7 @@ namespace TanCruzDentalInventorySystem
 				cfg.CreateMap<Currency, CurrencyViewModel>().ReverseMap();
 				cfg.CreateMap<UnitOfMeasure, UnitOfMeasureViewModel>().ReverseMap();
 				cfg.CreateMap<BusinessPartner, BusinessPartnerViewModel>().ReverseMap();
+				cfg.CreateMap<BusinessPartner, BusinessPartnerInFormViewModel>().ReverseMap();
 				cfg.CreateMap<BusinessPartnerDetail, BusinessPartnerDetailViewModel>().ReverseMap();
 				cfg.CreateMap<PurchasingUnitOfMeasure, PurchasingUnitOfMeasureViewModel>().ReverseMap();
 				cfg.CreateMap<InventoryUnitOfMeasure, InventoryUnitOfMeasureViewModel>().ReverseMap();

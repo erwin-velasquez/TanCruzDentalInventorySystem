@@ -19,7 +19,7 @@ namespace TanCruzDentalInventorySystem.ViewModels
 		[Display(Name = "Currency")]
         public CurrencyViewModel Currency { get; set; }
         public UnitOfMeasureViewModel UnitOfMeasure { get; set; }
-        public BusinessPartnerViewModel BusinessPartner { get; set; }
+        public BusinessPartnerInFormViewModel BusinessPartner { get; set; }
         public PurchasingUnitOfMeasureViewModel PurchasingUnitOfMeasure { get; set; }
 
         [Display(Name = "Items per Unit of Measure")]
