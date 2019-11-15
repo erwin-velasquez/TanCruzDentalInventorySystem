@@ -9,7 +9,10 @@ namespace TanCruzDentalInventorySystem.ViewModels
         [Display(Name = "Item Number")]
         public string ItemId { get; set; }
 
-        [Display(Name = "Item Name")]
+		[Display(Name = "Item Barcode")]
+		public string ItemBarCode { get; set; }
+
+		[Display(Name = "Item Name")]
         public string ItemName { get; set; }
         public string ItemDescription { get; set; }
 
@@ -36,8 +39,6 @@ namespace TanCruzDentalInventorySystem.ViewModels
         public DateTime? ChangedDate { get; set; }
         public long VersionTimeStamp { get; set; }
         public decimal QuantityOnHand { get; set; }
-        [Display(Name = "Item Barcode")]
-        public string ItemBarCode { get; set; }
 	}
 
 	public class ItemPriceViewModel

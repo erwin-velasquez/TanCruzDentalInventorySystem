@@ -5,6 +5,7 @@ namespace TanCruzDentalInventorySystem.Models
 	public class Item
 	{
 		public string ItemId { get; set; }
+		public string ItemBarCode { get; set; }
 		public string ItemName { get; set; }
 		public string ItemDescription { get; set; }
 		public ItemGroup ItemGroup { get; set; }
@@ -21,7 +22,6 @@ namespace TanCruzDentalInventorySystem.Models
 		public DateTime? ChangedDate { get; set; }
 		public long VersionTimeStamp { get; set; }
         public decimal QuantityOnHand { get; set; }
-        public string ItemBarCode { get; set; }
     }
 
 	public class ItemPrice

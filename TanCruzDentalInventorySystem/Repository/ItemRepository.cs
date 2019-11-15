@@ -107,6 +107,7 @@ namespace TanCruzDentalInventorySystem.Repository
 		{
 			DynamicParameters parameters = new DynamicParameters();
 			parameters.Add("@ItemId", item.ItemId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+			parameters.Add("@ItemBarCode", item.ItemBarCode, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 			parameters.Add("@ItemName", item.ItemName, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 			parameters.Add("@ItemGroupId", item.ItemGroup.ItemGroupId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 			parameters.Add("@IsActive", item.IsActive, System.Data.DbType.Boolean, System.Data.ParameterDirection.Input);
