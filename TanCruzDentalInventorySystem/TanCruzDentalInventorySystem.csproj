@@ -19,9 +19,12 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -260,6 +263,7 @@
     </Compile>
     <Compile Include="Models\BusinessPartner.cs" />
     <Compile Include="Models\BusinessPartnerDetail.cs" />
+    <Compile Include="Models\ItemPrice.cs" />
     <Compile Include="Models\SalesOrderPaymentDetails.cs" />
     <Compile Include="Models\SalesOrderPayment.cs" />
     <Compile Include="Models\Currency.cs" />
@@ -279,10 +283,12 @@
     <Compile Include="Repository\DataServiceInterface\IBusinessPartnerRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\ICurrencyRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\IItemGroupRepository.cs" />
+    <Compile Include="Repository\DataServiceInterface\IItemPriceRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\ISalesOrderRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\IPurchaseOrderRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\IPaymentRepository.cs" />
     <Compile Include="Repository\ItemGroupRepository.cs" />
+    <Compile Include="Repository\ItemPriceRepository.cs" />
     <Compile Include="Repository\ItemRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\IItemRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\IUnitOfWork.cs" />
@@ -295,6 +301,7 @@
     <Compile Include="ViewModels\BusinessPartnerViewModel.cs" />
     <Compile Include="ViewModels\CurrencyViewModel.cs" />
     <Compile Include="ViewModels\ItemGroupViewModel.cs" />
+    <Compile Include="ViewModels\ItemPriceViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModels.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\PurchaseOrderDetailViewModel.cs" />
