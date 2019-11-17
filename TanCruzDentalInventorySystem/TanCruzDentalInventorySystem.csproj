@@ -97,8 +97,35 @@
     <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebDesign, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="ReportViewerForMvc, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReportViewerForMvc14.140.1000.523\lib\net45\ReportViewerForMvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration.ConfigurationManager, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -107,6 +134,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
@@ -238,12 +266,14 @@
     <Compile Include="BusinessService\BusinessServiceInterface\IBusinessPartnerService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IItemGroupService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IPaymentService.cs" />
+    <Compile Include="BusinessService\BusinessServiceInterface\IReportService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\ISalesOrderService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IPurchaseOrderService.cs" />
     <Compile Include="BusinessService\ItemGroupService.cs" />
     <Compile Include="BusinessService\ItemService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IItemService.cs" />
     <Compile Include="BusinessService\PaymentService.cs" />
+    <Compile Include="BusinessService\ReportService.cs" />
     <Compile Include="BusinessService\SalesOrderService.cs" />
     <Compile Include="BusinessService\PurchaseOrderService.cs" />
     <Compile Include="Controllers\BusinessPartnerController.cs" />
@@ -254,12 +284,18 @@
     <Compile Include="Controllers\ItemGroupController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\PurchaseOrderApiController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SalesOrderApiController.cs" />
     <Compile Include="Controllers\SalesOrderController.cs" />
     <Compile Include="Controllers\PurchaseOrderController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="App_Data\InventorySystemDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventorySystemDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Models\BusinessPartner.cs" />
     <Compile Include="Models\BusinessPartnerDetail.cs" />
@@ -284,6 +320,7 @@
     <Compile Include="Repository\DataServiceInterface\ICurrencyRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\IItemGroupRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\IItemPriceRepository.cs" />
+    <Compile Include="Repository\DataServiceInterface\IReportRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\ISalesOrderRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\IPurchaseOrderRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\IPaymentRepository.cs" />
@@ -293,9 +330,11 @@
     <Compile Include="Repository\DataServiceInterface\IItemRepository.cs" />
     <Compile Include="Repository\DataServiceInterface\IUnitOfWork.cs" />
     <Compile Include="Repository\PaymentRepository.cs" />
+    <Compile Include="Repository\ReportRepository.cs" />
     <Compile Include="Repository\SalesOrderRepository.cs" />
     <Compile Include="Repository\PurchaseOrderRepository.cs" />
     <Compile Include="Repository\UnitOfWork.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BusinessPartnerDetailViewModel.cs" />
     <Compile Include="ViewModels\BusinessPartnerViewModel.cs" />
@@ -410,6 +449,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="libman.json" />
+    <Content Include="ReportViewerWebForm.aspx" />
     <Content Include="Scripts\BusinessPartner\BusinessPartnerIndex.js" />
     <Content Include="Scripts\datatables.extensions\AutoFill\js\dataTables.autoFill.js" />
     <Content Include="Scripts\datatables.extensions\AutoFill\js\dataTables.autoFill.min.js" />
@@ -440,6 +480,17 @@
     <Content Include="Content\datatables.extensions\Responsive\css\dataTables.responsive.scss" />
     <Content Include="Scripts\DataTables\Buttons-1.5.6\css\common.scss" />
     <Content Include="Scripts\DataTables\Buttons-1.5.6\css\mixins.scss" />
+    <Content Include="App_Data\InventorySystemDataSet.xsc">
+      <DependentUpon>InventorySystemDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="App_Data\InventorySystemDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>InventorySystemDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="App_Data\InventorySystemDataSet.xss">
+      <DependentUpon>InventorySystemDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\Default.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\datatables.extensions\Scroller\js\dataTables.scroller.js" />
@@ -582,6 +633,19 @@
     <Content Include="Scripts\SalesOrder\SalesOrderEdit.js" />
     <Content Include="Scripts\SalesOrder\SalesOrderIndex.js" />
     <Content Include="Scripts\Validators\CreateSalesOrderValidator.js" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Static\404.html" />
     <Content Include="App_Data\InventorySystem.mdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -697,8 +761,11 @@
     <Content Include="Views\ItemGroup\CreateItemGroup.cshtml" />
     <Content Include="Views\Payment\CreateSalesOrderPayment.cshtml" />
     <Content Include="Views\Payment\CreateSalesOrderPaymentDetailModal.cshtml" />
+    <Content Include="Views\Report\ItemReport.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\RDL\ItemsReport.rdlc" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
@@ -734,6 +801,7 @@
       <Name>IdentityManagement</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

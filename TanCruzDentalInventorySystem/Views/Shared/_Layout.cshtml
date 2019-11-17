@@ -44,8 +44,15 @@
                         <a class="dropdown-item" href="~/PurchaseOrder/VendorPayment">Vendor Payment</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    @Html.ActionLink("Reports", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                <li class="nav-item dropdown">
+                    @Html.ActionLink("Reports", string.Empty, string.Empty, new { area = "" }, new { @id = "navBarMainReportsDD", @class = "nav-link", data_toggle = "dropdown", aria_haspopup = "true", aria_expanded = "false" })
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="~/Report/ItemReport">Items Inventory Report</a>
+                        <a class="dropdown-item" href="~/Report/SalersOrderReport">Sales Order Report</a>
+                        <a class="dropdown-item" href="~/Report/SalersOrderPaymentReport">Sales Order Payment Report</a>
+                        <a class="dropdown-item" href="~/Report/PurchaseOrderReport">Purchase Order Report</a>
+                        <a class="dropdown-item" href="~/Report/PurchaseOrderPaymentReport">Purchase Order Payment Report</a>
+                    </div>
                 </li>
                 <li class="nav-item dropdown">
                     @Html.ActionLink("Admin", string.Empty, string.Empty, new { area = "" }, new { @id = "navBarMainAdminDD", @class = "nav-link", data_toggle = "dropdown", aria_haspopup = "true", aria_expanded = "false" })
