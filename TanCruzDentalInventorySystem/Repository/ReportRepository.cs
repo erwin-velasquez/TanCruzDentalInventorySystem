@@ -24,5 +24,31 @@ namespace TanCruzDentalInventorySystem.Repository
 
             return ds;
         }
+
+
+        public DataSet GetSalesOrderReport() {
+            InventorySystemDataSet ds = new InventorySystemDataSet();
+            var connectionString = ConfigurationManager.ConnectionStrings["defaultConnection"].ConnectionString;
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand("GetSalesOrders", sqlConnection);
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter adapter = new SqlDataAdapter(sqlCommand);
+            adapter.Fill(ds, ds.SalesOrderDataTable.TableName);
+
+            return ds;
+        }
+
+        public DataSet GetPurchaseOrderReport()
+        {
+            InventorySystemDataSet ds = new InventorySystemDataSet();
+            var connectionString = ConfigurationManager.ConnectionStrings["defaultConnection"].ConnectionString;
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand("GetPurchaseOrders", sqlConnection);
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter adapter = new SqlDataAdapter(sqlCommand);
+            adapter.Fill(ds, ds.PurchaseOrderDataTable.TableName);
+
+            return ds;
+        }
     }
 }

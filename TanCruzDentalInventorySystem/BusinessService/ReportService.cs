@@ -22,5 +22,13 @@ namespace TanCruzDentalInventorySystem.BusinessService
         {
             return _reportRepository.GetItemsReport();
         }
+
+        public DataSet GetSalesOrderReport() {
+            return _reportRepository.GetSalesOrderReport();
+        }
+
+        public DataSet GetPurchaseOrderReport() {
+            return _reportRepository.GetPurchaseOrderReport();
+        }
     }
 }

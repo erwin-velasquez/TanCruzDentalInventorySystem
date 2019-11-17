@@ -762,9 +762,13 @@
     <Content Include="Views\Payment\CreateSalesOrderPayment.cshtml" />
     <Content Include="Views\Payment\CreateSalesOrderPaymentDetailModal.cshtml" />
     <Content Include="Views\Report\ItemReport.cshtml" />
+    <Content Include="Views\Report\SalesOrderReport.cshtml" />
+    <Content Include="Views\Report\PurchaseOrderReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\RDL\ItemsReport.rdlc" />
+    <EmbeddedResource Include="Reports\RDL\PurchaseOrderReport.rdlc" />
+    <EmbeddedResource Include="Reports\RDL\SalesOrderReport.rdlc" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

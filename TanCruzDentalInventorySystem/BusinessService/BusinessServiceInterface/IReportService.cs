@@ -10,5 +10,7 @@ namespace TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface
     public interface IReportService
     {
         DataSet GetItemsReport();
+        DataSet GetSalesOrderReport();
+        DataSet GetPurchaseOrderReport();
     }
 }

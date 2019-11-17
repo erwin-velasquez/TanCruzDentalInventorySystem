@@ -10,5 +10,8 @@ namespace TanCruzDentalInventorySystem.Repository.DataServiceInterface
     public interface IReportRepository
     {
         DataSet GetItemsReport();
+        DataSet GetSalesOrderReport();
+        DataSet GetPurchaseOrderReport();
+
     }
 }
