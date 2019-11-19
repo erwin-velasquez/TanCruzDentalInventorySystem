@@ -112,15 +112,15 @@ namespace TanCruzDentalInventorySystem.Repository
             parameters.Add("@SalesOrderPaymentId", salesOrderPayment.SOPaymentId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
             parameters.Add("@PaymentControlNum", salesOrderPayment.SOPaymentControlNumber, System.Data.DbType.Int64, System.Data.ParameterDirection.Input);
             parameters.Add("@SalesOrderId", salesOrderPayment.SalesOrder.SalesOrderId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
-            parameters.Add("@BusinessPartnerId", salesOrderPayment.BusinessPartner.BusinessPartnerId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
-            parameters.Add("@CurrencyId", salesOrderPayment.Currency.CurrencyId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
-            parameters.Add("@PaymentStatus", salesOrderPayment.PaymentStatus, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+            parameters.Add("@BusinessPartnerId", salesOrderPayment.BusinessPartner.BusinessPartnerId ?? "", System.Data.DbType.String, System.Data.ParameterDirection.Input);
+            parameters.Add("@CurrencyId", salesOrderPayment.Currency.CurrencyId ?? "", System.Data.DbType.String, System.Data.ParameterDirection.Input);
+            parameters.Add("@PaymentStatus", salesOrderPayment.PaymentStatus ?? "", System.Data.DbType.String, System.Data.ParameterDirection.Input);
             parameters.Add("@PaymentDate", salesOrderPayment.PaymentDate, System.Data.DbType.DateTime, System.Data.ParameterDirection.Input);
             parameters.Add("@DocumentDate", salesOrderPayment.DocumentDate, System.Data.DbType.DateTime, System.Data.ParameterDirection.Input);
-            parameters.Add("@RefDocNumber", salesOrderPayment.RefDocNumber, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+            parameters.Add("@RefDocNumber", salesOrderPayment.RefDocNumber ?? "", System.Data.DbType.String, System.Data.ParameterDirection.Input);
             parameters.Add("@PaymentTotal", salesOrderPayment.PaymentTotal, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
-            parameters.Add("@Remarks", salesOrderPayment.Remarks, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
-            parameters.Add("@UserId", salesOrderPayment.UserId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+            parameters.Add("@Remarks", salesOrderPayment.Remarks ?? "", System.Data.DbType.String, System.Data.ParameterDirection.Input);
+            parameters.Add("@UserId", salesOrderPayment.UserId ?? "", System.Data.DbType.String, System.Data.ParameterDirection.Input);
             parameters.Add("@ChangedDate", new DateTime(salesOrderPayment.VersionTimeStamp), System.Data.DbType.DateTime2, System.Data.ParameterDirection.Input);
 
             var rowsAffected = await UnitOfWork.Connection.ExecuteAsync(
@@ -136,12 +136,12 @@ namespace TanCruzDentalInventorySystem.Repository
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@SalesOrderPaymentDetailId", salesOrderPaymentDetail.SalesOrderPaymentDetailId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
-            parameters.Add("@SalesOrderPaymentId", salesOrderPaymentDetail.SalesOrderPaymentId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
-            parameters.Add("@PaymentType", salesOrderPaymentDetail.PaymentType, System.Data.DbType.String, System.Data.ParameterDirection.Input);
-            parameters.Add("@CheckNumber", salesOrderPaymentDetail.CheckNumber, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+            parameters.Add("@SalesOrderPaymentId", salesOrderPaymentDetail.SalesOrderPaymentId ?? "", System.Data.DbType.String, System.Data.ParameterDirection.Input);
+            parameters.Add("@PaymentType", salesOrderPaymentDetail.PaymentType ?? "", System.Data.DbType.String, System.Data.ParameterDirection.Input);
+            parameters.Add("@CheckNumber", salesOrderPaymentDetail.CheckNumber ?? "", System.Data.DbType.String, System.Data.ParameterDirection.Input);
             parameters.Add("@LineTotal", salesOrderPaymentDetail.SalesOrderPaymentDetailTotal, System.Data.DbType.Decimal, System.Data.ParameterDirection.Input);
-            parameters.Add("@Remarks", salesOrderPaymentDetail.Remarks, System.Data.DbType.String, System.Data.ParameterDirection.Input);
-            parameters.Add("@UserId", salesOrderPaymentDetail.UserId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+            parameters.Add("@Remarks", salesOrderPaymentDetail.Remarks ?? "", System.Data.DbType.String, System.Data.ParameterDirection.Input);
+            parameters.Add("@UserId", salesOrderPaymentDetail.UserId ?? "", System.Data.DbType.String, System.Data.ParameterDirection.Input);
             parameters.Add("@ChangedDate", new DateTime(salesOrderPaymentDetail.VersionTimeStamp), System.Data.DbType.DateTime2, System.Data.ParameterDirection.Input);
 
             var rowsAffected = await UnitOfWork.Connection.ExecuteAsync(

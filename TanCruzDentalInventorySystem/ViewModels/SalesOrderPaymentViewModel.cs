@@ -11,7 +11,6 @@ namespace TanCruzDentalInventorySystem.ViewModels
         [Display(Name = "Sales Order Id")]
         public string SalesOrder_SalesOrderId { get; set; }
         [Display(Name = "Sales Order Payment Control Number")]
-		[Required]
 		public long SOPaymentControlNumber { get; set; }
         [Display(Name = "Sales Order")]
         public SalesOrderViewModel SalesOrder { get; set; }
@@ -19,7 +18,6 @@ namespace TanCruzDentalInventorySystem.ViewModels
 		public BusinessPartnerViewModel BusinessPartner { get; set; }
 		[Display(Name = "Currency")]
 		public CurrencyViewModel Currency { get; set; }
-		[Required]
 		[Display(Name = "Status")]
 		public string PaymentStatus { get; set; }
 		[Display(Name = "Payment Date")]
