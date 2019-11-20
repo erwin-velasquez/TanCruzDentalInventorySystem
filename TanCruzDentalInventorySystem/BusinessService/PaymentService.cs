@@ -67,7 +67,7 @@ namespace TanCruzDentalInventorySystem.BusinessService
                         {
                             // NEW SalesOrderDetail
                             salesOrderPaymentDetail.SalesOrderPaymentDetailId = await _paymentRepository.CreateSalesOrderPaymentDetail(salesOrderPaymentDetail.UserId);
-                            var newSalesOrderDetail = await _paymentRepository.GetSalesOrderPayment(salesOrderPaymentDetail.SalesOrderPaymentDetailId);
+                            var newSalesOrderDetail = await _paymentRepository.GetSalesOrderPaymentDetail(salesOrderPaymentDetail.SalesOrderPaymentDetailId);
                             salesOrderPaymentDetail.VersionTimeStamp = newSalesOrderDetail.VersionTimeStamp;
                         }
 
