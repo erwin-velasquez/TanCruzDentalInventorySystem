@@ -1,0 +1,67 @@
+﻿@model IEnumerable<TanCruzDentalInventorySystem.ViewModels.ItemPriceViewModel>
+
+@{
+    ViewBag.Title = "ItemPrices";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Item Prices</h3>
+<hr />
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <form class="p-2">
+            <div class="input-group">
+                <button type="button" class="btn btn-warning margin" id="btn-add-new-item-price">
+                    Add New
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <table id="itemPriceListTable" class="display hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Action</th>
+                <th>@Html.DisplayNameFor(model => model.ItemPriceId)</th>
+                <th>@Html.DisplayNameFor(model => model.ItemPriceName)</th>
+                <th>@Html.DisplayNameFor(model => model.ItemPriceDescription)</th>
+                <th>@Html.DisplayNameFor(model => model.ItemId)</th>
+                <th>@Html.DisplayNameFor(model => model.IsDefault)</th>
+                <th>@Html.DisplayNameFor(model => model.Type)</th>
+                <th>@Html.DisplayNameFor(model => model.PriceAmount)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+            <tr>
+                <td>@(i + 1)</td>
+                <td>Action</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i].ItemPriceId)@Model.ToArray()[i].ItemPriceId</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i].ItemPriceId)@Model.ToArray()[i].ItemPriceName</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i].ItemPriceId)@Model.ToArray()[i].ItemPriceDescription</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i].ItemPriceId)@Model.ToArray()[i].ItemId</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i].ItemPriceId)@Model.ToArray()[i].IsDefault</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i].ItemPriceId)@Model.ToArray()[i].Type</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i].ItemPriceId)@Model.ToArray()[i].PriceAmount</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+        var CreateItemPriceURL = "@Url.Content("~/ItemPrice/CreateItemPrice/")";
+        var EditItemPriceRecordUrl = "@Url.Content("~/ItemPrice/EditItemPriceRecord?itemPriceId=")";
+        var ViewItemPriceRecordUrl = "@Url.Content("~/ItemPrice/ItemPriceRecord?itemPriceId=")";
+    </script>
+
+    @Scripts.Render("~/Scripts/ItemPrice/ItemPriceIndex.js");
+}
+
+

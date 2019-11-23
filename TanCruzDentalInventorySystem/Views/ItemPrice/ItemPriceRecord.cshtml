@@ -1,0 +1,78 @@
+﻿@model TanCruzDentalInventorySystem.ViewModels.ItemPriceViewModel
+
+<div class="form-horizontal">
+    <h4 class="form-title">
+        Item Price
+        @if (Request.IsAuthenticated && User.IsInRole("Editor"))
+        {
+            @Html.ActionLink("[Edit]", "EditItemPriceRecord", new { itemPriceId = Model.ItemPriceId }, new { @style = "font-size:8pt" })
+        }
+    </h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.ItemPriceName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.ItemPriceName, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.ItemPriceDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.ItemPriceDescription, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.ItemPriceId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.ItemPriceId, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.IsDefault, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.IsDefault, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.PriceAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.PriceAmount, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.BaseCurrency, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.BaseCurrency, new { htmlAttributes = new { @class = "form-control" }, required = "" })
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.ItemId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.ItemId, new { htmlAttributes = new { @class = "form-control" }, required = "" })
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

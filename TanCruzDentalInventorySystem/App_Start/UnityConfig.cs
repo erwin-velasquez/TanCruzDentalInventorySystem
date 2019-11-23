@@ -39,33 +39,33 @@ namespace TanCruzDentalInventorySystem
         /// </remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
-			// NOTE: To load from web.config uncomment the line below.
-			// Make sure to add a Unity.Configuration to the using statements.
-			// container.LoadConfiguration();
+            // NOTE: To load from web.config uncomment the line below.
+            // Make sure to add a Unity.Configuration to the using statements.
+            // container.LoadConfiguration();
 
-			// TODO: Register your type's mappings here.
-			// container.RegisterType<IProductRepository, ProductRepository>();
+            // TODO: Register your type's mappings here.
+            // container.RegisterType<IProductRepository, ProductRepository>();
 
-			container.RegisterType<IBusinessPartnerService, BusinessPartnerService>();
-			container.RegisterType<IItemService, ItemService>();
-			container.RegisterType<IPurchaseOrderService, PurchaseOrderService>();
-			container.RegisterType<ISalesOrderService, SalesOrderService>();
+            container.RegisterType<IBusinessPartnerService, BusinessPartnerService>();
+            container.RegisterType<IItemService, ItemService>();
+            container.RegisterType<IPurchaseOrderService, PurchaseOrderService>();
+            container.RegisterType<ISalesOrderService, SalesOrderService>();
             container.RegisterType<IItemGroupService, ItemGroupService>();
             container.RegisterType<IPaymentService, PaymentService>();
             container.RegisterType<IReportService, ReportService>();
-
+            container.RegisterType<IItemPriceService, ItemPriceService>();
 
             container.RegisterType<ICurrencyRepository, CurrencyRepository>();
-			container.RegisterType<IBusinessPartnerRepository, BusinessPartnerRepository>();
-			container.RegisterType<IItemRepository, ItemRepository>();
-			container.RegisterType<IPurchaseOrderRepository, PurchaseOrderRepository>();
-			container.RegisterType<ISalesOrderRepository, SalesOrderRepository>();
+            container.RegisterType<IBusinessPartnerRepository, BusinessPartnerRepository>();
+            container.RegisterType<IItemRepository, ItemRepository>();
+            container.RegisterType<IPurchaseOrderRepository, PurchaseOrderRepository>();
+            container.RegisterType<ISalesOrderRepository, SalesOrderRepository>();
             container.RegisterType<IItemGroupRepository, ItemGroupRepository>();
             container.RegisterType<IPaymentRepository, PaymentRepository>();
             container.RegisterType<IReportRepository, ReportRepository>();
-
+            container.RegisterType<IItemPriceRepository, ItemPriceRepository>();
 
             container.RegisterType<IUnitOfWork, UnitOfWork>();
-		}
+        }
     }
 }
