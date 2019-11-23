@@ -32,7 +32,7 @@
                                     <td>@Html.HiddenFor(x => x.ToArray()[i].ItemId)@Model.ToArray()[i].ItemId</td>
                                     <td>@Html.HiddenFor(x => x.ToArray()[i].ItemName)@Model.ToArray()[i].ItemName</td>
                                     <td>@Html.HiddenFor(x => x.ToArray()[i].ItemGroup)@Model.ToArray()[i].ItemGroup.ItemGroupName</td>
-                                    <td>@Html.HiddenFor(x => x.ToArray()[i].ItemPriceAmount)@Model.ToArray()[i].ItemPriceAmount</td>
+                                    <td>@Html.HiddenFor(x => x.ToArray()[i].PurchaseOrderItemPrice.PriceAmount)@Model.ToArray()[i].PurchaseOrderItemPrice.PriceAmount</td>
                                     <td>@Html.HiddenFor(x => x.ToArray()[i].QuantityOnHand)@Model.ToArray()[i].QuantityOnHand</td>
                                 </tr>
                                 }

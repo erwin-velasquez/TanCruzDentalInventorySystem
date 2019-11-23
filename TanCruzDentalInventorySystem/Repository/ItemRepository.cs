@@ -25,7 +25,9 @@ namespace TanCruzDentalInventorySystem.Repository
 						typeof(UnitOfMeasure),
 						typeof(BusinessPartner),
 						typeof(PurchasingUnitOfMeasure),
-						typeof(InventoryUnitOfMeasure)
+						typeof(InventoryUnitOfMeasure),
+                        typeof(ItemPrice),
+                        typeof(ItemPrice)
 					},
 				map:
 					typeMap =>
@@ -38,13 +40,15 @@ namespace TanCruzDentalInventorySystem.Repository
 						itemUnit.BusinessPartner = typeMap[4] as BusinessPartner;
 						itemUnit.PurchasingUnitOfMeasure = typeMap[5] as PurchasingUnitOfMeasure;
 						itemUnit.InventoryUnitOfMeasure = typeMap[6] as InventoryUnitOfMeasure;
+                        itemUnit.SalesOrderItemPrice = typeMap[7] as ItemPrice;
+                        itemUnit.PurchaseOrderItemPrice = typeMap[8] as ItemPrice;
 
-						return itemUnit;
+                        return itemUnit;
 					},
 				param: null,
 				transaction: UnitOfWork.Transaction,
 				commandType: System.Data.CommandType.StoredProcedure,
-				splitOn: "ItemGroupId, CurrencyId, UnitOfMeasureId, BusinessPartnerId, PurchasingUnitOfMeasureId, InventoryUnitOfMeasureId");
+				splitOn: "ItemGroupId, CurrencyId, UnitOfMeasureId, BusinessPartnerId, PurchasingUnitOfMeasureId, InventoryUnitOfMeasureId, SalesOrderItemPriceItemPriceId, PurchaseOrderItemPriceItemPriceId");
 
 			return itemList;
 		}

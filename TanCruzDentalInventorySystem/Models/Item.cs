@@ -13,7 +13,9 @@ namespace TanCruzDentalInventorySystem.Models
 		public UnitOfMeasure UnitOfMeasure { get; set; }
 		public BusinessPartner BusinessPartner { get; set; }
 		public PurchasingUnitOfMeasure PurchasingUnitOfMeasure { get; set; }
-		public long ItemsPerUnitOfMeasure { get; set; }
+        public ItemPrice SalesOrderItemPrice { get; set; }
+        public ItemPrice PurchaseOrderItemPrice { get; set; }
+        public long ItemsPerUnitOfMeasure { get; set; }
 		public string PurchasingRemarks { get; set; }
 		public InventoryUnitOfMeasure InventoryUnitOfMeasure { get; set; }
 		public long MinimumInventoryRequired { get; set; }
