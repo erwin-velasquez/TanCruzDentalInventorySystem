@@ -265,11 +265,13 @@
     <Compile Include="BusinessService\BusinessPartnerService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IBusinessPartnerService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IItemGroupService.cs" />
+    <Compile Include="BusinessService\BusinessServiceInterface\IItemPriceService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IPaymentService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IReportService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\ISalesOrderService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IPurchaseOrderService.cs" />
     <Compile Include="BusinessService\ItemGroupService.cs" />
+    <Compile Include="BusinessService\ItemPriceService.cs" />
     <Compile Include="BusinessService\ItemService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IItemService.cs" />
     <Compile Include="BusinessService\PaymentService.cs" />
@@ -282,6 +284,7 @@
     <Compile Include="Controllers\ItemApiController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ItemGroupController.cs" />
+    <Compile Include="Controllers\ItemPriceController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\PurchaseOrderApiController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
@@ -805,7 +808,9 @@
       <Name>IdentityManagement</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\ItemPrice\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

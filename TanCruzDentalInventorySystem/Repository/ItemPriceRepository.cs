@@ -1,5 +1,7 @@
 ﻿using Dapper;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TanCruzDentalInventorySystem.Models;
 using TanCruzDentalInventorySystem.Repository.DataServiceInterface;
@@ -47,6 +49,70 @@ namespace TanCruzDentalInventorySystem.Repository
 			return itemId;
 		}
 
+		public async Task<ItemPrice> GetItemPrice(string itemPriceId)
+		{
+			var parameters = new DynamicParameters();
+			parameters.Add("@ItemPriceId", itemPriceId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+
+			var itemPrice = await UnitOfWork.Connection.QueryAsync<ItemPrice>(
+				sql: SP_GET_ITEMPRICE,
+				types:
+					new[]
+					{
+						typeof(ItemPrice),
+						typeof(Currency),
+					},
+				map:
+					typeMap =>
+					{
+						if (!(typeMap[0] is ItemPrice itemUnit)) return null;
+
+						itemUnit.BaseCurrency = typeMap[1] as Currency;
+
+						return itemUnit;
+					},
+				param: parameters,
+				transaction: UnitOfWork.Transaction,
+				commandType: System.Data.CommandType.StoredProcedure,
+				splitOn: "CurrencyId");
+
+			var versionedItem = itemPrice.AsList().SingleOrDefault();
+			versionedItem.VersionTimeStamp = versionedItem.ChangedDate.Value.Ticks;
+			return versionedItem;
+		}
+
+		public async Task<IEnumerable<ItemPrice>> GetItemPriceList(string itemId)
+		{
+			var parameters = new DynamicParameters();
+			parameters.Add("@ItemId", itemId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+
+			var itemPriceList = await UnitOfWork.Connection.QueryAsync<ItemPrice>(
+				sql: SP_GET_ITEMPRICE_LIST,
+				types:
+					new[]
+					{
+						typeof(ItemPrice),
+						typeof(Currency)
+					},
+				map:
+					typeMap =>
+					{
+						if (!(typeMap[0] is ItemPrice itemPriceUnit)) return null;
+
+						itemPriceUnit.BaseCurrency = typeMap[1] as Currency;
+
+						return itemPriceUnit;
+					},
+				param: parameters,
+				transaction: UnitOfWork.Transaction,
+				commandType: System.Data.CommandType.StoredProcedure,
+				splitOn: "CurrencyId");
+
+			return itemPriceList;
+		}
+
+		private const string SP_GET_ITEMPRICE_LIST = "dbo.GetItemPrices";
+		private const string SP_GET_ITEMPRICE = "dbo.GetItemPrice";
 		private const string SP_SAVE_ITEMPRICE = "dbo.SaveItemPrice";
 		private const string SP_CREATE_ITEMPRICE = "dbo.CreateItemPrice";
 	}

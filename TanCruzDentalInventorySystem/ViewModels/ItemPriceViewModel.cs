@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace TanCruzDentalInventorySystem.ViewModels
@@ -21,4 +22,9 @@ namespace TanCruzDentalInventorySystem.ViewModels
 		public long VersionTimeStamp { get; set; }
 	}
 
+	public class ItemPriceFormViewModel
+	{
+		public ItemPriceViewModel ItemPrice { get; set; }
+		public IEnumerable<CurrencyViewModel> Currencies { get; set; }
+	}
 }

@@ -1,12 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using TanCruzDentalInventorySystem.Models;
 
 namespace TanCruzDentalInventorySystem.Repository.DataServiceInterface
 {
-	interface IItemPriceRepository
+	public interface IItemPriceRepository
 	{
 		IUnitOfWork UnitOfWork { get; set; }
 
+		Task<IEnumerable<ItemPrice>> GetItemPriceList(string itemId);
+		Task<ItemPrice> GetItemPrice(string itemPriceId);
 		Task<int> SaveItemPrice(ItemPrice itemPrice);
 		Task<string> CreateItemPrice(string userId);
 	}
