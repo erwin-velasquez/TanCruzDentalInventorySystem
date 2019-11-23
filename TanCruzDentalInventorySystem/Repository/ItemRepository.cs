@@ -48,7 +48,7 @@ namespace TanCruzDentalInventorySystem.Repository
 				param: null,
 				transaction: UnitOfWork.Transaction,
 				commandType: System.Data.CommandType.StoredProcedure,
-				splitOn: "ItemGroupId, CurrencyId, UnitOfMeasureId, BusinessPartnerId, PurchasingUnitOfMeasureId, InventoryUnitOfMeasureId, SalesOrderItemPriceItemPriceId, PurchaseOrderItemPriceItemPriceId");
+				splitOn: "ItemGroupId, CurrencyId, UnitOfMeasureId, BusinessPartnerId, PurchasingUnitOfMeasureId, InventoryUnitOfMeasureId, ItemPriceId, ItemPriceId");
 
 			return itemList;
 		}
