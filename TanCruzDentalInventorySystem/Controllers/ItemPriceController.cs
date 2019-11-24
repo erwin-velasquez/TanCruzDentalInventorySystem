@@ -18,7 +18,7 @@ namespace TanCruzDentalInventorySystem.Controllers
 
 		[HttpGet]
 		[Authorize(Roles = "Editor")]
-		public async Task<ActionResult> EditItemRecord(string itemPriceId)
+		public async Task<ActionResult> EditItemPriceRecord(string itemPriceId)
 		{
 			var itemPriceForm = await _itemPriceService.GetItemPriceForm(itemPriceId);
 

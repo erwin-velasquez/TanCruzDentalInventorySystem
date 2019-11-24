@@ -771,6 +771,7 @@
     <Content Include="Views\ItemPrice\GetItemPrices.cshtml" />
     <Content Include="Views\ItemPrice\CreateItemPrice.cshtml" />
     <Content Include="Views\ItemPrice\ItemPriceRecord.cshtml" />
+    <Content Include="Views\ItemPrice\EditItemPriceRecord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\RDL\ItemsReport.rdlc" />

@@ -6,13 +6,18 @@ namespace TanCruzDentalInventorySystem.ViewModels
 {
 	public class ItemPriceViewModel
 	{
-		public string ItemPriceId { get; set; }
-		public string ItemPriceName { get; set; }
-		public string ItemPriceDescription { get; set; }
-		public string ItemId { get; set; }
-		public bool IsDefault { get; set; }
-
-		public string Type { get; set; }
+        [Display(Name = "Item Price Id")]
+        public string ItemPriceId { get; set; }
+        [Display(Name = "Item Price Name")]
+        public string ItemPriceName { get; set; }
+        [Display(Name = "Item Price Description")]
+        public string ItemPriceDescription { get; set; }
+        [Display(Name = "Item Id")]
+        public string ItemId { get; set; }
+        [Display(Name = "Default")]
+        public bool IsDefault { get; set; }
+        [Display(Name = "Item Price Type")]
+        public string Type { get; set; }
 
 		[Display(Name = "Item Price")]
 		public decimal PriceAmount { get; set; }

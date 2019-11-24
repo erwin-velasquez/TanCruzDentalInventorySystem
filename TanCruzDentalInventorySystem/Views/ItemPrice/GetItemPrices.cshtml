@@ -56,7 +56,10 @@
 @section scripts{
 
     <script type="text/javascript">
-        var CreateItemPriceURL = "@Url.Content("~/ItemPrice/CreateItemPrice/")";
+        const urlParams = new URLSearchParams(window.location.search);
+        const itemId = urlParams.get('itemId');
+
+        var CreateItemPriceURL = "@Url.Content("~/ItemPrice/CreateItemPrice?itemId=")" + itemId;
         var EditItemPriceRecordUrl = "@Url.Content("~/ItemPrice/EditItemPriceRecord?itemPriceId=")";
         var ViewItemPriceRecordUrl = "@Url.Content("~/ItemPrice/ItemPriceRecord?itemPriceId=")";
     </script>
