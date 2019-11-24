@@ -35,18 +35,19 @@ namespace TanCruzDentalInventorySystem.Repository
 			return rowsAffected;
 		}
 
-		public async Task<string> CreateItemPrice(string userId)
+		public async Task<string> CreateItemPrice(string itemId, string userId)
 		{
 			DynamicParameters parameters = new DynamicParameters();
+			parameters.Add("@ItemId", itemId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 			parameters.Add("@UserId", userId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
 
-			var itemId = await UnitOfWork.Connection.ExecuteScalarAsync<string>(
+			var itemPriceId = await UnitOfWork.Connection.ExecuteScalarAsync<string>(
 				sql: SP_CREATE_ITEMPRICE,
 				param: parameters,
 				transaction: UnitOfWork.Transaction,
 				commandType: System.Data.CommandType.StoredProcedure);
 
-			return itemId;
+			return itemPriceId;
 		}
 
 		public async Task<ItemPrice> GetItemPrice(string itemPriceId)

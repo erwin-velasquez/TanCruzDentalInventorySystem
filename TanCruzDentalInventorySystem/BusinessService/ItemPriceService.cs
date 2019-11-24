@@ -24,11 +24,11 @@ namespace TanCruzDentalInventorySystem.BusinessService
 			_currencyRepository.UnitOfWork = unitOfWork;
 		}
 
-		public async Task<string> CreateItemPrice(string userId)
+		public async Task<string> CreateItemPrice(string itemId, string userId)
 		{
-			string itemId = await _itemPriceRepository.CreateItemPrice(userId);
+			string itemPriceId = await _itemPriceRepository.CreateItemPrice(itemId, userId);
 
-			return itemId;
+			return itemPriceId;
 		}
 
 		public async Task<ItemPriceFormViewModel> GetItemPriceForm(string itemPriceId)

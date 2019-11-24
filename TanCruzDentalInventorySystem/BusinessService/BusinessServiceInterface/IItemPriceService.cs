@@ -8,7 +8,7 @@ namespace TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface
 	{
 		Task<IEnumerable<ItemPriceViewModel>> GetItemPriceList(string itemId);
 		Task<ItemPriceFormViewModel> GetItemPriceForm(string itemPriceId);
-		Task<string> CreateItemPrice(string userId);
+		Task<string> CreateItemPrice(string itemId, string userId);
 		Task<int> SaveItemPrice(ItemPriceViewModel itemPriceViewModel);
 	}
 }
