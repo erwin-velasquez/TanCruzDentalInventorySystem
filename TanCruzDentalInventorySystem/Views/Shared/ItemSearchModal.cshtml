@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TanCruzDentalInventorySystem.ViewModels.ItemViewModel>
+﻿@model IEnumerable<TanCruzDentalInventorySystem.ViewModels.ItemSearchFormViewModel>
 
 <!-- Modal -->
 <div class="modal fade" id="ItemSearchModal" tabindex="-1" role="dialog" aria-labelledby="ItemSearchModalLabel" aria-hidden="true">
@@ -29,11 +29,11 @@
                                 {
                                 <tr>
                                     <td></td>
-                                    <td>@Html.HiddenFor(x => x.ToArray()[i].ItemId)@Model.ToArray()[i].ItemId</td>
-                                    <td>@Html.HiddenFor(x => x.ToArray()[i].ItemName)@Model.ToArray()[i].ItemName</td>
-                                    <td>@Html.HiddenFor(x => x.ToArray()[i].ItemGroup)@Model.ToArray()[i].ItemGroup.ItemGroupName</td>
-                                    <td>@Html.HiddenFor(x => x.ToArray()[i].PurchaseOrderItemPrice.PriceAmount)@Model.ToArray()[i].PurchaseOrderItemPrice.PriceAmount</td>
-                                    <td>@Html.HiddenFor(x => x.ToArray()[i].QuantityOnHand)@Model.ToArray()[i].QuantityOnHand</td>
+                                    <td>@Html.HiddenFor(x => x.ToArray()[i].Item.ItemId)@Model.ToArray()[i].Item.ItemId</td>
+                                    <td>@Html.HiddenFor(x => x.ToArray()[i].Item.ItemName)@Model.ToArray()[i].Item.ItemName</td>
+                                    <td>@Html.HiddenFor(x => x.ToArray()[i].Item.ItemGroup)@Model.ToArray()[i].Item.ItemGroup.ItemGroupName</td>
+                                    <td>@Html.HiddenFor(x => x.ToArray()[i].PurchaseOrderItemPrice)@Model.ToArray()[i].PurchaseOrderItemPrice.PriceAmount</td>
+                                    <td>@Html.HiddenFor(x => x.ToArray()[i].Item.QuantityOnHand)@Model.ToArray()[i].Item.QuantityOnHand</td>
                                 </tr>
                                 }
                             </tbody>

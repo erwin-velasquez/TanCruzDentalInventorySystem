@@ -54,7 +54,7 @@ namespace TanCruzDentalInventorySystem.Controllers
         [Authorize(Roles = "Editor")]
         public async Task<PartialViewResult> ItemSearchModal()
         {
-            var itemList = await _itemService.GetItemList();
+            var itemList = await _itemService.GetItemSearchModalList();
 
             return PartialView("~/Views/Shared/ItemSearchModal.cshtml", itemList);
         }

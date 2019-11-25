@@ -4,13 +4,16 @@ using TanCruzDentalInventorySystem.Models;
 
 namespace TanCruzDentalInventorySystem.Repository.DataServiceInterface
 {
-	public interface IItemRepository
-	{
-		IUnitOfWork UnitOfWork { get; set; }
-		Task<IEnumerable<Item>> GetItemList();
-		Task<Item> GetItem(string itemId);
-		Task<IEnumerable<UnitOfMeasure>> GetUnitOfMeasureList();
-		Task<int> SaveItem(Item item);
-		Task<string> CreateItem(string userId);
-	}
+		public interface IItemRepository
+		{
+				IUnitOfWork UnitOfWork { get; set; }
+				Task<IEnumerable<Item>> GetItemList();
+
+				Task<IEnumerable<ItemList>> GetItemSearchModalList();
+
+				Task<Item> GetItem(string itemId);
+				Task<IEnumerable<UnitOfMeasure>> GetUnitOfMeasureList();
+				Task<int> SaveItem(Item item);
+				Task<string> CreateItem(string userId);
+		}
 }
