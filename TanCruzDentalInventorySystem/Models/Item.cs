@@ -24,8 +24,9 @@ namespace TanCruzDentalInventorySystem.Models
 				public decimal QuantityOnHand { get; set; }
 		}
 
-		public class ItemList
+		public class ItemPriceDetails
 		{
+				public string ItemPriceDetailsItemId { get; set; }
 				public Item Item { get; set; }
 
 				public ItemPrice SalesOrderItemPrice { get; set; }

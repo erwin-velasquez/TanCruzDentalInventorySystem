@@ -145,43 +145,47 @@ namespace TanCruzDentalInventorySystem.Repository
 						return itemId;
 				}
 
-				public async Task<IEnumerable<ItemList>> GetItemSearchModalList()
+				public async Task<IEnumerable<ItemPriceDetails>> GetItemSearchModalList()
 				{
-						var itemList = await UnitOfWork.Connection.QueryAsync<ItemList>(
+						var itemList = await UnitOfWork.Connection.QueryAsync<ItemPriceDetails>(
 							sql: SP_GET_ITEM_LIST_SEARCHMODAL,
 							types:
 								new[]
 								{
-						typeof(Item),
-						typeof(ItemGroup),
-						typeof(Currency),
-						typeof(UnitOfMeasure),
-						typeof(BusinessPartner),
-						typeof(PurchasingUnitOfMeasure),
-						typeof(InventoryUnitOfMeasure),
-						typeof(ItemPrice),
-						typeof(ItemPrice)
+										typeof(ItemPriceDetails),
+										typeof(Item),
+										typeof(ItemGroup),
+										typeof(UnitOfMeasure),
+										typeof(BusinessPartner),
+										typeof(PurchasingUnitOfMeasure),
+										typeof(InventoryUnitOfMeasure),
+										typeof(ItemPrice),
+										typeof(Currency),
+										typeof(ItemPrice),
+										typeof(Currency)
 								},
 							map:
 								typeMap =>
 								{
-										if (!(typeMap[0] is ItemList itemUnit)) return null;
+										if (!(typeMap[0] is ItemPriceDetails itemUnit)) return null;
 
-										itemUnit.Item.ItemGroup = typeMap[1] as ItemGroup;
-										itemUnit.Item.Currency = typeMap[2] as Currency;
+										itemUnit.Item = typeMap[1] as Item;
+										itemUnit.Item.ItemGroup = typeMap[2] as ItemGroup;
 										itemUnit.Item.UnitOfMeasure = typeMap[3] as UnitOfMeasure;
 										itemUnit.Item.BusinessPartner = typeMap[4] as BusinessPartner;
 										itemUnit.Item.PurchasingUnitOfMeasure = typeMap[5] as PurchasingUnitOfMeasure;
 										itemUnit.Item.InventoryUnitOfMeasure = typeMap[6] as InventoryUnitOfMeasure;
 										itemUnit.SalesOrderItemPrice = typeMap[7] as ItemPrice;
-										itemUnit.PurchaseOrderItemPrice = typeMap[8] as ItemPrice;
+										itemUnit.SalesOrderItemPrice.BaseCurrency = typeMap[8] as Currency;
+										itemUnit.PurchaseOrderItemPrice = typeMap[9] as ItemPrice;
+										itemUnit.PurchaseOrderItemPrice.BaseCurrency = typeMap[10] as Currency;
 
 										return itemUnit;
 								},
 							param: null,
 							transaction: UnitOfWork.Transaction,
 							commandType: System.Data.CommandType.StoredProcedure,
-							splitOn: "ItemGroupId, CurrencyId, UnitOfMeasureId, BusinessPartnerId, PurchasingUnitOfMeasureId, InventoryUnitOfMeasureId, ItemPriceId, ItemPriceId");
+							splitOn: "ItemId, ItemGroupId, UnitOfMeasureId, BusinessPartnerId, PurchasingUnitOfMeasureId, InventoryUnitOfMeasureId, ItemPriceId, CurrencyId, ItemPriceId, CurrencyId");
 
 						return itemList;
 				}
