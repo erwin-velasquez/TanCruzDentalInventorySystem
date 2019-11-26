@@ -41,6 +41,12 @@ namespace TanCruzDentalInventorySystem.BusinessService
 						return Mapper.Map<ItemViewModel>(item);
 				}
 
+				public async Task<ItemSearchFormViewModel> GetItemWithPrice(string itemId)
+				{
+						var item = await _itemRepository.GetItemWithPrice(itemId);
+						return Mapper.Map<ItemSearchFormViewModel>(item);
+				}
+
 				public async Task<IEnumerable<ItemViewModel>> GetItemList()
 				{
 						var itemList = await _itemRepository.GetItemList();

@@ -190,12 +190,64 @@ namespace TanCruzDentalInventorySystem.Repository
 						return itemList;
 				}
 
+				public async Task<ItemPriceDetails> GetItemWithPrice(string itemId)
+				{
+						var parameters = new DynamicParameters();
+						parameters.Add("@ItemId", itemId, System.Data.DbType.String, System.Data.ParameterDirection.Input);
+
+						var item = await UnitOfWork.Connection.QueryAsync<ItemPriceDetails>(
+							sql: SP_GET_ITEM_WITH_PRICE,
+							types:
+								new[]
+								{
+										typeof(ItemPriceDetails),
+										typeof(Item),
+										typeof(Currency),
+										typeof(ItemGroup),
+										typeof(UnitOfMeasure),
+										typeof(BusinessPartner),
+										typeof(PurchasingUnitOfMeasure),
+										typeof(InventoryUnitOfMeasure),
+										typeof(ItemPrice),
+										typeof(Currency),
+										typeof(ItemPrice),
+										typeof(Currency)
+								},
+							map:
+								typeMap =>
+								{
+										if (!(typeMap[0] is ItemPriceDetails itemUnit)) return null;
+
+										itemUnit.Item = typeMap[1] as Item;
+										itemUnit.Item.Currency = typeMap[2] as Currency;
+										itemUnit.Item.ItemGroup = typeMap[3] as ItemGroup;
+										itemUnit.Item.UnitOfMeasure = typeMap[4] as UnitOfMeasure;
+										itemUnit.Item.BusinessPartner = typeMap[5] as BusinessPartner;
+										itemUnit.Item.PurchasingUnitOfMeasure = typeMap[6] as PurchasingUnitOfMeasure;
+										itemUnit.Item.InventoryUnitOfMeasure = typeMap[7] as InventoryUnitOfMeasure;
+										itemUnit.SalesOrderItemPrice = typeMap[8] as ItemPrice;
+										itemUnit.SalesOrderItemPrice.BaseCurrency = typeMap[9] as Currency;
+										itemUnit.PurchaseOrderItemPrice = typeMap[10] as ItemPrice;
+										itemUnit.PurchaseOrderItemPrice.BaseCurrency = typeMap[11] as Currency;
+
+										return itemUnit;
+								},
+							param: parameters,
+							transaction: UnitOfWork.Transaction,
+							commandType: System.Data.CommandType.StoredProcedure,
+							splitOn: "ItemId, CurrencyId, ItemGroupId, UnitOfMeasureId, BusinessPartnerId, PurchasingUnitOfMeasureId, InventoryUnitOfMeasureId, ItemPriceId, CurrencyId, ItemPriceId, CurrencyId");
+
+						var versionedItem = item.AsList().SingleOrDefault();
+						return versionedItem;
+				}
+
 				private const string SP_GET_ITEM_LIST = "dbo.GetItems";
-				private const string SP_GET_ITEM_LIST_SEARCHMODAL = "GetItemsSearchModal";
 				private const string SP_GET_ITEM = "dbo.GetItem";
 				private const string SP_GET_ITEMGROUP_LIST = "dbo.GetItemGroups";
 				private const string SP_SAVE_ITEM = "dbo.SaveItem";
 				private const string SP_GET_UNITOFMEASURE_LIST = "dbo.GetUnitOfMeasures";
 				private const string SP_CREATE_ITEM = "dbo.CreateItem";
+				private const string SP_GET_ITEM_LIST_SEARCHMODAL = "GetItemsSearchModal";
+				private const string SP_GET_ITEM_WITH_PRICE = "dbo.GetItemWithPrice";
 		}
 }

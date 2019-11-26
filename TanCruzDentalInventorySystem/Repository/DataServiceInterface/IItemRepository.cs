@@ -12,6 +12,7 @@ namespace TanCruzDentalInventorySystem.Repository.DataServiceInterface
 				Task<IEnumerable<ItemPriceDetails>> GetItemSearchModalList();
 
 				Task<Item> GetItem(string itemId);
+				Task<ItemPriceDetails> GetItemWithPrice(string itemId);
 				Task<IEnumerable<UnitOfMeasure>> GetUnitOfMeasureList();
 				Task<int> SaveItem(Item item);
 				Task<string> CreateItem(string userId);

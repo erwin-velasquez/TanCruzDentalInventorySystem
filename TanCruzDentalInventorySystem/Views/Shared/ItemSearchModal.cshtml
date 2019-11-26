@@ -15,26 +15,28 @@
                     <div class="form-group col-md-12">
                         <table id="ItemSearchTable" class="display hover">
                             <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>ID</th>
-                                    <th>Item Name</th>
-                                    <th>Group</th>
-                                    <th>Price</th>
-                                    <th>Quantity-on-Hand</th>
-                                </tr>
+                                    <tr>
+                                            <th>#</th>
+                                            <th>ID</th>
+                                            <th>Item Name</th>
+                                            <th>Group</th>
+                                            <th>Selling Price</th>
+                                            <th>Purchase Price</th>
+                                            <th>Quantity-on-Hand</th>
+                                    </tr>
                             </thead>
                             <tbody>
                                 @for (int i = 0; i < Model.Count(); i++)
                                 {
-                                <tr>
-                                    <td></td>
-                                    <td>@Html.HiddenFor(x => x.ToArray()[i].Item.ItemId)@Model.ToArray()[i].Item.ItemId</td>
-                                    <td>@Html.HiddenFor(x => x.ToArray()[i].Item.ItemName)@Model.ToArray()[i].Item.ItemName</td>
-                                    <td>@Html.HiddenFor(x => x.ToArray()[i].Item.ItemGroup)@Model.ToArray()[i].Item.ItemGroup.ItemGroupName</td>
-                                    <td>@Html.HiddenFor(x => x.ToArray()[i].PurchaseOrderItemPrice)@Model.ToArray()[i].PurchaseOrderItemPrice.PriceAmount</td>
-                                    <td>@Html.HiddenFor(x => x.ToArray()[i].Item.QuantityOnHand)@Model.ToArray()[i].Item.QuantityOnHand</td>
-                                </tr>
+                                    <tr>
+                                            <td></td>
+                                            <td>@Html.HiddenFor(x => x.ToArray()[i].Item.ItemId)@Model.ToArray()[i].Item.ItemId</td>
+                                            <td>@Html.HiddenFor(x => x.ToArray()[i].Item.ItemName)@Model.ToArray()[i].Item.ItemName</td>
+                                            <td>@Html.HiddenFor(x => x.ToArray()[i].Item.ItemGroup)@Model.ToArray()[i].Item.ItemGroup.ItemGroupName</td>
+                                            <td>@Html.HiddenFor(x => x.ToArray()[i].PurchaseOrderItemPrice)@Model.ToArray()[i].SalesOrderItemPrice.PriceAmount</td>
+                                            <td>@Html.HiddenFor(x => x.ToArray()[i].PurchaseOrderItemPrice)@Model.ToArray()[i].PurchaseOrderItemPrice.PriceAmount</td>
+                                            <td>@Html.HiddenFor(x => x.ToArray()[i].Item.QuantityOnHand)@Model.ToArray()[i].Item.QuantityOnHand</td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>
