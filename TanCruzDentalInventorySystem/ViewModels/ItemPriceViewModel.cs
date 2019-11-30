@@ -31,5 +31,6 @@ namespace TanCruzDentalInventorySystem.ViewModels
 	{
 		public ItemPriceViewModel ItemPrice { get; set; }
 		public IEnumerable<CurrencyViewModel> Currencies { get; set; }
+		public List<string> ItemPriceTypes { get; set; }
 	}
 }

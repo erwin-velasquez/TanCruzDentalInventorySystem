@@ -37,6 +37,7 @@ namespace TanCruzDentalInventorySystem.BusinessService
 			{
 				ItemPrice = Mapper.Map<ItemPriceViewModel>(await _itemPriceRepository.GetItemPrice(itemPriceId)),
 				Currencies = Mapper.Map<IEnumerable<CurrencyViewModel>>(await _currencyRepository.GetCurrencyList()),
+				ItemPriceTypes = new List<string>() { "SO", "PO" }
 			};
 			return itemPriceForm;
 		}
