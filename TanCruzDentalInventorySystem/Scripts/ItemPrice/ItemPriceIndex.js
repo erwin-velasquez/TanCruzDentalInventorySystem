@@ -10,20 +10,13 @@
             "processing": "loading....",
             "emptyTable": "No data found"
         },
-        "columnDefs": [{
-            "orderable": false,
-            "targets": 1,
-            "data": null,
-            "className": "center",
-            "defaultContent": '<a href="" class="editor_edit">Edit</a> / <a href="" class="editor_view">View</a> / <a href="" class="editor_remove">Delete</a>',
-            "width": "125px"
-        },
-        {
-            "data": "ItemGroupId",
-            "width": "140px",
-            "className": "dt-center",
-            "targets": 2
-        }],
+        "columnDefs": [
+            {
+                "data": "ItemPrieId",
+                "width": "100px",
+                "className": "dt-center",
+                "targets": 1
+            }],
         "paging": true,
         "autoWidth": false,
         "bLengthChange": false,

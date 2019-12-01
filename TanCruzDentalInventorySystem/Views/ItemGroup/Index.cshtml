@@ -25,7 +25,10 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Action</th>
+                @if (Request.IsAuthenticated && User.IsInRole("Editor"))
+                {
+                    <th>Action</th>
+                }
                 <th>@Html.DisplayNameFor(model => model.ItemGroupId)</th>
                 <th>@Html.DisplayNameFor(model => model.ItemGroupName)</th>
                 <th>@Html.DisplayNameFor(model => model.ItemGroupDescription)</th>
@@ -34,25 +37,24 @@
         <tbody>
             @for (int i = 0; i < Model.Count(); i++)
             {
-                <tr>
-                    <td>@(i + 1)</td>
-                    <td>Action</td>
-                    <td>@Html.HiddenFor(x => x.ToArray()[i].ItemGroupId)@Model.ToArray()[i].ItemGroupId</td>
-                    <td>@Html.HiddenFor(x => x.ToArray()[i].ItemGroupId)@Model.ToArray()[i].ItemGroupName</td>
-                    <td>@Html.HiddenFor(x => x.ToArray()[i].ItemGroupId)@Model.ToArray()[i].ItemGroupDescription</td>
-                </tr>
+            <tr>
+                <td>@(i + 1)</td>
+                @if (Request.IsAuthenticated && User.IsInRole("Editor"))
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "EditItemGroupRecord", new { itemGroupId = @Model.ToArray()[i].ItemGroupId }, new { @class = "indexItemStatusEditBtn btn-outline-dark btn btn-sm" })
+                        @Html.ActionLink("View", "ItemGroupRecord", new { itemGroupId = @Model.ToArray()[i].ItemGroupId }, new { @class = "indexItemStatusEditBtn btn-outline-dark btn btn-sm" })
+                    </td>
+                }
+                <td>@Html.HiddenFor(x => x.ToArray()[i].ItemGroupId)@Model.ToArray()[i].ItemGroupId</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i].ItemGroupId)@Model.ToArray()[i].ItemGroupName</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i].ItemGroupId)@Model.ToArray()[i].ItemGroupDescription</td>
+            </tr>
             }
         </tbody>
     </table>
 </div>
 
 @section scripts{
-
-    <script type="text/javascript">
-        var CreateItemGroupURL = "@Url.Content("~/ItemGroup/CreateItemGroup/")";
-        var EditItemGroupRecordUrl = "@Url.Content("~/ItemGroup/EditItemGroupRecord?itemGroupId=")";
-        var ViewItemGroupRecordUrl = "@Url.Content("~/ItemGroup/ItemGroupRecord?itemGroupId=")";
-    </script>
-
     @Scripts.Render("~/Scripts/ItemGroup/ItemGroupIndex.js");
 }
