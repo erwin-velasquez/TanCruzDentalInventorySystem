@@ -1,0 +1,77 @@
+﻿@model IEnumerable<TanCruzDentalInventorySystem.ViewModels.ItemDefaultPriceViewModel>
+
+
+@{
+    ViewBag.Title = "ItemPrices";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Item Price Management</h3>
+<hr />
+
+<div class="container">
+    <table id="ItemsPricesListTable" class="display hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Action</th>
+                <th>Item Id</th>
+                <th>Item Name</th>
+                <th>PO Item Price Name</th>
+                <th>PO Item Price Amount</th>
+                <th>SO Item Price Name</th>
+                <th>SO Item Price Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+            <tr>
+                <td>@(i + 1)</td>
+                <td>@Html.ActionLink("View", "GetItemPrices", new { itemId = @Model.ToArray()[i].Item.ItemId }, new { @class = "indexItemStatusEditBtn btn-outline-dark btn btn-sm" })</td>
+                <td>@Html.ActionLink(@Model.ToArray()[i].Item.ItemId, "ItemRecord", "Item", new { itemId = @Model.ToArray()[i].Item.ItemId},null)</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i].Item.ItemId)@Model.ToArray()[i].Item.ItemName</td>
+                <td>
+                    @Html.HiddenFor(x => x.ToArray()[i].Item.ItemId)@if (@Model.ToArray()[i].PODefaultPrice != null)
+                    {
+                        @Model.ToArray()[i].PODefaultPrice.ItemPriceName
+                    }
+                </td>
+                <td>
+                    @Html.HiddenFor(x => x.ToArray()[i].Item.ItemId)
+                    @if (@Model.ToArray()[i].PODefaultPrice != null)
+                    {
+                        @Model.ToArray()[i].PODefaultPrice.PriceAmount
+                    }
+                </td>
+                <td>
+                    @Html.HiddenFor(x => x.ToArray()[i].Item.ItemId)@if (@Model.ToArray()[i].SODefaultPrice != null)
+                    {
+                        @Model.ToArray()[i].SODefaultPrice.ItemPriceName
+                    }
+                </td>
+                <td>
+                    @Html.HiddenFor(x => x.ToArray()[i].Item.ItemId)
+                    @if (@Model.ToArray()[i].SODefaultPrice != null)
+                    {
+                        @Model.ToArray()[i].SODefaultPrice.PriceAmount
+                    }
+                </td>
+
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+        var ViewItemPriceRecordUrl = "@Url.Content("~/ItemPrice/GetItemPrices?itemId=")";
+    </script>
+
+    @Scripts.Render("~/Scripts/ItemPrice/ItemsPricesIndex.js");
+}
+
+
+
