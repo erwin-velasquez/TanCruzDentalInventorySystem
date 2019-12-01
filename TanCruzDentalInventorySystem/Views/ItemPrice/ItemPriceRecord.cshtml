@@ -48,9 +48,9 @@
             </div>
         </div>
         <div class="form-group col-md-4">
-            @Html.LabelFor(model => model.ItemPrice.ItemId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ItemPrice.Item.ItemId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DisplayFor(model => model.ItemPrice.ItemId, new { htmlAttributes = new { @class = "form-control" }, required = "" })
+                @Html.DisplayFor(model => model.ItemPrice.Item.ItemId, new { htmlAttributes = new { @class = "form-control" }, required = "" })
             </div>
         </div>
     </div>
@@ -73,5 +73,5 @@
 </div>
 
 <p>
-    @Html.ActionLink("Back to List", "GetItemPrices", new { itemId = Model.ItemPrice.ItemId })
+    @Html.ActionLink("Back to List", "GetItemPrices", new { itemId = Model.ItemPrice.Item.ItemId })
 </p>

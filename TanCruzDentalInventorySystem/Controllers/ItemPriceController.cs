@@ -33,6 +33,14 @@ namespace TanCruzDentalInventorySystem.Controllers
 			return View(itemPrices);
 		}
 
+		[HttpGet]
+		public async Task<ActionResult> GetItemsDefaultPrices()
+		{
+			var itemsDefaultPrices = await _itemPriceService.GetItemsDefaultPrices();
+
+			return View(itemsDefaultPrices);
+		}
+
 		[Authorize(Roles = "Editor")]
 		public async Task<ActionResult> CreateItemPrice(string itemId)
 		{

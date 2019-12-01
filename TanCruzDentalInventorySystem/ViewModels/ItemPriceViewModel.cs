@@ -12,8 +12,8 @@ namespace TanCruzDentalInventorySystem.ViewModels
         public string ItemPriceName { get; set; }
         [Display(Name = "Item Price Description")]
         public string ItemPriceDescription { get; set; }
-        [Display(Name = "Item Id")]
-        public string ItemId { get; set; }
+
+        public ItemViewModel Item { get; set; }
         [Display(Name = "Default")]
         public bool IsDefault { get; set; }
         [Display(Name = "Item Price Type")]
@@ -32,5 +32,12 @@ namespace TanCruzDentalInventorySystem.ViewModels
 		public ItemPriceViewModel ItemPrice { get; set; }
 		public IEnumerable<CurrencyViewModel> Currencies { get; set; }
 		public List<string> ItemPriceTypes { get; set; }
+	}
+
+	public class ItemDefaultPriceViewModel
+	{
+		public ItemViewModel Item { get; set; }
+		public ItemPriceViewModel SODefaultPrice { get; set; }
+		public ItemPriceViewModel PODefaultPrice { get; set; }
 	}
 }

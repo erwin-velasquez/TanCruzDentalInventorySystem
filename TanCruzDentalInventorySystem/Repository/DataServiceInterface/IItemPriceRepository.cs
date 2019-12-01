@@ -12,5 +12,6 @@ namespace TanCruzDentalInventorySystem.Repository.DataServiceInterface
 		Task<ItemPrice> GetItemPrice(string itemPriceId);
 		Task<int> SaveItemPrice(ItemPrice itemPrice);
 		Task<string> CreateItemPrice(string itemId, string userId);
+		Task<IEnumerable<ItemPrice>> GetItemsDefaultPrices();
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface;
 using TanCruzDentalInventorySystem.Models;
@@ -48,10 +49,31 @@ namespace TanCruzDentalInventorySystem.BusinessService
 			return Mapper.Map<List<ItemPriceViewModel>>(itemPriceList);
 		}
 
+		public async Task<IEnumerable<ItemDefaultPriceViewModel>> GetItemsDefaultPrices()
+		{
+			var itemPriceList = Mapper.Map<List<ItemPriceViewModel>>(await _itemPriceRepository.GetItemsDefaultPrices());
+
+			List<ItemDefaultPriceViewModel> itemDefaultPriceList = new List<ItemDefaultPriceViewModel>();
+			foreach (var itemPrice in itemPriceList)
+			{
+				if (itemDefaultPriceList.Any(i => i.Item.ItemId == itemPrice.Item.ItemId))
+					continue;
+
+				var itemDefaultPrice = new ItemDefaultPriceViewModel();
+				itemDefaultPrice.Item = itemPrice.Item;
+				itemDefaultPrice.PODefaultPrice = itemPriceList.FirstOrDefault(i => i.Item.ItemId == itemPrice.Item.ItemId && i.Type == "PO");
+				itemDefaultPrice.SODefaultPrice = itemPriceList.FirstOrDefault(i => i.Item.ItemId == itemPrice.Item.ItemId && i.Type == "SO");
+
+				itemDefaultPriceList.Add(itemDefaultPrice);
+			}
+
+			return itemDefaultPriceList;
+		}
+
 		public async Task<int> SaveItemPrice(ItemPriceViewModel itemPriceViewModel)
 		{
-			var item = Mapper.Map<ItemPrice>(itemPriceViewModel);
-			return await _itemPriceRepository.SaveItemPrice(item);
+			var itemPrice = Mapper.Map<ItemPrice>(itemPriceViewModel);
+			return await _itemPriceRepository.SaveItemPrice(itemPrice);
 		}
 	}
 }
