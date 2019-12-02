@@ -61,8 +61,8 @@ namespace TanCruzDentalInventorySystem.BusinessService
 
 				var itemDefaultPrice = new ItemDefaultPriceViewModel();
 				itemDefaultPrice.Item = itemPrice.Item;
-				itemDefaultPrice.PODefaultPrice = itemPriceList.FirstOrDefault(i => i.Item.ItemId == itemPrice.Item.ItemId && i.Type == "PO");
-				itemDefaultPrice.SODefaultPrice = itemPriceList.FirstOrDefault(i => i.Item.ItemId == itemPrice.Item.ItemId && i.Type == "SO");
+				itemDefaultPrice.PODefaultPrice = itemPriceList.SingleOrDefault(i => i.Item.ItemId == itemPrice.Item.ItemId && i.Type == "PO");
+				itemDefaultPrice.SODefaultPrice = itemPriceList.SingleOrDefault(i => i.Item.ItemId == itemPrice.Item.ItemId && i.Type == "SO");
 
 				itemDefaultPriceList.Add(itemDefaultPrice);
 			}
