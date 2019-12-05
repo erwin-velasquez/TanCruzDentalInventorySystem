@@ -50,5 +50,18 @@ namespace TanCruzDentalInventorySystem.Repository
 
             return ds;
         }
+
+        public DataSet GetSalesOrderReceipt()
+        {
+            InventorySystemDataSet ds = new InventorySystemDataSet();
+            var connectionString = ConfigurationManager.ConnectionStrings["defaultConnection"].ConnectionString;
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlCommand sqlCommand = new SqlCommand("GetSalesOrderReceipt", sqlConnection);
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter adapter = new SqlDataAdapter(sqlCommand);
+            adapter.Fill(ds, ds.PurchaseOrderDataTable.TableName);
+
+            return ds;
+        }
     }
 }
