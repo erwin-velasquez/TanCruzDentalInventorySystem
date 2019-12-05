@@ -81,6 +81,12 @@ namespace TanCruzDentalInventorySystem.Controllers
 			return View(salesOrders);
 		}
 
+        [HttpGet]
+        public async Task<ActionResult> PrintSalesOrderReceipt()
+        {
+            return View();
+        }
+
 		[HttpPost]
 		[Authorize(Roles = "Editor")]
 		[ValidateAntiForgeryToken]
