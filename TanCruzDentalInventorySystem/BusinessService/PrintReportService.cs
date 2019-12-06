@@ -102,7 +102,7 @@ public class PrintReportService : IPrintReportService
     {
         LocalReport report = new LocalReport();
         report.ReportPath = ReportPath;
-        report.DataSources.Add(new ReportDataSource("Sales", ReportDataSet));
+        report.DataSources.Add(new ReportDataSource("SalesOrderReceiptDS", ReportDataSet.Tables[0]));
         Export(report);
         Print();
     }

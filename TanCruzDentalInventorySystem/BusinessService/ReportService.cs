@@ -5,11 +5,13 @@ using System.Linq;
 using System.Web;
 using TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface;
 using TanCruzDentalInventorySystem.Repository.DataServiceInterface;
+using System.Web.Http;
 
 namespace TanCruzDentalInventorySystem.BusinessService
 {
     public class ReportService : IReportService
     {
+        IPrintReportService _printReportService = new PrintReportService();
 
         private readonly IReportRepository _reportRepository;
 
@@ -29,6 +31,15 @@ namespace TanCruzDentalInventorySystem.BusinessService
 
         public DataSet GetPurchaseOrderReport() {
             return _reportRepository.GetPurchaseOrderReport();
+        }
+
+        public string PrintSalesOrderReceipt(string SalesOrderId, string ReportPath)
+        {
+            var dataSet = _reportRepository.GetSalesOrderReceipt(SalesOrderId);
+
+            _printReportService.PrintReport(ReportPath, dataSet);
+
+            return "Success";
         }
     }
 }

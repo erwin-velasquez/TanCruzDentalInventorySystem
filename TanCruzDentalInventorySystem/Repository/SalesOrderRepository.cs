@@ -155,6 +155,7 @@ namespace TanCruzDentalInventorySystem.Repository
 						typeof(SalesOrderDetail),
 						typeof(Item),
 						typeof(ItemPrice),
+                        typeof(Currency),
 						typeof(Tax)
 					},
 				map:
@@ -164,14 +165,15 @@ namespace TanCruzDentalInventorySystem.Repository
 
 						salesOrderDetailUnit.Item = typeMap[1] as Item;
 						salesOrderDetailUnit.ItemPrice = typeMap[2] as ItemPrice;
-						salesOrderDetailUnit.Tax = typeMap[3] as Tax;
+                        salesOrderDetailUnit.ItemPrice.BaseCurrency = typeMap[3] as Currency;
+                        salesOrderDetailUnit.Tax = typeMap[4] as Tax;
 
 						return salesOrderDetailUnit;
 					},
 				param: parameters,
 				transaction: UnitOfWork.Transaction,
 				commandType: System.Data.CommandType.StoredProcedure,
-				splitOn: "ItemId, ItemPriceId, TaxId");
+				splitOn: "ItemId, ItemPriceId, CurrencyId, TaxId");
 
 			salesOrderDetailList.Select(detail => detail.VersionTimeStamp = detail.ChangedDate.Value.Ticks).ToList();
 			return salesOrderDetailList;
