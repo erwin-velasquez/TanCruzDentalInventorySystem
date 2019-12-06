@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () { 
 
+
     var table = $('#salesOrderPaymentDetailTable').DataTable({
         data: {},
         "searching": false,
@@ -132,5 +133,39 @@
                 }
             }
         ]
+    });
+
+    var table2 = $('#BusinessPartnerSearchTable').DataTable({
+        "searching": false,
+        "language": {
+            "processing": "loading....",
+            "emptyTable": "No data found"
+        },
+        "bLengthChange": false,
+        "select": {
+            style: 'single',
+            selector: 'td'
+        }
+    });
+
+    table2.on('select', function (e, dt, type, indexes) {
+        console.log('asdf');
+        var rowData = table2.rows(indexes).data().toArray();
+        var BusinessPartnerId = $(rowData[0][0])[0].defaultValue;
+
+        var BusinessPartnerName = $('<div>' + rowData[0][0] + '</div>').text();
+
+        $('#SalesOrderPayment_BusinessPartner_BusinessPartnerName').val(BusinessPartnerName);
+        $('#SalesOrderPayment_BusinessPartner_BusinessPartnerId').val(BusinessPartnerId);
+    });
+
+    $('#SalesOrderPayment_BusinessPartner_BusinessPartnerName').on('click', function () {
+        $('#BusinessPartnerSearchModal').modal("show");
+    });
+
+    $('#SalesOrderPayment_BusinessPartner_BusinessPartnerName').on('change', function () {
+        if ($('#SalesOrder_BusinessPartner_BusinessPartnerName').val() === "") {
+            $('#SalesOrder_BusinessPartner_BusinessPartnerId').val("");
+        }
     });
 });

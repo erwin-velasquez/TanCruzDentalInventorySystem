@@ -499,6 +499,7 @@
       <DependentUpon>InventorySystemDataSet.xsd</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Default.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\datatables.extensions\Scroller\js\dataTables.scroller.js" />
     <Content Include="Scripts\datatables.extensions\Scroller\js\dataTables.scroller.min.js" />

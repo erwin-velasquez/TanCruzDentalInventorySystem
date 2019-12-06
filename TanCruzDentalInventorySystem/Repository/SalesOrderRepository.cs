@@ -165,7 +165,8 @@ namespace TanCruzDentalInventorySystem.Repository
 
 						salesOrderDetailUnit.Item = typeMap[1] as Item;
 						salesOrderDetailUnit.ItemPrice = typeMap[2] as ItemPrice;
-                        salesOrderDetailUnit.ItemPrice.BaseCurrency = typeMap[3] as Currency;
+                        if (salesOrderDetailUnit.ItemPrice!=null)
+                            salesOrderDetailUnit.ItemPrice.BaseCurrency = typeMap[3] as Currency;
                         salesOrderDetailUnit.Tax = typeMap[4] as Tax;
 
 						return salesOrderDetailUnit;
