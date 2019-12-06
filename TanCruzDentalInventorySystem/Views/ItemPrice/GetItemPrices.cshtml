@@ -24,11 +24,14 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Action</th>
+                @if (Request.IsAuthenticated && User.IsInRole("Editor"))
+                {
+                    <th>Action</th>
+                }
                 <th>@Html.DisplayNameFor(model => model.ItemPriceId)</th>
                 <th>@Html.DisplayNameFor(model => model.ItemPriceName)</th>
                 <th>@Html.DisplayNameFor(model => model.ItemPriceDescription)</th>
-                <th>@Html.DisplayNameFor(model => model.ItemId)</th>
+                <th>@Html.DisplayNameFor(model => model.Item.ItemId)</th>
                 <th>@Html.DisplayNameFor(model => model.IsDefault)</th>
                 <th>@Html.DisplayNameFor(model => model.Type)</th>
                 <th>@Html.DisplayNameFor(model => model.PriceAmount)</th>
@@ -39,11 +42,17 @@
             {
             <tr>
                 <td>@(i + 1)</td>
-                <td>Action</td>
+                @if (Request.IsAuthenticated && User.IsInRole("Editor"))
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "EditItemPriceRecord", new { itemPriceId = @Model.ToArray()[i].ItemPriceId }, new { @class = "indexItemStatusEditBtn btn-outline-dark btn btn-sm" })
+                        @Html.ActionLink("View", "ItemPriceRecord", new { itemPriceId = @Model.ToArray()[i].ItemPriceId }, new { @class = "indexItemStatusEditBtn btn-outline-dark btn btn-sm" })
+                    </td>
+                }
                 <td>@Html.HiddenFor(x => x.ToArray()[i].ItemPriceId)@Model.ToArray()[i].ItemPriceId</td>
                 <td>@Html.HiddenFor(x => x.ToArray()[i].ItemPriceId)@Model.ToArray()[i].ItemPriceName</td>
                 <td>@Html.HiddenFor(x => x.ToArray()[i].ItemPriceId)@Model.ToArray()[i].ItemPriceDescription</td>
-                <td>@Html.HiddenFor(x => x.ToArray()[i].ItemPriceId)@Model.ToArray()[i].ItemId</td>
+                <td>@Html.HiddenFor(x => x.ToArray()[i].ItemPriceId)@Model.ToArray()[i].Item.ItemId</td>
                 <td>@Html.HiddenFor(x => x.ToArray()[i].ItemPriceId)@Model.ToArray()[i].IsDefault</td>
                 <td>@Html.HiddenFor(x => x.ToArray()[i].ItemPriceId)@Model.ToArray()[i].Type</td>
                 <td>@Html.HiddenFor(x => x.ToArray()[i].ItemPriceId)@Model.ToArray()[i].PriceAmount</td>
@@ -68,3 +77,7 @@
 }
 
 
+
+<p>
+    @Html.ActionLink("Back to List", "GetItemsDefaultPrices", new { })
+</p>

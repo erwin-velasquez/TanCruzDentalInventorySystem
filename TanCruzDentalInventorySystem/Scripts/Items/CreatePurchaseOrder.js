@@ -100,7 +100,7 @@
 					});
 
 					$("#PurchaseOrder_PurchaseOrderTax").val(parseFloat(DocumentTotal / 9.33).toFixed(2));
-					$("#PurchaseOrder_PurchaseOrderTotal").val(DocumentTotal.toFixed(2));
+					$("#PurchaseOrder_PurchaseOrderTotal").val(DocumentTotal);
 				});
 			});
 

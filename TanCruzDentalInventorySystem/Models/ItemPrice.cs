@@ -7,7 +7,7 @@ namespace TanCruzDentalInventorySystem.Models
 		public string ItemPriceId { get; set; }
 		public string ItemPriceName { get; set; }
 		public string ItemPriceDescription { get; set; }
-		public string ItemId { get; set; }
+		public Item Item { get; set; }
 		public bool IsDefault { get; set; }
 		public string Type { get; set; }
 		public decimal PriceAmount { get; set; }

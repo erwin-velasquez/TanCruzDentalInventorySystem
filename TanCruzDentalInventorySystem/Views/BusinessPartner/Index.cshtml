@@ -26,7 +26,10 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Action</th>
+                @if (Request.IsAuthenticated && User.IsInRole("Editor"))
+                {
+                    <th>Action</th>
+                }
                 <th>@Html.DisplayNameFor(model => model.BusinessPartnerId)</th>
                 <th>@Html.DisplayNameFor(model => model.BusinessPartnerName)</th>
                 <th>@Html.DisplayNameFor(model => model.BusinessPartnerAlias)</th>
@@ -39,17 +42,23 @@
         <tbody>
             @for (int i = 0; i < Model.Count(); i++)
             {
-            <tr>
-                <td>@(i + 1)</td>
-                <td>Action</td>
-                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerId</td>
-                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerName</td>
-                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerAlias</td>
-                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerFirstName</td>
-                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerMiddleName</td>
-                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerLastName</td>
-                <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerType</td>
-            </tr>
+                <tr>
+                    <td>@(i + 1)</td>
+                    @if (Request.IsAuthenticated && User.IsInRole("Editor"))
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "EditBusinessPartnerRecord", new { businessPartnerId = @Model.ToArray()[i].BusinessPartnerId }, new { @class = "indexItemStatusEditBtn btn-outline-dark btn btn-sm" })
+                            @Html.ActionLink("View", "BusinessPartnerRecord", new { businessPartnerId = @Model.ToArray()[i].BusinessPartnerId }, new { @class = "indexItemStatusEditBtn btn-outline-dark btn btn-sm" })
+                        </td>
+                    }
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerId</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerName</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerAlias</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerFirstName</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerMiddleName</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerLastName</td>
+                    <td>@Html.HiddenFor(x => x.ToArray()[i].BusinessPartnerId)@Model.ToArray()[i].BusinessPartnerType</td>
+                </tr>
             }
         </tbody>
     </table>
@@ -59,8 +68,6 @@
 
     <script type="text/javascript">
         var CreateBusinessPartnerURL = "@Url.Content("~/BusinessPartner/CreateBusinessPartner/")";
-        var EditBusinessPartnerRecordUrl = "@Url.Content("~/BusinessPartner/EditBusinessPartnerRecord?businessPartnerId=")";
-        var ViewBusinessPartnerRecordUrl = "@Url.Content("~/BusinessPartner/BusinessPartnerRecord?businessPartnerId=")";
     </script>
 
     @Scripts.Render("~/Scripts/BusinessPartner/BusinessPartnerIndex.js");
