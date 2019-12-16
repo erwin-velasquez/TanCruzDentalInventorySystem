@@ -187,6 +187,7 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -266,6 +267,7 @@
     <Compile Include="BusinessService\BusinessServiceInterface\IBusinessPartnerService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IItemGroupService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IItemPriceService.cs" />
+    <Compile Include="BusinessService\BusinessServiceInterface\IPrintReportService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IPaymentService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IReportService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\ISalesOrderService.cs" />
@@ -275,6 +277,7 @@
     <Compile Include="BusinessService\ItemService.cs" />
     <Compile Include="BusinessService\BusinessServiceInterface\IItemService.cs" />
     <Compile Include="BusinessService\PaymentService.cs" />
+    <Compile Include="BusinessService\PrintReportService.cs" />
     <Compile Include="BusinessService\ReportService.cs" />
     <Compile Include="BusinessService\SalesOrderService.cs" />
     <Compile Include="BusinessService\PurchaseOrderService.cs" />
@@ -496,6 +499,7 @@
       <DependentUpon>InventorySystemDataSet.xsd</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Default.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\datatables.extensions\Scroller\js\dataTables.scroller.js" />
     <Content Include="Scripts\datatables.extensions\Scroller\js\dataTables.scroller.min.js" />
@@ -779,7 +783,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Reports\RDL\ItemsReport.rdlc" />
     <EmbeddedResource Include="Reports\RDL\PurchaseOrderReport.rdlc" />
+    <EmbeddedResource Include="Reports\RDL\SalesOrderReceipt.rdlc" />
     <EmbeddedResource Include="Reports\RDL\SalesOrderReport.rdlc" />
+    <EmbeddedResource Include="Reports\RDL\sample.rdlc" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

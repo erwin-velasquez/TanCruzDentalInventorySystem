@@ -12,10 +12,12 @@ namespace TanCruzDentalInventorySystem.Controllers
 	public class SalesOrderController : Controller
 	{
 		private ISalesOrderService _salesOrderService;
+        private IReportService _reportService;
 
-		public SalesOrderController(ISalesOrderService salesOrderService)
+        public SalesOrderController(ISalesOrderService salesOrderService, IReportService reportService)
 		{
 			_salesOrderService = salesOrderService;
+            _reportService = reportService;
 		}
 
 		[HttpGet]
@@ -80,6 +82,14 @@ namespace TanCruzDentalInventorySystem.Controllers
 
 			return View(salesOrders);
 		}
+
+        [HttpGet]
+        public ActionResult PrintSalesOrderReceipt(string SalesOrderId)
+        {
+            var result = _reportService.PrintSalesOrderReceipt(SalesOrderId, Request.MapPath(Request.ApplicationPath) + @"Reports\RDL\SalesOrderReceipt.rdlc");
+
+            return Content(result, "application/json");
+        }
 
 		[HttpPost]
 		[Authorize(Roles = "Editor")]

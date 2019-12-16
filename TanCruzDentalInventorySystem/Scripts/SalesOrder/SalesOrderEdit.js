@@ -44,4 +44,11 @@ $(document).ready(function () {
     $("#SalesOrder_DocumentDate").on("change", function () {
         $("#MainForm").validate().element("#SalesOrder_DocumentDate");
     });
+
+    $("#printButton").on("click", function (e) {
+        $.get('/SalesOrder/PrintSalesOrderReceipt/', { SalesOrderId: $("#SalesOrder_SalesOrderId").val() }, function (data) { //Replace with global URL not hardcoded
+
+            alert(data);
+        });
+    });
 });
