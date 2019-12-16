@@ -124,6 +124,7 @@ namespace TanCruzDentalInventorySystem.Repository
 					new[]
 					{
 						typeof(ItemPrice),
+						typeof(Currency),
 						typeof(Item),
 					},
 				map:
@@ -131,14 +132,15 @@ namespace TanCruzDentalInventorySystem.Repository
 					{
 						if (!(typeMap[0] is ItemPrice itemPriceUnit)) return null;
 
-						itemPriceUnit.Item = typeMap[1] as Item;
+						itemPriceUnit.BaseCurrency = typeMap[1] as Currency;
+						itemPriceUnit.Item = typeMap[2] as Item;
 
 						return itemPriceUnit;
 					},
 				param: null,
 				transaction: UnitOfWork.Transaction,
 				commandType: System.Data.CommandType.StoredProcedure,
-				splitOn: "ItemId");
+				splitOn: "CurrencyId, ItemId");
 
 			return itemPriceList;
 		}
