@@ -145,7 +145,7 @@
     @Html.ActionLink("Back to List", "Index")
 </p>
 
-@Html.Action("ReportModal", "Report")
+@Html.Action("ReportModal", "Report", new { @SalesOrderId = Model.SalesOrderId })
 
 @section scripts{
 

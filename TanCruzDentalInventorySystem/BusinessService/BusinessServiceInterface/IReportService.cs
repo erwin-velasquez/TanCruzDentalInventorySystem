@@ -12,6 +12,7 @@ namespace TanCruzDentalInventorySystem.BusinessService.BusinessServiceInterface
         DataSet GetItemsReport();
         DataSet GetSalesOrderReport();
         DataSet GetPurchaseOrderReport();
+        DataSet GetSalesOrderReceipt(string SalesOrderId);
         string PrintSalesOrderReceipt(string SalesOrderId, string ReportPath);
     }
 }

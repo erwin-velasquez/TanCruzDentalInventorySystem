@@ -69,7 +69,7 @@ namespace TanCruzDentalInventorySystem.Controllers
             return View();
         }
 
-		public ActionResult ReportModal()
+		public ActionResult ReportModal(string SalesOrderId)
 		{
 			ReportViewer reportViewer = new ReportViewer()
 			{
@@ -78,9 +78,9 @@ namespace TanCruzDentalInventorySystem.Controllers
 				Width = Unit.Percentage(900),
 				Height = Unit.Percentage(900)
 			};
-			var ds = _reportService.GetItemsReport();
-			reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Reports\RDL\ItemsReport.rdlc";
-			reportViewer.LocalReport.DataSources.Add(new ReportDataSource("ItemListDataSet", ds.Tables["ItemsDataTable"]));
+			var ds = _reportService.GetSalesOrderReceipt(SalesOrderId);
+			reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Reports\RDL\SalesOrderReceipt.rdlc";
+			reportViewer.LocalReport.DataSources.Add(new ReportDataSource("SalesOrderReceiptDS", ds.Tables[0]));
 			ViewBag.ReportViewer = reportViewer;
 			return View();
 		}

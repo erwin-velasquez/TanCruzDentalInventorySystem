@@ -33,6 +33,11 @@ namespace TanCruzDentalInventorySystem.BusinessService
             return _reportRepository.GetPurchaseOrderReport();
         }
 
+        public DataSet GetSalesOrderReceipt(string SalesOrderId)
+        {
+            return _reportRepository.GetSalesOrderReceipt(SalesOrderId);
+        }
+
         public string PrintSalesOrderReceipt(string SalesOrderId, string ReportPath)
         {
             var dataSet = _reportRepository.GetSalesOrderReceipt(SalesOrderId);
