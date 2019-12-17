@@ -5,7 +5,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4 class="form-title">Item Price</h4>
+        <h4 class="form-title">Create Item Price for @Model.ItemPrice.Item.ItemId - @Model.ItemPrice.Item.ItemName</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="row">

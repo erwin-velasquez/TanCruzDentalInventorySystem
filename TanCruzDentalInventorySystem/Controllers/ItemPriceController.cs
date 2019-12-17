@@ -9,10 +9,12 @@ namespace TanCruzDentalInventorySystem.Controllers
 	[Authorize]
 	public class ItemPriceController : Controller
 	{
+		private IItemService _itemService;
 		private IItemPriceService _itemPriceService;
 
-		public ItemPriceController(IItemPriceService itemPriceService)
+		public ItemPriceController(IItemService itemService, IItemPriceService itemPriceService)
 		{
+			_itemService = itemService;
 			_itemPriceService = itemPriceService;
 		}
 
@@ -28,7 +30,11 @@ namespace TanCruzDentalInventorySystem.Controllers
 		[HttpGet]
 		public async Task<ActionResult> GetItemPrices(string itemId)
 		{
+			var item = await _itemService.GetItemForm(itemId);
 			var itemPrices = await _itemPriceService.GetItemPriceList(itemId);
+
+			ViewBag.ItemId = item.Item.ItemId;
+			ViewBag.ItemName = item.Item.ItemName;
 
 			return View(itemPrices);
 		}

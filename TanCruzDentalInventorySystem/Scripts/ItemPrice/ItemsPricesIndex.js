@@ -2,7 +2,7 @@
 
 
     $('#ItemsPricesListTable').DataTable({
-        "searching": false,
+        "searching": true,
         "language": {
             "processing": "loading....",
             "emptyTable": "No data found"

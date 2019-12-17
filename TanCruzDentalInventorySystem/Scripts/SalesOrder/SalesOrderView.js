@@ -18,9 +18,6 @@ $(document).ready(function () {
     });
 
     $("#printButton").on("click", function (e) {
-        $.get('/SalesOrder/PrintSalesOrderReceipt/', { SalesOrderId: $("#SalesOrderId").val() }, function (data) { //Replace with global URL not hardcoded
-
-            alert(data);
-        });
+		$('#ReportModal').modal("show");
     });
 });

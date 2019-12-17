@@ -68,5 +68,21 @@ namespace TanCruzDentalInventorySystem.Controllers
             ViewBag.ReportViewer = reportViewer;
             return View();
         }
-    }
+
+		public ActionResult ReportModal()
+		{
+			ReportViewer reportViewer = new ReportViewer()
+			{
+				ProcessingMode = ProcessingMode.Local,
+				SizeToReportContent = true,
+				Width = Unit.Percentage(900),
+				Height = Unit.Percentage(900)
+			};
+			var ds = _reportService.GetItemsReport();
+			reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Reports\RDL\ItemsReport.rdlc";
+			reportViewer.LocalReport.DataSources.Add(new ReportDataSource("ItemListDataSet", ds.Tables["ItemsDataTable"]));
+			ViewBag.ReportViewer = reportViewer;
+			return View();
+		}
+	}
 }
