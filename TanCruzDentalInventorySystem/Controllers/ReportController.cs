@@ -73,10 +73,7 @@ namespace TanCruzDentalInventorySystem.Controllers
 		{
 			ReportViewer reportViewer = new ReportViewer()
 			{
-				ProcessingMode = ProcessingMode.Local,
-				SizeToReportContent = true,
-				Width = Unit.Percentage(900),
-				Height = Unit.Percentage(900)
+				ProcessingMode = ProcessingMode.Local
 			};
 			var ds = _reportService.GetSalesOrderReceipt(SalesOrderId);
 			reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Reports\RDL\SalesOrderReceipt.rdlc";

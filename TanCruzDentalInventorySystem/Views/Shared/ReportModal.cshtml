@@ -15,7 +15,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-12">
-                        @Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer)
+                        @Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer, new { @class = "" })
                     </div>
                 </div>
             </div>
